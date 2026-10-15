@@ -1,0 +1,591 @@
+/* ===== Family Tree — minimalist styles matching the sample ===== */
+
+:root {
+  --bg: #ffffff;
+  --text: #3a3a3a;
+  --text-muted: #8a8a8a;
+  --line: #d0d0d0;
+  --border-male: #7eb6d9;
+  --border-female: #e8a0b5;
+  --border-spouse: #b0b0b0;
+  --btn-bg: #ffffff;
+  --btn-border: #c8c8c8;
+  --btn-hover: #f0f7fb;
+  --shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+  --font: "Segoe UI", "PingFang TC", "PingFang SC", "Hiragino Sans GB",
+    "Noto Sans TC", "Noto Sans SC", "Microsoft JhengHei", "Microsoft YaHei",
+    system-ui, sans-serif;
+  --avatar-size: 80px;
+  --person-width: 7.5rem;
+  --person-gap: 1.25rem;
+  --sibling-gap: 56px; /* fixed horizontal gap between sibling units */
+  --line-w: 2px;
+  --ring-w: 3px; /* colored outline stroke */
+  --ring-gap: 3px; /* white gap between stroke and photo */
+  --transition: 0.38s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ----- Header ----- */
+.site-header {
+  text-align: center;
+  padding: 2.25rem 1.5rem 0.75rem;
+  max-width: 42rem;
+  margin: 0 auto;
+}
+
+.site-header h1 {
+  margin: 0 0 0.4rem;
+  font-size: clamp(1.75rem, 4vw, 2.35rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #2c2c2c;
+}
+
+.site-header .intro {
+  margin: 0;
+  font-size: 0.98rem;
+  color: var(--text-muted);
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.85rem 1.5rem;
+  margin: 1.25rem auto 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.legend li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.legend-dot {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  border: 2.5px solid;
+  flex-shrink: 0;
+}
+
+.legend-dot.male {
+  border-color: var(--border-male);
+  background: linear-gradient(135deg, #c5e4f5, #7eb6d9);
+}
+
+.legend-dot.female {
+  border-color: var(--border-female);
+  background: linear-gradient(135deg, #f5d0dc, #e8a0b5);
+}
+
+.legend-dot.spouse {
+  border-color: var(--border-spouse);
+  border-style: dashed;
+  background: #ececec;
+}
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  margin: 1.15rem 0 0;
+}
+
+.toolbar button {
+  font-family: inherit;
+  font-size: 0.8rem;
+  color: #555;
+  background: #fff;
+  border: 1px solid var(--btn-border);
+  border-radius: 999px;
+  padding: 0.28rem 0.75rem;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.toolbar button:hover {
+  background: var(--btn-hover);
+  border-color: var(--border-male);
+  color: #3a7a9a;
+}
+
+.toolbar button:focus-visible {
+  outline: 2px solid var(--border-male);
+  outline-offset: 2px;
+}
+
+/* ----- Tree canvas ----- */
+.tree-wrap {
+  /* No internal scrolling: a wide tree widens the page and the browser
+     window scrolls it. */
+  overflow: visible;
+  width: max-content;
+  min-width: 100%;
+  padding: 1rem 1.5rem 3.5rem;
+  touch-action: pan-x pan-y pinch-zoom;
+}
+
+.tree {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: min-content;
+  margin: 0 auto;
+  padding: 0.5rem 1rem;
+  transform-origin: top center;
+  transition: transform 0.2s ease;
+}
+
+.tree-error {
+  text-align: center;
+  color: #a44;
+  padding: 2rem;
+}
+
+/* ----- Person card ----- */
+.person {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: var(--person-width);
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+/* Outline stroke + white gap (padding) around the photo/initials circle */
+.avatar {
+  width: var(--avatar-size);
+  height: var(--avatar-size);
+  border-radius: 50%;
+  border: var(--ring-w) solid;
+  padding: var(--ring-gap);
+  background: #fff;
+  box-shadow: var(--shadow);
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.avatar-photo {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #fff;
+  letter-spacing: 0.02em;
+  background: linear-gradient(145deg, #a8c8dc, #6a9db8);
+}
+
+.avatar-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.person.bloodline.male .avatar {
+  border-color: var(--border-male);
+}
+
+.person.bloodline.male .avatar-photo {
+  background: linear-gradient(145deg, #b8d9ee, #7eb6d9);
+}
+
+.person.bloodline.female .avatar {
+  border-color: var(--border-female);
+}
+
+.person.bloodline.female .avatar-photo {
+  background: linear-gradient(145deg, #f0c4d2, #e8a0b5);
+}
+
+.person.spouse .avatar {
+  border-color: transparent; /* dashed SVG ring is drawn over this border */
+}
+
+.person.spouse .avatar-photo {
+  background: linear-gradient(145deg, #d8d8d8, #b0b0b0);
+}
+
+.avatar-ring {
+  position: absolute;
+  inset: calc(-1 * var(--ring-w));
+  width: calc(100% + 2 * var(--ring-w));
+  height: calc(100% + 2 * var(--ring-w));
+  pointer-events: none;
+  overflow: visible;
+  color: var(--border-spouse);
+}
+
+/* Label: exactly 3 lines — name, English name (optional), birthday */
+.person-label {
+  margin-top: 0.4rem;
+  padding: 0 0.3rem;
+  background: var(--bg); /* bloodline line passes behind the label */
+  position: relative;
+  z-index: 1;
+  max-width: 100%;
+}
+
+.person-label p {
+  margin: 0;
+  line-height: 1.3;
+  word-break: break-word;
+}
+
+.person-name {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #3d3d3d;
+}
+
+.person-english {
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: #5c5c5c;
+}
+
+.person-dates {
+  margin-top: 0.08rem !important;
+  font-size: 0.66rem;
+  color: var(--text-muted);
+  letter-spacing: 0.01em;
+}
+
+/* ----- Connector lines (SVG, drawn by tree.js) ----- */
+.line-layer {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.line-layer path {
+  fill: none;
+  stroke: var(--line);
+  stroke-width: var(--line-w);
+  stroke-linecap: square;
+}
+
+/* ----- Couple (spouse pair) ----- */
+.couple {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  position: relative;
+}
+
+.couple-gap {
+  width: 0.4rem;
+  flex-shrink: 0;
+}
+
+/* ----- Branch ----- */
+.branch {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.toggle-row {
+  position: relative;
+  align-self: stretch;
+  height: 2.4rem;
+}
+
+.branch-toggle {
+  position: absolute;
+  top: 0.55rem;
+  left: 50%;
+  translate: -50% 0;
+  z-index: 2;
+  margin: 0;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 1.5px solid var(--btn-border);
+  background: var(--btn-bg);
+  color: #555;
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  transition: background var(--transition), border-color var(--transition),
+    transform 0.15s ease, box-shadow var(--transition);
+}
+
+.branch-toggle:hover {
+  background: var(--btn-hover);
+  border-color: var(--border-male);
+  color: #3a7a9a;
+}
+
+.branch-toggle:focus-visible {
+  outline: 2px solid var(--border-male);
+  outline-offset: 2px;
+}
+
+.branch-toggle:active {
+  transform: scale(0.94);
+}
+
+.toggle-icon {
+  display: block;
+  font-size: 1.05rem;
+  font-weight: 500;
+  line-height: 1;
+  pointer-events: none;
+  translate: 0 -0.5px;
+}
+
+.branch-toggle[aria-expanded="false"] .toggle-icon::before {
+  content: "+";
+}
+
+.branch-toggle[aria-expanded="true"] .toggle-icon::before {
+  content: "−";
+}
+
+/* Children row; the sibling rail sits at the top edge of .children-inner */
+.children-inner {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  gap: var(--sibling-gap);
+  position: relative;
+  margin-top: 0.7rem;
+}
+
+.child-slot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  padding-top: 1.2rem; /* drop from rail to the child's avatar */
+}
+
+/* Expand / collapse animation via grid-template-rows */
+.subtree {
+  display: grid;
+  grid-template-rows: 1fr;
+  transition: grid-template-rows var(--transition), opacity var(--transition);
+  opacity: 1;
+  width: 100%;
+}
+
+.subtree > .subtree-inner {
+  overflow: hidden;
+  min-height: 0;
+}
+
+.subtree.is-collapsed {
+  grid-template-rows: 0fr;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.subtree-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+/* Footer */
+.site-footer {
+  text-align: center;
+  padding: 0.5rem 1.5rem 2rem;
+  font-size: 0.75rem;
+  color: #b0b0b0;
+}
+
+.skip-link {
+  position: absolute;
+  left: 0.75rem;
+  top: -3rem;
+  background: #2c2c2c;
+  color: #fff;
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  z-index: 10;
+  text-decoration: none;
+  font-size: 0.85rem;
+}
+
+.skip-link:focus {
+  top: 0.75rem;
+}
+
+@media (max-width: 640px) {
+  :root {
+    --avatar-size: 64px;
+    --person-width: 6.75rem;
+    --person-gap: 1.1rem;
+    --sibling-gap: 40px;
+  }
+
+  .person-name {
+    font-size: 0.72rem;
+  }
+
+  .person-english {
+    font-size: 0.66rem;
+  }
+
+  .person-dates {
+    font-size: 0.6rem;
+  }
+
+
+  .site-header {
+    padding-top: 1.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .subtree,
+  .branch-toggle,
+  .tree,
+  .toolbar button {
+    transition: none;
+  }
+}
+
+/* Tidy layout: positions set by tree.js balance() */
+.branch { align-items: flex-start; }
+.subtree-inner { align-items: flex-start; }
+.children-inner { justify-content: flex-start; width: max-content; }
+.couple { justify-content: flex-start; }
+.child-slot { flex-shrink: 0; align-items: flex-start; }
+.subtree { width: 100%; }
+
+/* Names stay on one line; a long name widens its card so layout spacing accounts for it. */
+.person { min-width: var(--person-width); width: max-content; }
+.person-label { max-width: none; white-space: nowrap; }
+.person-label p { word-break: normal; white-space: nowrap; }
+
+/* Click-and-drag panning (tree.js enableDragPan) */
+@media (pointer: fine) {
+  .tree-wrap.pannable { cursor: grab; }
+  .tree-wrap.pannable button { cursor: pointer; }
+}
+html.is-panning,
+html.is-panning * {
+  cursor: grabbing !important;
+  user-select: none !important;
+  -webkit-user-select: none !important;
+}
+
+/* ===== Fixed title bar ===== */
+:root { --bar-h: 56px; }
+body { padding-top: var(--bar-h); }
+.site-header {
+  position: fixed; top: 0; left: 0; right: 0; width: 100vw; max-width: none;
+  margin: 0; z-index: 20; background: #fff;
+  border-bottom: 1px solid #ececec; box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 1rem; padding: 0.6rem 1.5rem; text-align: left;
+}
+.site-header h1 { margin: 0; font-size: 1.5rem; white-space: nowrap; }
+.bar-right { display: flex; align-items: center; gap: 1.25rem; flex-wrap: nowrap; min-width: 0; }
+.site-header .intro { font-size: 0.85rem; white-space: nowrap; }
+.site-header .legend { margin: 0; flex-wrap: nowrap; gap: 0.9rem; }
+.site-header .toolbar { margin: 0; flex-wrap: nowrap; gap: 0.4rem; }
+.toolbar button { white-space: nowrap; }
+.skip-link { z-index: 30; }
+@media (max-width: 1000px) { .site-header .intro { display: none; } }
+@media (max-width: 700px) {
+  .site-header { padding: 0.5rem 0.75rem; gap: 0.5rem; flex-wrap: wrap; }
+  .site-header h1 { font-size: 1.2rem; }
+  .bar-right { flex-wrap: wrap; justify-content: flex-end; gap: 0.4rem 0.75rem; }
+  .site-header .legend { gap: 0.6rem; }
+  .toolbar button { padding: 0.22rem 0.55rem; font-size: 0.74rem; }
+}
+
+/* ===== Calligraphy title (Yuji Syuku, subset: 陳氏家譜 only, SIL OFL) ===== */
+@font-face {
+  font-family: "TitleBrush";
+  src: url("fonts/yuji-syuku-title.woff2") format("woff2");
+  font-display: block;
+}
+.site-header h1 {
+  font-family: "TitleBrush", var(--font);
+  font-weight: 400;
+  font-size: 1.85rem;
+  line-height: 1.15;
+  letter-spacing: 0.08em;
+  color: #1c1a17;
+}
+@media (max-width: 700px) { .site-header h1 { font-size: 1.45rem; } }
+
+/* ===== Seal stamp (印章) before the title ===== */
+.site-header h1 { display: inline-flex; align-items: center; gap: 0.6rem; }
+.site-header h1 .seal { width: 42px; height: 42px; flex-shrink: 0; display: block; }
+@media (max-width: 700px) { .site-header h1 .seal { width: 32px; height: 32px; } .site-header h1 { gap: 0.45rem; } }
+
+/* ===== Single-row bar on phones ===== */
+.lbl-short { display: none; }
+.site-header { width: 100%; }
+@media (max-width: 700px) {
+  .site-header { flex-wrap: nowrap; padding: 0.4rem 0.6rem; gap: 0.4rem; }
+  .site-header h1 { font-size: 1.2rem; gap: 0.35rem; letter-spacing: 0.04em; }
+  .site-header h1 .seal { width: 30px; height: 30px; }
+  .bar-right { flex-wrap: nowrap; gap: 0.3rem; }
+  .site-header .intro, .site-header .legend { display: none; }
+  .site-header .toolbar { gap: 0.25rem; }
+  .toolbar button { padding: 0.2rem 0.45rem; font-size: 0.72rem; }
+  .lbl-long { display: none; }
+  .lbl-short { display: inline; }
+}
+@media (max-width: 360px) {
+  .site-header h1 { font-size: 1.05rem; }
+  .toolbar button { padding: 0.18rem 0.35rem; }
+}
