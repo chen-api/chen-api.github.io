@@ -596,8 +596,8 @@ body { padding-top: var(--bar-h); }
    Fonts: Noto Serif TC Black (A, B) and LXGW WenKai TC Bold (C), both SIL OFL 1.1,
    subset to the characters the site uses.
    ====================================================================== */
-@font-face { font-family: "Woodblock"; src: url("fonts/noto-serif-tc-900-subset.woff2?v=56") format("woff2"); font-weight: 900; font-display: block; }
-@font-face { font-family: "BrushKai"; src: url("fonts/lxgw-wenkai-tc-700-subset.woff2?v=56") format("woff2"); font-weight: 700; font-display: block; }
+@font-face { font-family: "Woodblock"; src: url("fonts/noto-serif-tc-900-subset.woff2?v=65") format("woff2"); font-weight: 900; font-display: block; }
+@font-face { font-family: "BrushKai"; src: url("fonts/lxgw-wenkai-tc-700-subset.woff2?v=65") format("woff2"); font-weight: 700; font-display: block; }
 
 body[class*="theme-"] {
   --bg: #e2dcd5; /* alt: #fdfdfc (Song banknote paper, C7) */ --ink: #1a1a1a; --ink-soft: #5a534c; --cinnabar: #a3281e;

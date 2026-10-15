@@ -867,7 +867,7 @@ window.FAMILY_DATA = {
     },
     "g19_wang": {
       "id": "g19_wang",
-      "name": "旺",
+      "name": "陳旺",
       "englishName": "",
       "gender": "male",
       "role": "bloodline",
@@ -883,7 +883,7 @@ window.FAMILY_DATA = {
     },
     "g19_chun": {
       "id": "g19_chun",
-      "name": "春",
+      "name": "陳春",
       "englishName": "",
       "gender": "male",
       "role": "bloodline",
@@ -899,7 +899,7 @@ window.FAMILY_DATA = {
     },
     "g19_weicun": {
       "id": "g19_weicun",
-      "name": "爲存",
+      "name": "陳爲存",
       "englishName": "(16歲歿)",
       "gender": "male",
       "role": "bloodline",
@@ -911,7 +911,7 @@ window.FAMILY_DATA = {
     },
     "g19_weichao": {
       "id": "g19_weichao",
-      "name": "爲朝",
+      "name": "陳爲朝",
       "englishName": "",
       "gender": "male",
       "role": "bloodline",
@@ -926,7 +926,7 @@ window.FAMILY_DATA = {
     },
     "g19_weijun": {
       "id": "g19_weijun",
-      "name": "爲軍",
+      "name": "陳爲軍",
       "englishName": "",
       "gender": "male",
       "role": "bloodline",
@@ -940,7 +940,7 @@ window.FAMILY_DATA = {
     },
     "g20_qingying": {
       "id": "g20_qingying",
-      "name": "清盈",
+      "name": "陳清盈",
       "englishName": "",
       "gender": "male",
       "role": "bloodline",
@@ -952,7 +952,7 @@ window.FAMILY_DATA = {
     },
     "g20_qingjian": {
       "id": "g20_qingjian",
-      "name": "清鑑",
+      "name": "陳清鑑",
       "englishName": "",
       "gender": "male",
       "role": "bloodline",
@@ -964,7 +964,7 @@ window.FAMILY_DATA = {
     },
     "g20_guoxiong": {
       "id": "g20_guoxiong",
-      "name": "國雄",
+      "name": "陳國雄",
       "englishName": "",
       "gender": "male",
       "role": "bloodline",
@@ -976,7 +976,7 @@ window.FAMILY_DATA = {
     },
     "g20_xi": {
       "id": "g20_xi",
-      "name": "錫",
+      "name": "陳錫",
       "englishName": "",
       "gender": "male",
       "role": "bloodline",
@@ -988,7 +988,7 @@ window.FAMILY_DATA = {
     },
     "g20_xian": {
       "id": "g20_xian",
-      "name": "賢",
+      "name": "陳賢",
       "englishName": "",
       "gender": "male",
       "role": "bloodline",
@@ -1000,7 +1000,7 @@ window.FAMILY_DATA = {
     },
     "g20_ping": {
       "id": "g20_ping",
-      "name": "瓶",
+      "name": "陳瓶",
       "englishName": "",
       "gender": "male",
       "role": "bloodline",
@@ -1012,7 +1012,7 @@ window.FAMILY_DATA = {
     },
     "g20_cheng": {
       "id": "g20_cheng",
-      "name": "城",
+      "name": "陳城",
       "englishName": "",
       "gender": "male",
       "role": "bloodline",
@@ -1313,7 +1313,7 @@ window.FAMILY_DATA = {
     },
     "g20_feng": {
       "id": "g20_feng",
-      "name": "逢",
+      "name": "陳逢",
       "englishName": "",
       "gender": "male",
       "role": "bloodline",
@@ -1685,7 +1685,14 @@ window.FAMILY_DATA = {
       "deathDate": null,
       "photoUrl": null,
       "spouseId": null,
-      "childrenIds": ["g18_mei", "g18_shu", "g18_yuan", "g18_shen", "g18_bang", "g18_yu"]
+      "childrenIds": [
+        "g18_mei",
+        "g18_shu",
+        "g18_yuan",
+        "g18_shen",
+        "g18_bang",
+        "g18_yu"
+      ]
     },
     "g17_chuangx": {
       "id": "g17_chuangx",
@@ -1749,6 +1756,7 @@ window.FAMILY_DATA = {
       ]
     },
     "g18_shangchu": {
+      "notes": "早逝世，由兄尙鄒之長子萬恩過房，接廿一世平英繼承 (p.104, p.106).",
       "id": "g18_shangchu",
       "name": "陳尙楚",
       "englishName": "(居瑞峰村)",
@@ -2107,8 +2115,8 @@ window.FAMILY_DATA = {
     },
     "g01_dizi": {
       "id": "g01_dizi",
-      "name": "弟子",
-      "englishName": "(三五郎?・在古洋)",
+      "name": "陳四 (九郎)",
+      "englishName": "弟子 (三十五郎)?・在古洋",
       "gender": "male",
       "role": "bloodline",
       "birthDate": "",
@@ -2910,7 +2918,7 @@ window.FAMILY_DATA = {
     },
     "g19_weiyong": {
       "id": "g19_weiyong",
-      "name": "爲雍",
+      "name": "陳爲雍",
       "englishName": "",
       "gender": "male",
       "role": "bloodline",
@@ -2923,7 +2931,7 @@ window.FAMILY_DATA = {
     },
     "g19_weiji": {
       "id": "g19_weiji",
-      "name": "爲給",
+      "name": "陳爲給",
       "englishName": "",
       "gender": "male",
       "role": "bloodline",
@@ -2936,7 +2944,7 @@ window.FAMILY_DATA = {
     },
     "g19_weidong": {
       "id": "g19_weidong",
-      "name": "爲東",
+      "name": "陳爲東",
       "englishName": "",
       "gender": "male",
       "role": "bloodline",
@@ -2947,22 +2955,55 @@ window.FAMILY_DATA = {
       "childrenIds": [],
       "notes": "From p.83 chart (names only). Photo caption p.43: 為東, son of 伯父尚魁, boarded with 尚精's family."
     },
-    "g19_wanen": {
-      "id": "g19_wanen",
-      "name": "萬恩",
+    "g19_wushi": {
+      "id": "g19_wushi",
+      "name": "吳氏見",
       "englishName": "",
-      "gender": "male",
-      "role": "bloodline",
+      "gender": "female",
+      "role": "spouse",
+      "birthDate": "1892-08-29",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": "g19_wanen",
+      "childrenIds": [],
+      "notes": "pp.104-106; born 光緒壬辰年七月八日 (p.105); lunar→Gregorian via sxtwl."
+    },
+    "g19_huangshi": {
+      "id": "g19_huangshi",
+      "name": "黃氏捷",
+      "englishName": "",
+      "gender": "female",
+      "role": "spouse",
       "birthDate": "",
       "deathDate": null,
       "photoUrl": null,
-      "spouseId": null,
+      "spouseId": "g19_weixiang",
       "childrenIds": [],
-      "notes": "From p.83 chart (names only)."
+      "notes": "p.106"
+    },
+    "g19_wanen": {
+      "id": "g19_wanen",
+      "name": "陳萬恩",
+      "englishName": "",
+      "gender": "male",
+      "role": "bloodline",
+      "birthDate": "1892-10-12",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": "g19_wushi",
+      "childrenIds": [
+        "g20_bei_wanen",
+        "g20_si_wanen",
+        "g20_qin_wanen",
+        "g20_min_wanen",
+        "g20_jie_wanen",
+        "g20_jing_wanen"
+      ],
+      "notes": "From p.83 chart (names only). 過房尙楚 (p.104 「尙楚早逝世由萬恩過房」; p.106 「由兄之長子萬恩過房，接廿一世平英繼承」)."
     },
     "g19_weidu": {
       "id": "g19_weidu",
-      "name": "爲讀",
+      "name": "陳爲讀",
       "englishName": "",
       "gender": "male",
       "role": "bloodline",
@@ -2975,15 +3016,20 @@ window.FAMILY_DATA = {
     },
     "g19_weixiang": {
       "id": "g19_weixiang",
-      "name": "爲響",
+      "name": "陳爲響",
       "englishName": "",
       "gender": "male",
       "role": "bloodline",
       "birthDate": "",
       "deathDate": null,
       "photoUrl": null,
-      "spouseId": null,
-      "childrenIds": [],
+      "spouseId": "g19_huangshi",
+      "childrenIds": [
+        "g20_qingzhong",
+        "g20_qingzhou",
+        "g20_shujing",
+        "g20_qingqin"
+      ],
       "notes": "From p.83 chart (names only)."
     },
     "g19_weitian": {
@@ -3041,7 +3087,7 @@ window.FAMILY_DATA = {
     },
     "g20_xiurong": {
       "id": "g20_xiurong",
-      "name": "秀蓉",
+      "name": "張秀蓉",
       "englishName": "",
       "gender": "female",
       "role": "bloodline",
@@ -3068,7 +3114,7 @@ window.FAMILY_DATA = {
     },
     "g20_qingfu": {
       "id": "g20_qingfu",
-      "name": "清富",
+      "name": "張清富",
       "englishName": "",
       "gender": "male",
       "role": "bloodline",
@@ -3094,7 +3140,7 @@ window.FAMILY_DATA = {
     },
     "g20_qingyuan": {
       "id": "g20_qingyuan",
-      "name": "清源",
+      "name": "張清源",
       "englishName": "",
       "gender": "male",
       "role": "bloodline",
@@ -3108,7 +3154,7 @@ window.FAMILY_DATA = {
     },
     "g20_qingbiao": {
       "id": "g20_qingbiao",
-      "name": "清標",
+      "name": "張清標",
       "englishName": "",
       "gender": "male",
       "role": "bloodline",
@@ -3122,7 +3168,7 @@ window.FAMILY_DATA = {
     },
     "g20_xiumei": {
       "id": "g20_xiumei",
-      "name": "秀梅",
+      "name": "張秀梅",
       "englishName": "",
       "gender": "female",
       "role": "bloodline",
@@ -3136,7 +3182,7 @@ window.FAMILY_DATA = {
     },
     "g20_xiuli": {
       "id": "g20_xiuli",
-      "name": "秀麗",
+      "name": "張秀麗",
       "englishName": "",
       "gender": "female",
       "role": "bloodline",
@@ -3150,7 +3196,7 @@ window.FAMILY_DATA = {
     },
     "g20_xiuqiong": {
       "id": "g20_xiuqiong",
-      "name": "秀琼",
+      "name": "張秀琼",
       "englishName": "",
       "gender": "female",
       "role": "bloodline",
@@ -3164,7 +3210,7 @@ window.FAMILY_DATA = {
     },
     "g20_xiuyu": {
       "id": "g20_xiuyu",
-      "name": "秀玉",
+      "name": "張秀玉",
       "englishName": "",
       "gender": "female",
       "role": "bloodline",
@@ -3206,7 +3252,7 @@ window.FAMILY_DATA = {
     },
     "g20_shuxia": {
       "id": "g20_shuxia",
-      "name": "淑霞",
+      "name": "林淑霞",
       "englishName": "",
       "gender": "female",
       "role": "bloodline",
@@ -3219,7 +3265,7 @@ window.FAMILY_DATA = {
     },
     "g20_shuhui": {
       "id": "g20_shuhui",
-      "name": "淑惠",
+      "name": "林淑惠",
       "englishName": "",
       "gender": "female",
       "role": "bloodline",
@@ -3266,7 +3312,7 @@ window.FAMILY_DATA = {
     },
     "g20_qinghe": {
       "id": "g20_qinghe",
-      "name": "清和",
+      "name": "張清和",
       "englishName": "",
       "gender": "male",
       "role": "bloodline",
@@ -3290,7 +3336,7 @@ window.FAMILY_DATA = {
     },
     "g20_qingzhe": {
       "id": "g20_qingzhe",
-      "name": "清哲",
+      "name": "張清哲",
       "englishName": "",
       "gender": "male",
       "role": "bloodline",
@@ -3303,7 +3349,7 @@ window.FAMILY_DATA = {
     },
     "g20_qingjing": {
       "id": "g20_qingjing",
-      "name": "清景",
+      "name": "張清景",
       "englishName": "",
       "gender": "male",
       "role": "bloodline",
@@ -3327,7 +3373,7 @@ window.FAMILY_DATA = {
     },
     "g20_xiulian": {
       "id": "g20_xiulian",
-      "name": "秀蓮",
+      "name": "張秀蓮",
       "englishName": "",
       "gender": "female",
       "role": "bloodline",
@@ -3340,7 +3386,7 @@ window.FAMILY_DATA = {
     },
     "g20_xiudun": {
       "id": "g20_xiudun",
-      "name": "秀敦",
+      "name": "張秀敦",
       "englishName": "",
       "gender": "female",
       "role": "bloodline",
@@ -3353,7 +3399,7 @@ window.FAMILY_DATA = {
     },
     "g20_xiumei2": {
       "id": "g20_xiumei2",
-      "name": "秀美",
+      "name": "張秀美",
       "englishName": "",
       "gender": "female",
       "role": "bloodline",
@@ -3366,7 +3412,7 @@ window.FAMILY_DATA = {
     },
     "g20_xiufen": {
       "id": "g20_xiufen",
-      "name": "秀芬",
+      "name": "張秀芬",
       "englishName": "",
       "gender": "female",
       "role": "bloodline",
@@ -3427,7 +3473,7 @@ window.FAMILY_DATA = {
     },
     "g20_qingfeng": {
       "id": "g20_qingfeng",
-      "name": "清豐",
+      "name": "張清豐",
       "englishName": "",
       "gender": "male",
       "role": "bloodline",
@@ -3441,7 +3487,7 @@ window.FAMILY_DATA = {
     },
     "g20_qingcan": {
       "id": "g20_qingcan",
-      "name": "清璨",
+      "name": "張清璨",
       "englishName": "",
       "gender": "male",
       "role": "bloodline",
@@ -3455,7 +3501,7 @@ window.FAMILY_DATA = {
     },
     "g20_qingyu": {
       "id": "g20_qingyu",
-      "name": "清昱",
+      "name": "張清昱",
       "englishName": "",
       "gender": "male",
       "role": "bloodline",
@@ -3504,7 +3550,7 @@ window.FAMILY_DATA = {
     },
     "g20_bifang": {
       "id": "g20_bifang",
-      "name": "碧芳",
+      "name": "張碧芳",
       "englishName": "",
       "gender": "female",
       "role": "bloodline",
@@ -3529,7 +3575,7 @@ window.FAMILY_DATA = {
     },
     "g20_qingbo": {
       "id": "g20_qingbo",
-      "name": "清博",
+      "name": "張清博",
       "englishName": "",
       "gender": "male",
       "role": "bloodline",
@@ -3553,7 +3599,7 @@ window.FAMILY_DATA = {
     },
     "g20_biling": {
       "id": "g20_biling",
-      "name": "碧玲",
+      "name": "張碧玲",
       "englishName": "",
       "gender": "female",
       "role": "bloodline",
@@ -3578,7 +3624,7 @@ window.FAMILY_DATA = {
     },
     "g20_guangfu": {
       "id": "g20_guangfu",
-      "name": "光甫",
+      "name": "張光甫",
       "englishName": "",
       "gender": "male",
       "role": "bloodline",
@@ -3603,7 +3649,7 @@ window.FAMILY_DATA = {
     },
     "g20_bihui": {
       "id": "g20_bihui",
-      "name": "碧惠",
+      "name": "張碧惠",
       "englishName": "",
       "gender": "female",
       "role": "bloodline",
@@ -3627,7 +3673,7 @@ window.FAMILY_DATA = {
     },
     "g20_bizhu": {
       "id": "g20_bizhu",
-      "name": "碧珠",
+      "name": "張碧珠",
       "englishName": "",
       "gender": "female",
       "role": "bloodline",
@@ -3640,7 +3686,7 @@ window.FAMILY_DATA = {
     },
     "g20_lingmei": {
       "id": "g20_lingmei",
-      "name": "玲美",
+      "name": "張玲美",
       "englishName": "",
       "gender": "female",
       "role": "bloodline",
@@ -3664,7 +3710,7 @@ window.FAMILY_DATA = {
     },
     "g20_lingyu": {
       "id": "g20_lingyu",
-      "name": "鈴玉",
+      "name": "張鈴玉",
       "englishName": "",
       "gender": "female",
       "role": "bloodline",
@@ -3688,7 +3734,7 @@ window.FAMILY_DATA = {
     },
     "g20_zhiguang": {
       "id": "g20_zhiguang",
-      "name": "志光",
+      "name": "張志光",
       "englishName": "",
       "gender": "male",
       "role": "bloodline",
@@ -3732,7 +3778,7 @@ window.FAMILY_DATA = {
     },
     "g20_jiayuan": {
       "id": "g20_jiayuan",
-      "name": "佳園",
+      "name": "蔡佳園",
       "englishName": "",
       "gender": "male",
       "role": "bloodline",
@@ -3745,7 +3791,7 @@ window.FAMILY_DATA = {
     },
     "g20_jiahong": {
       "id": "g20_jiahong",
-      "name": "佳宏",
+      "name": "蔡佳宏",
       "englishName": "",
       "gender": "male",
       "role": "bloodline",
@@ -3758,7 +3804,7 @@ window.FAMILY_DATA = {
     },
     "g20_jiamou": {
       "id": "g20_jiamou",
-      "name": "佳謀",
+      "name": "蔡佳謀",
       "englishName": "",
       "gender": "male",
       "role": "bloodline",
@@ -3771,7 +3817,7 @@ window.FAMILY_DATA = {
     },
     "g20_jiaxun": {
       "id": "g20_jiaxun",
-      "name": "佳勳",
+      "name": "蔡佳勳",
       "englishName": "",
       "gender": "male",
       "role": "bloodline",
@@ -3784,7 +3830,7 @@ window.FAMILY_DATA = {
     },
     "g20_zhijiang": {
       "id": "g20_zhijiang",
-      "name": "直江",
+      "name": "蔡直江",
       "englishName": "",
       "gender": "female",
       "role": "bloodline",
@@ -3841,7 +3887,7 @@ window.FAMILY_DATA = {
     },
     "g20_qingyue": {
       "id": "g20_qingyue",
-      "name": "清嶽",
+      "name": "張清嶽",
       "englishName": "",
       "gender": "male",
       "role": "bloodline",
@@ -3866,7 +3912,7 @@ window.FAMILY_DATA = {
     },
     "g20_bifeng": {
       "id": "g20_bifeng",
-      "name": "碧鳳",
+      "name": "張碧鳳",
       "englishName": "",
       "gender": "female",
       "role": "bloodline",
@@ -3891,7 +3937,7 @@ window.FAMILY_DATA = {
     },
     "g20_bie": {
       "id": "g20_bie",
-      "name": "碧娥",
+      "name": "張碧娥",
       "englishName": "",
       "gender": "female",
       "role": "bloodline",
@@ -3916,7 +3962,7 @@ window.FAMILY_DATA = {
     },
     "g20_bizhu2": {
       "id": "g20_bizhu2",
-      "name": "碧珠",
+      "name": "張碧珠",
       "englishName": "",
       "gender": "female",
       "role": "bloodline",
@@ -3969,7 +4015,7 @@ window.FAMILY_DATA = {
     },
     "g20_zhuoying": {
       "id": "g20_zhuoying",
-      "name": "琢英",
+      "name": "張琢英",
       "englishName": "",
       "gender": "male",
       "role": "bloodline",
@@ -4094,7 +4140,7 @@ window.FAMILY_DATA = {
     },
     "g19_wuniang": {
       "id": "g19_wuniang",
-      "name": "霧娘",
+      "name": "陳霧",
       "englishName": "",
       "gender": "female",
       "role": "bloodline",
@@ -4120,7 +4166,7 @@ window.FAMILY_DATA = {
     },
     "g19_hanniang": {
       "id": "g19_hanniang",
-      "name": "喊娘",
+      "name": "陳喊",
       "englishName": "",
       "gender": "female",
       "role": "bloodline",
@@ -4146,7 +4192,7 @@ window.FAMILY_DATA = {
     },
     "g19_yeniang": {
       "id": "g19_yeniang",
-      "name": "葉娘",
+      "name": "陳葉",
       "englishName": "",
       "gender": "female",
       "role": "bloodline",
@@ -4173,7 +4219,7 @@ window.FAMILY_DATA = {
     },
     "g19_yueniang": {
       "id": "g19_yueniang",
-      "name": "岳娘",
+      "name": "陳岳",
       "englishName": "",
       "gender": "female",
       "role": "bloodline",
@@ -4199,7 +4245,7 @@ window.FAMILY_DATA = {
     },
     "g19_qiuniang": {
       "id": "g19_qiuniang",
-      "name": "秋娘",
+      "name": "陳秋",
       "englishName": "",
       "gender": "female",
       "role": "bloodline",
@@ -4225,7 +4271,7 @@ window.FAMILY_DATA = {
     },
     "g19_zhenniang": {
       "id": "g19_zhenniang",
-      "name": "貞娘",
+      "name": "陳貞",
       "englishName": "",
       "gender": "female",
       "role": "bloodline",
@@ -4672,6 +4718,337 @@ window.FAMILY_DATA = {
       "spouseId": null,
       "childrenIds": [],
       "notes": "養子 of 語 (g18_yu); 由太平村陳尙伯之子過房, 遷出中埔鄉 (p.102)."
+    },
+    "g20_bei_wanen": {
+      "id": "g20_bei_wanen",
+      "name": "陳貝",
+      "englishName": "",
+      "gender": "female",
+      "role": "bloodline",
+      "birthDate": "",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": "g20_bei_wanen_h",
+      "childrenIds": [],
+      "motherId": "g19_wushi",
+      "notes": "長女 of 萬恩 (g19_wanen); 適 林陸; 嫁出, 住嘉義縣梅山鄉 (p.105)."
+    },
+    "g20_bei_wanen_h": {
+      "id": "g20_bei_wanen_h",
+      "name": "林陸",
+      "englishName": "",
+      "gender": "male",
+      "role": "spouse",
+      "birthDate": "",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": "g20_bei_wanen",
+      "childrenIds": [],
+      "notes": "Husband of 陳貝 (p.105)."
+    },
+    "g20_si_wanen": {
+      "id": "g20_si_wanen",
+      "name": "陳巳",
+      "englishName": "",
+      "gender": "female",
+      "role": "bloodline",
+      "birthDate": "",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": "g20_si_wanen_h",
+      "childrenIds": [],
+      "motherId": "g19_wushi",
+      "notes": "次女 of 萬恩 (g19_wanen); 適 簡朝久; 嫁出, 住高雄縣六龜鄉 (p.105)."
+    },
+    "g20_si_wanen_h": {
+      "id": "g20_si_wanen_h",
+      "name": "簡朝久",
+      "englishName": "",
+      "gender": "male",
+      "role": "spouse",
+      "birthDate": "",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": "g20_si_wanen",
+      "childrenIds": [],
+      "notes": "Husband of 陳巳 (p.105)."
+    },
+    "g20_qin_wanen": {
+      "id": "g20_qin_wanen",
+      "name": "陳勤",
+      "englishName": "(招婿入戶)",
+      "gender": "female",
+      "role": "bloodline",
+      "birthDate": "",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": "g20_qin_wanen_h",
+      "childrenIds": [
+        "g21_pingsong",
+        "g21_caizhu",
+        "g21_pingying",
+        "g21_pingtai",
+        "g21_cailu",
+        "g21_pingchang",
+        "g21_cainiang",
+        "g21_pingying2"
+      ],
+      "motherId": "g19_wushi",
+      "notes": "三女 of 萬恩 (g19_wanen); 適 黃春添; 招婿入戶, 住祖厝 (p.105)."
+    },
+    "g20_qin_wanen_h": {
+      "id": "g20_qin_wanen_h",
+      "name": "黃春添",
+      "englishName": "",
+      "gender": "male",
+      "role": "spouse",
+      "birthDate": "",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": "g20_qin_wanen",
+      "childrenIds": [],
+      "notes": "Husband of 陳勤 (p.105)."
+    },
+    "g20_min_wanen": {
+      "id": "g20_min_wanen",
+      "name": "陳閩",
+      "englishName": "",
+      "gender": "female",
+      "role": "bloodline",
+      "birthDate": "",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": "g20_min_wanen_h",
+      "childrenIds": [],
+      "motherId": "g19_wushi",
+      "notes": "四女 of 萬恩 (g19_wanen); 適 曾修萬; 嫁出, 住台中縣大里鄉 (p.105)."
+    },
+    "g20_min_wanen_h": {
+      "id": "g20_min_wanen_h",
+      "name": "曾修萬",
+      "englishName": "",
+      "gender": "male",
+      "role": "spouse",
+      "birthDate": "",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": "g20_min_wanen",
+      "childrenIds": [],
+      "notes": "Husband of 陳閩 (p.105)."
+    },
+    "g20_jie_wanen": {
+      "id": "g20_jie_wanen",
+      "name": "陳",
+      "englishName": "",
+      "gender": "female",
+      "role": "bloodline",
+      "birthDate": "",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": "g20_jie_wanen_h",
+      "childrenIds": [],
+      "motherId": "g19_wushi",
+      "notes": "五女 of 萬恩 (g19_wanen); 適 劉佳舘; 嫁出, 住南投縣水里鄉 (p.105)."
+    },
+    "g20_jie_wanen_h": {
+      "id": "g20_jie_wanen_h",
+      "name": "劉佳舘",
+      "englishName": "",
+      "gender": "male",
+      "role": "spouse",
+      "birthDate": "",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": "g20_jie_wanen",
+      "childrenIds": [],
+      "notes": "Husband of 陳𡡑 (p.105)."
+    },
+    "g20_jing_wanen": {
+      "id": "g20_jing_wanen",
+      "name": "陳荆",
+      "englishName": "",
+      "gender": "female",
+      "role": "bloodline",
+      "birthDate": "",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": "g20_jing_wanen_h",
+      "childrenIds": [],
+      "motherId": "g19_wushi",
+      "notes": "六女 of 萬恩 (g19_wanen); 適 吳國柱; 嫁出, 住嘉義縣梅山鄉 (p.105)."
+    },
+    "g20_jing_wanen_h": {
+      "id": "g20_jing_wanen_h",
+      "name": "吳國柱",
+      "englishName": "",
+      "gender": "male",
+      "role": "spouse",
+      "birthDate": "",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": "g20_jing_wanen",
+      "childrenIds": [],
+      "notes": "Husband of 陳荆 (p.105)."
+    },
+    "g21_pingsong": {
+      "id": "g21_pingsong",
+      "name": "黃平松",
+      "englishName": "",
+      "gender": "male",
+      "role": "bloodline",
+      "birthDate": "",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": null,
+      "childrenIds": [],
+      "notes": "Child of 陳勤 & 黃春添 (p.106)."
+    },
+    "g21_caizhu": {
+      "id": "g21_caizhu",
+      "name": "黃彩珠",
+      "englishName": "",
+      "gender": "female",
+      "role": "bloodline",
+      "birthDate": "",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": null,
+      "childrenIds": [],
+      "notes": "Child of 陳勤 & 黃春添 (p.106)."
+    },
+    "g21_pingying": {
+      "id": "g21_pingying",
+      "name": "陳平英",
+      "englishName": "(過房姓陳)",
+      "gender": "male",
+      "role": "bloodline",
+      "birthDate": "",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": null,
+      "childrenIds": [],
+      "notes": "Child of 陳勤 & 黃春添 (p.106). 接尙楚一房繼承 (p.106)."
+    },
+    "g21_pingtai": {
+      "id": "g21_pingtai",
+      "name": "黃平泰",
+      "englishName": "",
+      "gender": "male",
+      "role": "bloodline",
+      "birthDate": "",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": null,
+      "childrenIds": [],
+      "notes": "Child of 陳勤 & 黃春添 (p.106)."
+    },
+    "g21_cailu": {
+      "id": "g21_cailu",
+      "name": "黃彩露",
+      "englishName": "",
+      "gender": "female",
+      "role": "bloodline",
+      "birthDate": "",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": null,
+      "childrenIds": [],
+      "notes": "Child of 陳勤 & 黃春添 (p.106)."
+    },
+    "g21_pingchang": {
+      "id": "g21_pingchang",
+      "name": "黃平錩",
+      "englishName": "",
+      "gender": "male",
+      "role": "bloodline",
+      "birthDate": "",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": null,
+      "childrenIds": [],
+      "notes": "Child of 陳勤 & 黃春添 (p.106)."
+    },
+    "g21_cainiang": {
+      "id": "g21_cainiang",
+      "name": "黃彩娘",
+      "englishName": "",
+      "gender": "female",
+      "role": "bloodline",
+      "birthDate": "",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": null,
+      "childrenIds": [],
+      "notes": "Child of 陳勤 & 黃春添 (p.106)."
+    },
+    "g21_pingying2": {
+      "id": "g21_pingying2",
+      "name": "黃平瑩",
+      "englishName": "",
+      "gender": "male",
+      "role": "bloodline",
+      "birthDate": "",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": null,
+      "childrenIds": [],
+      "notes": "Child of 陳勤 & 黃春添 (p.106)."
+    },
+    "g20_qingzhong": {
+      "id": "g20_qingzhong",
+      "name": "陳清重",
+      "englishName": "",
+      "gender": "male",
+      "role": "bloodline",
+      "birthDate": "",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": null,
+      "childrenIds": [],
+      "motherId": "g19_huangshi",
+      "notes": "Child of 爲響 & 黃氏捷."
+    },
+    "g20_qingzhou": {
+      "id": "g20_qingzhou",
+      "name": "陳清洲",
+      "englishName": "",
+      "gender": "male",
+      "role": "bloodline",
+      "birthDate": "",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": null,
+      "childrenIds": [],
+      "motherId": "g19_huangshi",
+      "notes": "Child of 爲響 & 黃氏捷."
+    },
+    "g20_shujing": {
+      "id": "g20_shujing",
+      "name": "陳淑菁",
+      "englishName": "",
+      "gender": "female",
+      "role": "bloodline",
+      "birthDate": "",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": null,
+      "childrenIds": [],
+      "motherId": "g19_huangshi",
+      "notes": "Child of 爲響 & 黃氏捷."
+    },
+    "g20_qingqin": {
+      "id": "g20_qingqin",
+      "name": "陳清欽",
+      "englishName": "",
+      "gender": "male",
+      "role": "bloodline",
+      "birthDate": "",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": null,
+      "childrenIds": [],
+      "motherId": "g19_huangshi",
+      "notes": "Child of 爲響 & 黃氏捷."
     }
   }
 };
