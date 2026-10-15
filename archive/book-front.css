@@ -1,0 +1,28 @@
+/* v2 additions: book front matter + language placeholder (chen-pages design) */
+html:not([data-lang=en]) .en,html[data-lang=en] .zh{display:none!important}
+.langtg{margin-left:auto;display:inline-flex;align-items:center;border:1.5px solid var(--brick,#8f4a42);border-radius:999px;padding:2px;background:#fbf6ea;cursor:pointer;font:600 14px "Noto Serif TC",serif}
+.langtg span{padding:3px 10px;border-radius:999px;color:#8f4a42}
+html:not([data-lang=en]) .langtg .lz,html[data-lang=en] .langtg .le{background:#8f4a42;color:#fff}
+.langtg:focus-visible{outline:2px solid #8f4a42;outline-offset:3px}
+/* cover — replicates the PDF build's cover page */
+.sec.bkcover{position:relative;width:min(560px,calc(100% - 8px));aspect-ratio:210/297;margin:18px auto;background:radial-gradient(ellipse at 40% 35%,#7a3a28,#4a1c12 80%);box-shadow:0 6px 22px #0004;border-radius:2px;overflow:hidden}
+.bkcover .rule{position:absolute;inset:4.3%;border:2px solid #b8964f;outline:1px solid #b8964f;outline-offset:-10px;pointer-events:none}
+.bkcover .t{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);margin-top:.175em!important;writing-mode:vertical-rl;margin:0;font:700 clamp(40px,9vw,64px) "Noto Serif TC",serif;letter-spacing:.35em;color:#d9b866;text-shadow:0 1px 0 #2a190c}
+.bkcover .d{position:absolute;bottom:calc(4.3% + 22px);left:calc(4.3% + 22px);writing-mode:vertical-rl;margin:0;font:500 clamp(13px,2.4vw,17px) "Noto Serif TC",serif;letter-spacing:.2em;color:#d9b866}
+.bkcover .en-sub{position:absolute;bottom:calc(4.3% + 22px);left:15%;right:8%;text-align:center;margin:0;font:italic 15px Georgia,serif;color:#d9b866cc}
+/* text + photo pages */
+.sec.page.bkxu,.sec.page.bkph{position:relative;padding:40px 46px 56px;background:#fbf6ea;border:1px solid #c9a45c99;outline:1px solid #c9a45c55;outline-offset:5px}
+.bkxu .ph small,.bkph .ph small{display:block;font:500 17px "Noto Serif TC",serif;letter-spacing:.04em;color:#5a4a3c;margin-top:6px}
+html[data-lang=en] .bkxu .ph,html[data-lang=en] .bkph .ph{font:600 32px Georgia,"Times New Roman",serif;letter-spacing:0}
+.bkph .ph{text-align:center}
+.bkvt{writing-mode:vertical-rl;box-sizing:border-box;width:100%;overflow:hidden;min-height:520px;font:400 19px/2.1 "Noto Serif TC",serif;letter-spacing:.06em;color:var(--ink,#1f1a17)}
+.bkvt p{margin:0;text-indent:2em}.bkvt .sig{text-indent:0;text-align:end}
+.bken{font:18.5px/1.7 Georgia,"Times New Roman",serif}.bken p{margin:0 0 1em}.bken .sig{text-align:right;margin:0}
+.bkfig{margin:8px 0 12px}.bkfig img{display:block;width:100%;box-shadow:0 1px 6px #0003}
+.bkcap{text-align:center;font:500 18px "Noto Serif TC",serif;letter-spacing:.06em;margin:4px 0}
+html[data-lang=en] .bkcap{font:17px Georgia,serif;letter-spacing:0}
+.bkcap+.bkfig{margin-top:22px}
+.bkpg{position:absolute;right:22px;bottom:14px;font-size:14px;color:#8a7a6a}
+@media(max-width:900px){.sec.page.bkxu,.sec.page.bkph{padding:24px 16px 44px}.bkvt{writing-mode:horizontal-tb;min-height:0;font-size:17.5px;line-height:1.95}.langtg{font-size:12px}.langtg span{padding:3px 8px}}
+.v4s{--fs:.97}
+.nav .lbl .en,.mt .en{letter-spacing:0;font-family:Georgia,serif;font-size:14px}

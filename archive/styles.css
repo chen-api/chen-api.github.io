@@ -198,7 +198,7 @@ html{scroll-behavior:smooth}@media (prefers-reduced-motion:reduce){html{scroll-b
  .nav .dv::before,.nav .dv::after{content:"";display:block!important;flex:1;height:1px;background:#8f4a4288}
 }
 @media (min-width:901px) and (max-height:760px){.nav .lbl{font-size:13px;padding:2px 8px}.nav a{padding:1px 0}.nav .dv{margin:4px 0}}
-@font-face{font-family:"ChenKai";src:url("fonts/lxgw-wenkai-tc-700-chen.woff2") format("woff2");font-weight:700;font-display:block}
+@font-face{font-family:"ChenKai";src:url("fonts/lxgw-wenkai-tc-700-chen.woff2?v=c3") format("woff2");font-weight:700;font-display:block}
 @media (min-width:901px){.nav .lbl,.nav .dv{font-family:"ChenKai","BrushKai",var(--ft-font)}}
 /* handwritten notes: 辰宇落雁體 (OFL), same ink, 0.5px stroke */
 @font-face{font-family:"HandNote";src:url("fonts/hw-chenyuluoyan.woff2?v=hw4b") format("woff2");font-display:swap}
