@@ -782,7 +782,7 @@ body[class*="theme-"] .site-header, .site-header { z-index: 50; }
 .child-slot.mgroup-start { margin-left: calc(var(--sibling-gap) * 1.2); } /* extra space between mother groups */
 .child-slot.mg-hidden { display: none !important; }
 /* every per-wife toggle is positioned absolutely by tree.js (left = that wife's drop x) */
-body .toggle-row > .branch-toggle[data-mgroup] { position: absolute; top: 0.55rem; left: 0; translate: -50% 0; }
+body .toggle-row > .branch-toggle, body .toggle-row > .branch-toggle[data-mgroup] { position: absolute; top: 0.55rem; left: 0; translate: -50% 0; }
 
 /* ===== in-laws known by surname only (surnameOnly): rendered as 湯（名未詳） by tree.js ===== */
 .person-name.surname-only { letter-spacing: .02em; }
