@@ -1,0 +1,238 @@
+:root{--tan:#e2dcd5;--brick:#8f4a42;--blue:#34528f;--seal:#c8102e;--ink:#1f1a17;--gold:#c9a45c;--paper:#f1e7d2}
+*{box-sizing:border-box}html{scroll-behavior:smooth}@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}body{margin:0;font-family:"Noto Serif TC",serif;color:var(--ink)}
+.paperbg{background:url(assets/paper.svg),radial-gradient(ellipse at 50% 30%,#f7efdf 20%,#eadcc0 100%),var(--paper);background-size:400px,100% 100%,auto}
+.wash{position:absolute;inset:auto 0 0 0;height:70%;background:url(assets/mountains.svg) bottom/cover no-repeat;opacity:.75;pointer-events:none}
+.seal{display:inline-grid;place-items:center;background:var(--seal);color:#f8ece4;border-radius:2px;box-shadow:inset 0 0 0 2px #f8ece4aa,inset 0 0 0 3px var(--seal);opacity:.88;filter:url(#rough);
+ writing-mode:vertical-rl;width:26px;padding:6px 0;line-height:1.05;font:700 13px "Noto Serif TC"}
+.seal.sm{width:40px;height:40px;padding:0}
+.sec{position:relative;scroll-margin-top:var(--sm,20px)}
+.title{min-height:78vh;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.title h1{writing-mode:vertical-rl;font:400 min(14vh,120px) "Ma Shan Zheng";letter-spacing:.18em;margin:0;z-index:1}
+.title .seal.sm{position:absolute;left:calc(50% - 130px);top:62%}
+.gen{display:flex;flex-direction:row-reverse;gap:44px;padding:64px 56px;align-items:flex-start}
+.gh{display:flex;flex-direction:column;align-items:center;gap:20px;flex:none;position:sticky;top:calc(var(--sm,20px) + 10px)}
+.gh h2{writing-mode:vertical-rl;font:400 48px "Ma Shan Zheng";letter-spacing:.12em;margin:0}
+.entries{writing-mode:vertical-rl;height:min(62vh,560px);overflow-x:auto;overflow-y:hidden;flex:1;scrollbar-width:thin;scrollbar-color:#8f4a4255 transparent}
+.entry{margin:0 0 0 2.2em;padding:4px 6px;border-radius:2px;transition:background .6s}
+.entry h3{font:900 24px "Noto Serif TC";letter-spacing:.1em;margin:0 0 0 .5em;padding-top:.3em;border-top:2px solid #0000}
+.entry.main h3{border-top-color:var(--brick)}
+.entry p{font:500 16px/1.8 "Noto Serif TC";letter-spacing:.08em;margin:0 0 0 .5em;color:#3a302a}
+.entry.minor h3{font-size:19px;font-weight:700;color:#4a3d34}.entry.minor p{font-size:14px;color:#6b5a4c}
+.entry.flash{background:#c8102e18}
+.ill{color:var(--brick);font-style:normal}.unsure{text-decoration:underline dotted #8f4a4299;text-underline-offset:3px}
+.treep{padding:56px 40px;display:flex;flex-direction:column;align-items:center}
+.treebox{position:relative;width:min(100%,760px)}
+.pan{max-height:none;overflow:auto;border:1px solid #c9a45c88;outline:1px solid #c9a45c44;outline-offset:4px;background:#f6eedd88;touch-action:pan-x pan-y pinch-zoom}
+.panin{width:100%}.panin svg{width:100%;height:auto;display:block}
+.zoom{position:absolute;right:-46px;top:0;display:flex;flex-direction:column;gap:6px;z-index:2}
+.zoom button{width:32px;height:32px;border:1px solid var(--brick);background:#f6eedd;border-radius:2px;cursor:pointer;padding:6px}
+.zoom svg{width:100%;height:100%;stroke:var(--brick);stroke-width:2;fill:none}
+.end{min-height:46vh;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.treelink{color:var(--seal);width:60px;height:60px;display:grid;place-items:center;border:1.5px solid var(--seal);border-radius:3px;background:#fff6;z-index:1}.treelink svg{width:36px}
+.ico svg{width:16px;height:16px;vertical-align:-3px}
+@media (max-width:760px){
+ .gen{flex-direction:column;gap:18px;padding:40px 22px}
+ .gh{flex-direction:row;position:static;gap:14px}.gh h2{writing-mode:horizontal-tb;font-size:34px}.gh .seal{writing-mode:horizontal-tb;width:auto;padding:3px 6px}
+ .entries{writing-mode:horizontal-tb;height:auto;overflow:visible;display:flex;flex-direction:column;gap:18px}
+ .entry{margin:0;padding:10px 0 10px 12px;border-left:2px solid #0000}.entry.main{border-left-color:var(--brick)}.entry.main h3{border-top:0}
+ .entry h3{margin:0 0 4px;padding:0;font-size:21px}.entry p{margin:0;font-size:15px;line-height:1.75}
+ .treep{padding:36px 14px}.pan{max-height:72vh}.zoom{right:6px;top:6px}
+ .title h1{font-size:76px}.title .seal.sm{left:18%;top:72%}}
+body{--sm:24px}
+.band{height:16px;background:url(assets/brocade.svg);border-top:2px solid var(--gold);border-bottom:2px solid var(--gold)}
+.layout{display:grid;grid-template-columns:150px minmax(0,1fr);max-width:1240px;margin:0 auto}
+.layout>*{direction:ltr}
+.side{position:relative}.sidein{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;align-items:center;padding:28px 0;gap:18px;border-right:1px solid #c9a45c66;
+ background:linear-gradient(270deg,#0000,#8f4a420a)}
+.sidein::before{content:"";position:absolute;right:4px;top:0;bottom:0;width:6px;background:url(assets/brocade.svg);opacity:.85}
+.nav{display:flex;flex-direction:column;gap:1px;overflow-y:auto;scrollbar-width:none}
+.nav a{font:500 14px "Noto Serif TC";letter-spacing:.06em;color:#6b5a4c;text-decoration:none;padding:4px 14px;border-left:2px solid #0000;text-align:center;white-space:nowrap}
+.nav a:hover{color:var(--ink)}.nav a.on{color:var(--seal);border-left-color:var(--seal);font-weight:700}
+.main{padding:0 40px 60px}
+.sec.gen,.sec.yuan{margin:28px 0;border:1px solid #c9a45c99;outline:1px solid #c9a45c55;outline-offset:5px;background:#fbf6ea66}
+.title{border-bottom:1px solid #c9a45c66}
+@media (max-width:760px){body{--sm:60px}.layout{display:block}
+ .side{position:sticky;top:0;z-index:20}.sidein{position:static;height:auto;flex-direction:row;padding:8px 10px;border:0;border-bottom:1px solid #c9a45c88;background:#efe4cdf2;gap:10px;backdrop-filter:blur(4px)}
+ .sidein::before{display:none}.sidein .seal.sm{width:26px;height:26px;flex:none}
+ .nav{flex-direction:row;overflow-x:auto}.nav a{border-left:0;border-bottom:2px solid #0000;padding:4px 8px}.nav a.on{border-bottom-color:var(--seal)}
+ .main{padding:0 10px 40px}.sec.gen,.sec.yuan{margin:18px 4px}}
+
+.yuan .treep{padding:56px 40px 30px}
+.yuanents{display:flex;flex-direction:row-reverse;flex-wrap:wrap;gap:0;padding:10px 56px 56px;justify-content:flex-start}
+.yuanents .sub{scroll-margin-top:24px;padding:0 18px;border-right:1px solid #c9a45c55}
+.yuanents .sub:first-child{border-right:0}
+.yuanents .entries{height:300px;overflow:visible;flex:none}
+@media (max-width:760px){.yuan .treep{padding:24px 10px}.yuanents{display:block;padding:0 22px 30px}.yuanents .sub{border:0;border-top:1px solid #c9a45c55;padding:16px 0}.yuanents .sub:first-child{border:0}.yuanents .entries{height:auto}}
+@media (min-width:761px){.yuanents{display:block;padding:0 56px 40px}.yuanents .sub{border-right:0;border-top:1px solid #c9a45c55;padding:22px 0}.yuanents .sub:first-child{border-top:0}.yuanents .entries{height:190px;overflow-x:auto}}
+@media (min-width:761px){.yuanents .sub{display:flex;justify-content:flex-end}.yuanents .entries{flex:0 1 auto;max-width:100%}}
+@media (max-width:760px){.zoom{top:auto;right:auto;bottom:10px;left:10px}}
+/* menu v3 */
+[hidden]{display:none!important}
+.main{min-height:100vh}
+.navtoggle{display:none}
+.pn{display:flex;justify-content:space-between;gap:12px;padding:30px 0 0;writing-mode:horizontal-tb;width:100%;position:absolute;left:0;bottom:24px;padding:0 56px}
+.gen{padding-bottom:110px}
+.pn a{border:1.5px solid var(--brick);color:var(--brick);text-decoration:none;padding:6px 16px;font:600 14px "Noto Serif TC";border-radius:2px}.pn a:hover{background:var(--brick);color:#f8ece4}
+.pn a:only-child{margin-left:auto}
+.page{margin:28px 0;border:1px solid #c9a45c99;outline:1px solid #c9a45c55;outline-offset:5px;background:#fbf6ea66;padding:56px;min-height:70vh}
+.ph{font:400 48px "Ma Shan Zheng";letter-spacing:.2em;margin:0 0 28px;color:var(--ink)}
+.cy h3{font:700 20px "Noto Serif TC";color:var(--brick);margin:26px 0 10px;border-bottom:1px solid #c9a45c88;padding-bottom:6px}
+.cy li{font:500 16px/2 "Noto Serif TC";color:#3a302a}
+.ph-empty{height:50vh;border:1px dashed #8f4a4266;display:grid;place-items:center}.ph-empty .seal{opacity:.35}
+.end{margin:28px 0;min-height:80vh}
+@media (max-width:760px){
+ .navtoggle{display:grid;place-items:center;margin-left:auto;width:40px;height:36px;border:1.5px solid var(--brick);background:#fbf6ea;border-radius:2px;padding:6px}
+ .navtoggle svg{width:22px;stroke:var(--brick);stroke-width:2;fill:none}
+ .sidein{justify-content:flex-start}
+ .pn{position:static;padding:24px 0 0}.gen{padding-bottom:40px}
+ .page{margin:18px 4px;padding:30px 22px}.ph{font-size:38px}}
+@media (max-width:760px){.sidein{backdrop-filter:none}}
+
+.nav{gap:1px}
+.nav .dv{display:flex;align-items:center;gap:6px;margin:10px 0 6px;color:var(--brick);font:600 12px "Noto Serif TC";letter-spacing:.12em;white-space:nowrap}
+.nav .dv::before,.nav .dv::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,#8f4a4200,#8f4a4299)}.nav .dv::after{transform:scaleX(-1)}
+@media (max-width:760px){
+ .nav{display:none;position:fixed;top:54px;left:0;right:0;bottom:0;width:auto;background:#efe4cd;padding:20px 30px 40px;overflow-y:auto;flex-direction:column;gap:2px;z-index:40}
+ body.drawer .nav{display:flex}
+ .nav a{font-size:18px;padding:9px 14px;border-bottom:0!important;border-left:2px solid #0000;text-align:left}.nav a.on{border-left-color:var(--seal)}
+ .nav .dv{font-size:14px;margin:14px 0 8px}}
+
+/* mobile top bar */
+.mbar{display:none}
+@media (max-width:900px){
+ .side{display:none!important}.layout{display:block}
+ .main{padding:0 10px 40px}.sec.gen,.sec.yuan,.page,.end{margin:18px 4px}
+ .gen{flex-direction:column;gap:18px;padding:40px 22px}
+ .gh{flex-direction:row;position:static;gap:14px}.gh h2{writing-mode:horizontal-tb;font-size:34px}.gh .seal{writing-mode:horizontal-tb;width:auto;padding:3px 6px}
+ .entries{writing-mode:horizontal-tb;height:auto;overflow:visible;display:flex;flex-direction:column;gap:18px}
+ .pn{position:static;padding:24px 0 0}.gen{padding-bottom:40px}
+ .pn a{min-height:44px;display:inline-flex;align-items:center}
+ .mbar{display:block;position:sticky;top:0;z-index:50;background:#efe4cd;border-bottom:2px solid var(--gold);box-shadow:0 4px 10px #0000001a}
+ .mbar::after{content:"";position:absolute;left:0;right:0;bottom:-8px;height:6px;background:url(assets/brocade.svg);border-bottom:1px solid var(--gold)}
+ .mtop{display:flex;overflow-x:auto;scrollbar-width:none}
+ .mt{flex:1 0 auto;min-width:56px;height:48px;display:flex;align-items:center;justify-content:center;gap:3px;background:none;border:0;border-bottom:3px solid #0000;color:#6b5a4c;font:500 16px "Noto Serif TC";letter-spacing:.06em;text-decoration:none;padding:0 6px;cursor:pointer}
+ .mt.on{color:var(--seal);border-bottom-color:var(--seal);font-weight:700}
+ .car{width:0;height:0;border:4px solid #0000;border-top:5px solid currentColor;margin-top:5px;transition:transform .2s}.mt.open .car{transform:rotate(180deg);margin-top:-4px}
+ .mt.open{color:var(--ink)}
+ .mdrop{position:absolute;left:0;right:0;top:100%;margin-top:8px;background:#efe4cd;border-bottom:2px solid var(--gold);box-shadow:0 14px 26px #00000033;padding:8px 18px 14px;display:grid;grid-template-columns:1fr 1fr;column-gap:14px;max-height:75vh;overflow-y:auto}
+ .mdrop[hidden]{display:none}
+ .mdrop a{min-height:44px;display:flex;align-items:center;padding:0 12px;color:#4a3d34;text-decoration:none;font:500 17px "Noto Serif TC";letter-spacing:.06em;border-left:3px solid #0000}
+ .mdrop a.on{color:var(--seal);border-left-color:var(--seal);font-weight:700;background:#c8102e0d}
+ .mdrop .dv{grid-column:1/-1;display:flex;align-items:center;gap:8px;margin:8px 0;color:var(--brick);font:600 14px "Noto Serif TC";letter-spacing:.12em}
+ .mdrop .dv::before,.mdrop .dv::after{content:"";flex:1;height:1px;background:#8f4a4277}
+ .sec{scroll-margin-top:70px}
+}
+.entry.main{min-height:0}
+.hw{color:#4b5a73}.entry del,.cy del{text-decoration:line-through 1.5px #8f4a42aa;color:#7a6a5e}
+.entry p.pg{font-size:12px;color:#8a7a6c;text-align:right;margin-top:.4em;letter-spacing:.1em}
+.cy .key{font:500 14px/2 "Noto Serif TC";color:#5a4a3e;border:1px dashed #c9a45c88;padding:4px 10px;display:inline-block}
+.cy .pr{font-size:12px;color:#8a7a6c;margin-left:.8em;white-space:nowrap}
+.entry p{overflow-wrap:anywhere}
+.entry h3 small{display:block;font-size:1em;font-weight:900;color:inherit;margin-top:.3em;letter-spacing:.08em}
+@media(min-width:861px){.entry h3 small{display:inline;margin:0 0 0 .2em}}
+/* continuous scroll (desktop matches mobile): stacked, no horizontal scroll panels */
+html{scroll-behavior:smooth}@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+.yuanents .sub{scroll-margin-top:24px}@media (max-width:900px){.yuanents .sub{scroll-margin-top:110px}}
+
+.entry .pg{display:none}
+/* desktop: stacked vertical-rl sheets (v4) */
+@media (min-width:901px){
+ .sec,.yuanents .sub{scroll-margin-top:calc(var(--hh,67px) + 12px)}
+ .sec.gen.v4g{display:block;padding:0;border:0;outline:0;background:none}
+ .v4s{display:flex;flex-direction:row-reverse;gap:40px;padding:48px 48px 52px;box-sizing:border-box;position:relative;height:calc(100vh - var(--hh,67px) - 40px);border:1px solid #c9a45c99;outline:1px solid #c9a45c55;outline-offset:5px;background:#fbf6ea66}
+ .v4s+.v4s{border-top:1px dashed #c9a45c88;outline:0}
+ .v4s .gh{position:static;align-self:flex-start}.v4s .gh.ghost{visibility:hidden}
+ .vflow{writing-mode:vertical-rl;flex:1;min-width:0;height:100%;overflow:hidden}
+ .vflow h3{font:900 23px "Noto Serif TC";letter-spacing:.1em;margin:0 0 0 .4em;padding:0;border:0}
+ .vflow h3 small{font-size:1em;font-weight:900}
+ .vflow p{font:500 16px/1.8 "Noto Serif TC";letter-spacing:.08em;margin:0 0 0 .3em;color:#3a302a}
+ .vflow h3.sep{margin-right:1.6em;padding-right:1.4em;border-right:1px solid #c9a45c77}
+ .vflow h3.sep.top{margin-right:0;padding-right:0;border-right:0}
+ .smark{position:absolute;left:20px;bottom:14px;font:600 13px "Noto Serif TC";color:var(--brick);letter-spacing:.2em;writing-mode:vertical-rl}
+}@media (min-width:901px){.sec{scroll-margin-top:calc(var(--hh,0px) + 16px)}.yuanents .sub{scroll-margin-top:calc(var(--hh,0px) + 12px)}}
+@media (min-width:901px){.yuanents .entries{writing-mode:horizontal-tb;display:flex;flex-wrap:wrap;flex-direction:row-reverse;overflow:visible!important;height:auto!important;gap:14px 0;max-width:100%}.yuanents .entry{writing-mode:vertical-rl;height:190px}.yuanents .sub{justify-content:flex-end}}
+
+/* desktop: fixed left rail matching family-tree-v4's 世 generation rail */
+@media (min-width:901px){
+ :root{--rail-w:52px;--bar-h:62px}
+ .site-header{height:62px;min-height:0;box-sizing:border-box}.site-header h1,.site-header h1 .home{display:flex;align-items:center;line-height:1}
+ .layout{display:block;max-width:none;margin:0;padding-left:var(--rail-w)}
+ .side{position:static}
+ .sidein{position:fixed!important;left:0;top:var(--bar-h)!important;bottom:0;height:auto!important;width:var(--rail-w);z-index:15;padding:14px 0 10px;gap:0;justify-content:flex-start;overflow-y:auto;scrollbar-width:none;border:0!important;
+  background:#d5ccbf!important;box-shadow:inset -1px 0 0 #2a2622,inset -4px 0 0 #d5ccbf,inset -5px 0 0 #2a2622}
+ .sidein::before,.sidein>.seal,.navtoggle{display:none!important}
+ .nav{width:calc(100% - 5px);gap:0;align-items:center;overflow:visible;flex:1;justify-content:space-evenly}
+ .nav a{border:0!important;padding:5px 0;display:flex;justify-content:center;width:100%;text-decoration:none;color:var(--ink,#1a1a1a);font-weight:400!important}
+ .nav .gen-l{writing-mode:vertical-rl;font:700 15px/1 "BrushKai",var(--ft-font);letter-spacing:.12em;color:#1a1a1a;display:inline-flex;align-items:center}
+ .nav .gen-shi{display:inline-block;writing-mode:horizontal-tb;width:17px;height:17px;margin-top:4px;font:700 13px/15px "BrushKai",var(--ft-font);text-align:center;color:#1a1a1a;border:1.25px solid transparent;border-radius:1.5px;letter-spacing:0;box-sizing:border-box}
+ .nav .gen-w{padding:4px 2px;border:1.25px solid transparent;border-radius:1.5px}
+ .nav a:hover .gen-l{color:#8f4a42}
+ .nav a.on .gen-shi{color:#efe6da;background:#8f4a42;border-color:#8f4a42;filter:url(#seal-worn)}
+ .nav a.on .gen-w{color:#efe6da;background:#8f4a42;border-color:#8f4a42;filter:url(#seal-worn)}
+ .nav .dv{writing-mode:vertical-rl;font:700 11px/1 "BrushKai",var(--ft-font);letter-spacing:.2em;color:#8f4a42;opacity:.8;padding:4px 0;margin:0;border:0;width:auto}
+ .nav .dv span{padding:0;background:none}
+ .nav .dv::before,.nav .dv::after{display:none}
+ .main{max-width:1180px;margin:0 auto;padding:0 40px 60px;box-sizing:border-box}
+ .sec{scroll-margin-top:calc(var(--bar-h) + 16px)!important}
+}@media (min-width:901px){
+ html .sidein{top:62px!important;height:calc(100vh - 62px)!important}
+ .main{max-width:1440px}
+ .nav{justify-content:space-between}
+ .nav a{padding:2px 0}
+ .nav .gen-l{font-size:14px;letter-spacing:.06em}
+ .nav .gen-shi{margin-top:2px}
+ .nav .dv{padding:2px 0}
+}
+@media (min-width:901px) and (max-height:860px){.nav .gen-l{font-size:13px;letter-spacing:0}.nav .gen-shi{width:15px;height:15px;font-size:11px;line-height:13px}.nav .dv{font-size:10px;letter-spacing:.05em}.sidein{padding:8px 0 6px}}
+
+/* menu: horizontal labels, tree-rail style */
+@media (min-width:901px){
+ :root{--rail-w:132px}
+ .nav{justify-content:flex-start;gap:2px;padding-top:6px}
+ .nav a{padding:3px 0}
+ .nav .lbl{display:inline-block;writing-mode:horizontal-tb;white-space:nowrap;font:700 15px/1.25 "BrushKai",var(--ft-font);letter-spacing:.12em;color:#1a1a1a;padding:3px 9px 3px 10px;border:1.25px solid transparent;border-radius:1.5px}
+ .nav a:hover .lbl{color:#8f4a42}
+ .nav a.on .lbl{color:#efe6da;background:#8f4a42;border-color:#8f4a42;filter:url(#seal-worn)}
+ .nav .dv{writing-mode:horizontal-tb;white-space:nowrap;font:700 12px/1 "BrushKai",var(--ft-font);letter-spacing:.15em;color:#8f4a42;opacity:.85;padding:0;margin:8px 0 6px;display:flex;align-items:center;gap:5px;width:84%}
+ .nav .dv::before,.nav .dv::after{content:"";display:block!important;flex:1;height:1px;background:#8f4a4288}
+}
+@media (min-width:901px) and (max-height:760px){.nav .lbl{font-size:13px;padding:2px 8px}.nav a{padding:1px 0}.nav .dv{margin:4px 0}}
+@font-face{font-family:"ChenKai";src:url("fonts/lxgw-wenkai-tc-700-chen.woff2") format("woff2");font-weight:700;font-display:block}
+@media (min-width:901px){.nav .lbl,.nav .dv{font-family:"ChenKai","BrushKai",var(--ft-font)}}
+/* handwritten notes: 辰宇落雁體 (OFL), same ink, 0.5px stroke */
+@font-face{font-family:"HandNote";src:url("fonts/hw-chenyuluoyan.woff2?v=hw4b") format("woff2");font-display:swap}
+.hw,.entry .hw,.cy .hw,.key .hw{color:inherit!important;font-family:"HandNote","Noto Serif TC",serif!important;font-weight:400;letter-spacing:0;position:relative;left:-3px;-webkit-text-stroke:.5px currentColor}
+
+/* p3b page layout (approved) */
+@media (min-width:901px){
+ body[class*=" p"] .v4s .vflow h3,body[class^="p"] .v4s .vflow h3{font-size:calc(23px * var(--fs,1))}
+ body[class*=" p"] .v4s .vflow p,body[class^="p"] .v4s .vflow p{font-size:calc(16px * var(--fs,1));line-height:1.85}
+ body.p1 .v4s,body.p2 .v4s,body.p3 .v4s{--fs:1}
+ body.p2 .v4s{margin:20px auto;max-width:100%;background:#fbf6eacc;box-shadow:0 1px 0 #c9a45c55,0 10px 30px -12px #3a302a33,inset 0 0 40px #c9a45c22}
+ body.p2 .v4s .gh h2{font-size:60px}
+ body.p3 .v4s{overflow:hidden}
+ body.p3 .v4s .gh h2{font-size:76px;letter-spacing:.08em}
+ body.p3 .v4s .gh .seal{transform:scale(1.4);transform-origin:top center;margin-top:10px}
+ body.p3 .v4s .vflow{position:relative;z-index:1}
+ body.p3 .wm{position:absolute;left:4%;bottom:6%;font:400 min(52vh,460px)/1 "Ma Shan Zheng",serif;color:#8f4a42;opacity:.07;writing-mode:vertical-rl;pointer-events:none;z-index:0}
+ body.p3 .v4s::after{content:"";position:absolute;left:0;right:30%;bottom:0;height:42%;background:url(assets/mountains.svg) left bottom/100% 100% no-repeat;opacity:.18;pointer-events:none;z-index:0}
+}
+@media (min-width:901px){body.p3b .v4s::after{display:none}}
+@media (min-width:901px){body.p3b .v4s .vflow h3{font-size:32.2px}}
+/* p3b: no background decoration at all */
+body.p3b .sec.gen .wm,body.p3b .sec.gen .wash{display:none!important}
+body.p3b .v4s,body.p3b .v4s::before,body.p3b .v4s::after{background-image:none!important}
+
+body.p3b .v4s::after{display:none!important}
+.treelink{display:none!important}
+/* p3b: no grain behind generation sheets only (opaque sheet = old 40% fill over #e2dcd5) */
+@media (min-width:901px){body.p3b .sec.gen .v4s{background:#ece6dd!important}}
+/* 第十六世: entries spread evenly across each sheet */
+@media (min-width:901px){.vflow.even{display:flex;flex-direction:column;justify-content:space-evenly}.vflow.even>*{flex:none}}
+@media (min-width:901px){.vflow h3 small,.v4s .vflow h3 small{font-size:1em!important}}
+@media (min-width:901px){
+ .v4s.tightlh .vflow p{line-height:1.6!important}
+ .sec.gen .smark{left:auto!important;right:20px!important;bottom:18px;font:700 20px "Noto Serif TC"}
+}
+.vflow h3 small .hnote,.entry h3 small .hnote{font-size:.6em;font-weight:700}

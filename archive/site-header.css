@@ -1,0 +1,49 @@
+/* Copied from ../family-tree-v4/styles.css (fixed title bar + calligraphy title + seal + theme-c), adapted only for placement */
+@font-face{font-family:"TitleBrush";src:url("assets/fonts/yuji-syuku-title.woff2") format("woff2");font-display:block}
+@font-face{font-family:"BrushKai";src:url("assets/fonts/lxgw-wenkai-tc-700-subset.woff2") format("woff2");font-weight:700;font-display:block}
+:root{--bar-h:56px;--ft-font:"Segoe UI","PingFang TC","PingFang SC","Hiragino Sans GB","Noto Sans TC","Noto Sans SC","Microsoft JhengHei","Microsoft YaHei",system-ui,sans-serif}
+.site-header{--bg:#e2dcd5;--ink:#1a1a1a;--ink-soft:#5a534c;--btn-border:#2a2622;--btn-hover:#d6cec3;--engrave-blue:#4a4b6b;--guilloche-tan:#d39c7d;--seal-red:#c8102e;
+ position:sticky;top:0;z-index:60;width:100%;margin:0;background:var(--bg);border-bottom:1px solid var(--ink);
+ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .28 0 0 0 0 .2 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+ display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.6rem 1.5rem;text-align:left;min-height:var(--bar-h);font-family:var(--ft-font);line-height:1.5;color:var(--ink);-webkit-font-smoothing:antialiased}
+.site-header h1{margin:0;white-space:nowrap;font-family:"TitleBrush",var(--ft-font);font-weight:400;font-size:1.85rem;line-height:1.15;letter-spacing:.08em;color:#1c1a17}
+.site-header h1 .home{display:inline-flex;align-items:center;gap:.6rem;color:inherit;text-decoration:none}
+.site-header h1 .seal{width:42px;height:42px;flex-shrink:0;display:block;background:none;box-shadow:none;filter:none;padding:0;opacity:1;border-radius:0}
+.site-header h1 .seal rect{fill:transparent}
+.site-header .bar-right{display:flex;align-items:center;gap:1.25rem;flex-wrap:nowrap;min-width:0}
+.site-header .intro{margin:0;font-size:.85rem;white-space:nowrap;color:var(--ink-soft)}
+.site-header .legend{display:flex;flex-wrap:nowrap;gap:.9rem;margin:0;padding:0;list-style:none;font-size:.78rem;color:var(--ink-soft)}
+.site-header .legend li{display:inline-flex;align-items:center;gap:.4rem}
+.site-header .legend-dot{width:15px;height:15px;border-radius:50%;border:2.5px solid;flex-shrink:0}
+.site-header .legend-dot.male{border-color:var(--engrave-blue);background:var(--engrave-blue)}
+.site-header .legend-dot.female{border-color:var(--seal-red);background:var(--seal-red)}
+.site-header .legend-dot.spouse{border-color:var(--guilloche-tan);border-style:dashed;background:none}
+.site-header .toolbar{display:flex;flex-wrap:nowrap;gap:.4rem;margin:0}
+.site-header .tbtn{font-family:"BrushKai",var(--ft-font);font-weight:700;font-size:.8rem;color:var(--ink);background:transparent;border:1px solid var(--btn-border);border-radius:999px;padding:.28rem .75rem;white-space:nowrap;text-decoration:none;transition:background .2s,border-color .2s}
+.site-header .tbtn:hover{background:var(--btn-hover);border-color:var(--ink)}
+.lbl-short{display:none}
+@media (max-width:1000px){.site-header .intro{display:none}}
+/* placement in chen-pages */
+.band{display:none}
+.sidein{top:var(--bar-h)!important;height:calc(100vh - var(--bar-h))!important}
+@media (max-width:900px){
+ .site-header{position:relative;padding:.4rem .6rem;gap:.4rem;flex-wrap:nowrap}
+ .site-header h1{font-size:1.2rem;letter-spacing:.04em}.site-header h1 .home{gap:.35rem}
+ .site-header h1 .seal{width:30px;height:30px}
+ .site-header .bar-right{flex-wrap:nowrap;gap:.3rem}
+ .site-header .intro,.site-header .legend{display:none}
+ .site-header .toolbar{gap:.25rem}.site-header .tbtn{padding:.2rem .45rem;font-size:.72rem}
+ .lbl-long{display:none}.lbl-short{display:inline}
+}
+@media (max-width:360px){.site-header h1{font-size:1.05rem}.site-header .tbtn{padding:.18rem .35rem}}
+/* ===== One base colour: the tree site's page background (#e2dcd5 + its grain) ===== */
+:root{--base:#e2dcd5;--grain:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .28 0 0 0 0 .2 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+html,body.paperbg,.site-header,.side,.sidein,.layout,.main:not(.entry){background:var(--base) var(--grain)!important;background-attachment:fixed!important}
+.site-header{justify-content:flex-start}
+@media (max-width:900px){
+ :root{--hd-h:46px}
+ .site-header{position:sticky;top:0;z-index:61;height:var(--hd-h);min-height:0;padding:0 .75rem}
+ .mbar{top:var(--hd-h)!important;background:var(--base) var(--grain)!important;box-shadow:none!important}
+ .mdrop{background:var(--base) var(--grain)!important}
+ .sec{scroll-margin-top:110px}
+}

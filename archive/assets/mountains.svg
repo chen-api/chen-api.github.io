@@ -1,0 +1,3 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 300" preserveAspectRatio="xMidYMax slice"><defs><filter id="b"><feGaussianBlur stdDeviation="5"/></filter><filter id="b2"><feGaussianBlur stdDeviation="2"/></filter><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a221d" stop-opacity=".35"/><stop offset="1" stop-color="#2a221d" stop-opacity="0"/></linearGradient></defs>
+<path filter="url(#b)" fill="url(#g)" d="M0 300V190C40 170 70 120 105 140S160 70 205 110 260 150 300 125 360 40 420 95 480 150 530 120 600 80 650 130 740 150 800 140V300Z"/>
+<path filter="url(#b2)" fill="url(#g)" opacity=".8" d="M0 300V250C60 230 100 200 150 225S240 190 290 230 380 205 430 235 520 210 580 240 700 215 800 245V300Z"/></svg>
