@@ -719,7 +719,22 @@
   // max(couple, children row incl. fixed --sibling-gap); the children row is
   // centered under the bloodline member's avatar (not the couple), with no
   // stretching or invisible spacers. Collapsed subtrees take no width.
+  // Siblings share one couple height so every toggle row / drop line below them
+  // starts and ends at the same y, whatever notes or dates a card carries.
+  function equalizeSiblingCouples() {
+    document.querySelectorAll(".children-inner").forEach(function (row) {
+      var cs = [];
+      row.querySelectorAll(":scope > .child-slot > .branch > .couple").forEach(function (c) {
+        c.style.minHeight = ""; cs.push(c);
+      });
+      var h = 0;
+      cs.forEach(function (c) { h = Math.max(h, c.offsetHeight); });
+      cs.forEach(function (c) { if (c.offsetHeight) c.style.minHeight = h + "px"; });
+    });
+  }
+
   function balance() {
+    equalizeSiblingCouples();
     var branches = Array.prototype.slice.call(document.querySelectorAll(".branch")).reverse();
     branches.forEach(function (br) {
       var couple = directChild(br, ".couple");
