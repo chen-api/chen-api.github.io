@@ -553,7 +553,7 @@ body { padding-top: var(--bar-h); }
 /* ===== Calligraphy title (Yuji Syuku, subset: 陳氏家譜 only, SIL OFL) ===== */
 @font-face {
   font-family: "TitleBrush";
-  src: url("fonts/yuji-syuku-title.woff2") format("woff2");
+  src: url("fonts/yuji-syuku-title.woff2?v=4g") format("woff2");
   font-display: block;
 }
 .site-header h1 {
@@ -589,3 +589,206 @@ body { padding-top: var(--bar-h); }
   .site-header h1 { font-size: 1.05rem; }
   .toolbar button { padding: 0.18rem 0.35rem; }
 }
+
+/* ======================================================================
+   v2 themes — body.theme-a / .theme-b / .theme-c (?theme=a|b|c)
+   Shared: aged paper sampled from Bill's 五服圖 reference (#e2dcd5) + faint grain.
+   Fonts: Noto Serif TC Black (A, B) and LXGW WenKai TC Bold (C), both SIL OFL 1.1,
+   subset to the characters the site uses.
+   ====================================================================== */
+@font-face { font-family: "Woodblock"; src: url("fonts/noto-serif-tc-900-subset.woff2?v=56") format("woff2"); font-weight: 900; font-display: block; }
+@font-face { font-family: "BrushKai"; src: url("fonts/lxgw-wenkai-tc-700-subset.woff2?v=56") format("woff2"); font-weight: 700; font-display: block; }
+
+body[class*="theme-"] {
+  --bg: #e2dcd5; /* alt: #fdfdfc (Song banknote paper, C7) */ --ink: #1a1a1a; --ink-soft: #5a534c; --cinnabar: #a3281e;
+  --line: #2a2622; --line-w: 1.25px; --text: var(--ink); --text-muted: var(--ink-soft);
+  --btn-border: #2a2622; --btn-hover: #d6cec3; --shadow: none;
+}
+html:has(body[class*="theme-"]), body[class*="theme-"] {
+  background-color: #e2dcd5; /* alt: #fdfdfc (Song banknote paper, no grain) */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .28 0 0 0 0 .2 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+body[class*="theme-"] .site-header { background: var(--bg); box-shadow: none; border-bottom: 1px solid var(--ink); }
+body[class*="theme-"] .site-header .intro, body[class*="theme-"] .legend { color: var(--ink-soft); }
+body[class*="theme-"] .toolbar button { color: var(--ink); background: transparent; border-color: var(--btn-border); box-shadow: none; }
+body[class*="theme-"] .toolbar button:hover { background: var(--btn-hover); color: var(--ink); border-color: var(--ink); }
+body[class*="theme-"] .site-header h1 .seal rect { fill: transparent; }
+body[class*="theme-"] .line-layer path { stroke: var(--line); stroke-width: var(--line-w); }
+body[class*="theme-"] .person-label { background: transparent; }
+body[class*="theme-"] .person-name { color: var(--ink); }
+body[class*="theme-"] .person-english, body[class*="theme-"] .person-dates { color: var(--ink-soft); }
+body[class*="theme-"] .branch-toggle { background: var(--bg); border-color: var(--ink-soft); color: var(--ink); box-shadow: none; }
+body[class*="theme-"] .branch-toggle:hover { background: var(--btn-hover); border-color: var(--ink); color: var(--ink); }
+body[class*="theme-"] .avatar { box-shadow: none; background: transparent; }
+body[class*="theme-"] .avatar-photo img { mix-blend-mode: multiply; }
+body[class*="theme-"] .legend-dot { background: none !important; }
+body[class*="theme-"] .legend-dot.male { border-color: var(--ink); }
+body[class*="theme-"] .legend-dot.female { border-color: var(--cinnabar); }
+body[class*="theme-"] .legend-dot.spouse { border-color: var(--ink-soft); }
+.gen-labels { display: none; }
+
+/* ---------- A: ink on paper, minimal ---------- */
+.theme-a .avatar { border: 0 !important; padding: 0; }
+.theme-a .avatar-ring { display: none; }
+.theme-a .avatar-photo { background: #cfc6ba !important; }
+.theme-a .avatar-photo img { filter: grayscale(1) sepia(.6) contrast(1.05); }
+.theme-a .person-name { font-family: "Woodblock", var(--font); font-weight: 900; font-size: .92rem; letter-spacing: .06em; }
+.theme-a .person.bloodline.female .person-name { color: #6e2a22; }
+.theme-a .person.spouse .person-name { color: var(--ink-soft); }
+.theme-a .toolbar button { font-family: "Woodblock", var(--font); font-weight: 900; }
+
+/* ---------- B: book page, vertical names ---------- */
+.theme-b { --avatar-size: 18px; --line-w: 1px; }
+.theme-b .avatar { border: 1px solid var(--ink) !important; padding: 0; border-radius: 50%; }
+.theme-b .avatar-ring { display: none; }
+.theme-b .avatar-photo { background: #cfc6ba !important; }
+.theme-b .avatar-photo img { filter: grayscale(1) sepia(.6); }
+.theme-b .person { min-width: 3.2rem; }
+.theme-b .person-label { writing-mode: vertical-rl; text-orientation: mixed; margin: .35rem auto 0; padding: 0; display: flex; gap: .1rem; }
+.theme-b .person-name { font-family: "Woodblock", var(--font); font-weight: 900; font-size: 1.45rem; letter-spacing: .12em; line-height: 1.05; }
+.theme-b .person-english { font-size: .6rem; }
+.theme-b .person-dates { font-size: .58rem; margin: 0 !important; }
+.theme-b .person.bloodline.female .person-name { color: #6e2a22; }
+.theme-b .person.spouse .person-name { color: var(--ink-soft); font-size: 1.2rem; }
+.theme-b .person.spouse .person-name::before { content: "配"; font-size: .7rem; margin-bottom: .25rem; display: block; color: var(--ink-soft); }
+.theme-b .toolbar button { font-family: "Woodblock", var(--font); font-weight: 900; border-radius: 2px; }
+.theme-b .branch-toggle { border-radius: 2px; width: 18px; height: 18px; }
+.theme-b .tree > .branch { margin-left: 4.5rem; }
+.theme-b .gen-labels { display: block; position: absolute; inset: 0; pointer-events: none; z-index: 0; }
+.theme-b .gen-rule { position: absolute; left: 0; right: 0; border-top: 1px solid rgba(26,26,26,.55); }
+.theme-b .gen-label { position: absolute; left: .4rem; writing-mode: vertical-rl; font-family: "Woodblock", var(--font); font-weight: 900; font-size: .85rem; letter-spacing: .15em; color: var(--ink); background: var(--bg); padding: .3rem .15rem; border-left: 1px solid var(--ink); border-right: 1px solid var(--ink); }
+.theme-b .tree { position: relative; }
+
+/* ---------- C: brush and seal ---------- */
+.theme-c .avatar { border: 0 !important; padding: 0; }
+.theme-c .avatar-ring { display: none; }
+.theme-c .avatar-photo { background: #d4ccc1 !important; }
+.theme-c .avatar-photo img { filter: grayscale(1) contrast(1.25) brightness(1.02); opacity: .85; }
+.theme-c .person-name { font-family: "BrushKai", var(--font); font-weight: 700; font-size: 1.02rem; letter-spacing: .05em; }
+.theme-c .person.bloodline.female .person-name { color: var(--cinnabar); }
+.theme-c .person.bloodline.female .avatar-photo { box-shadow: 0 0 0 2px rgba(163,40,30,.55); }
+.theme-c .person.spouse .person-name::before {
+  content: "配"; display: inline-block; font-size: .58rem; line-height: 1; color: #fff; background: var(--cinnabar);
+  padding: 2px 2px 1px; margin-right: 4px; border-radius: 2px; vertical-align: .22em; letter-spacing: 0;
+}
+.theme-c .toolbar button { font-family: "BrushKai", var(--font); font-weight: 700; }
+
+/* ---------- C2: engraved banknote avatars ----------
+   Inks sampled with PIL: portrait ink #4a4b6b (Central Bank of China 1930 note),
+   guilloche tan #d39c7d; daughters use the seal vermilion #c8102e. */
+.theme-c { --engrave-blue: #4a4b6b; --guilloche-tan: #d39c7d; --seal-red: #c8102e; --cinnabar: #c8102e; }
+.theme-c .avatar { border: 0 !important; padding: 2px; border-radius: 50%; background: transparent; }
+.theme-c .person.bloodline.male .avatar { box-shadow: 0 0 0 1.5px var(--engrave-blue); }
+.theme-c .person.bloodline.female .avatar { box-shadow: 0 0 0 1.5px var(--seal-red); }
+.theme-c .person.bloodline.female .avatar-photo { box-shadow: none; }
+.theme-c .avatar-photo { background: var(--engrave-blue) !important; }
+body.theme-c .avatar-photo img { filter: none; opacity: 1; mix-blend-mode: normal; }
+.theme-c .person.spouse .avatar-ring { display: block; color: var(--guilloche-tan); }
+.theme-c .legend-dot.male { border-color: var(--engrave-blue); background: var(--engrave-blue) !important; }
+.theme-c .legend-dot.female { border-color: var(--seal-red); background: var(--seal-red) !important; }
+.theme-c .legend-dot.spouse { border-color: var(--guilloche-tan); border-style: dashed; }
+
+/* ---------- C3: colour figures; all name text one ink colour ---------- */
+body.theme-c .person .person-name,
+body.theme-c .person.bloodline.female .person-name,
+body.theme-c .person.spouse .person-name { color: var(--ink); }
+body.theme-c .person .person-english,
+body.theme-c .person .person-dates { color: var(--ink); }
+body.theme-c .person.spouse .person-name::before { background: transparent; color: var(--ink); border: 1px solid var(--ink); padding: 1px 2px 0; }
+
+/* ---------- C4: muted brick vermilion for daughters' avatars (header seal keeps #c8102e) ---------- */
+.theme-c { --avatar-red: #8f4a42; }
+.theme-c .person.bloodline.female .avatar { box-shadow: 0 0 0 1.5px var(--avatar-red); }
+.theme-c .legend-dot.female { border-color: var(--avatar-red); background: var(--avatar-red) !important; }
+
+/* ---------- C6: v1-style rings: dark solid/dashed ring, white gap, light tint bg (flat) ---------- */
+.theme-c { --ring-male: #4a4b6b; --ring-female: #8f4a42; --ring-spouse: #8a8a8a; }
+body.theme-c .avatar { border: var(--ring-w) solid transparent !important; padding: var(--ring-gap); background: #fff; box-shadow: none !important; }
+body.theme-c .person.bloodline.male .avatar { border-color: var(--ring-male) !important; }
+body.theme-c .person.bloodline.female .avatar { border-color: var(--ring-female) !important; }
+body.theme-c .person.spouse .avatar { border-color: transparent !important; }
+body.theme-c .person.spouse .avatar-ring { display: block; color: var(--ring-spouse); }
+body.theme-c .person.bloodline.male .avatar-photo { background: #d7d7de !important; }
+body.theme-c .person.bloodline.female .avatar-photo { background: #e3d1cf !important; }
+body.theme-c .person.spouse .avatar-photo { background: #e5e5e5 !important; }
+body.theme-c .legend-dot.male { border: 2px solid var(--ring-male) !important; background: #d7d7de !important; }
+body.theme-c .legend-dot.female { border: 2px solid var(--ring-female) !important; background: #e3d1cf !important; }
+body.theme-c .legend-dot.spouse { border: 2px dashed var(--ring-spouse) !important; background: #e5e5e5 !important; }
+
+/* ---------- C7: transparent gap between ring and tinted bg ---------- */
+/* transparent showed connector lines through the gap, so use the page colour */
+body.theme-c .avatar { background: var(--bg) !important; }
+
+/* ---------- C8: bluer engraved-ink male ring; no 配 label ---------- */
+.theme-c { --ring-male: #34528f; } /* was #4a4b6b */
+body.theme-c .person.bloodline.male .avatar-photo { background: #d2d8e6 !important; }
+body.theme-c .legend-dot.male { border-color: #34528f !important; background: #d2d8e6 !important; }
+body.theme-c .person.spouse .person-name::before { content: none !important; display: none !important; margin: 0 !important; padding: 0 !important; border: 0 !important; }
+
+/* ---------- C9: darker spouse gray; heavier dashed ring (SVG stroke 4.8/100 vs 3.8) ---------- */
+.theme-c { --ring-spouse: #7a7a7a; } /* was #8a8a8a */
+body.theme-c .person.spouse .avatar-photo { background: #c0c0c0 !important; }
+body.theme-c .legend-dot.spouse { border-color: #7a7a7a !important; background: #c0c0c0 !important; }
+
+/* ---------- C10: warm gray spouse bg, lighter dashed ring ---------- */
+.theme-c { --ring-spouse: #a39f98; } /* was #7a7a7a */
+body.theme-c .person.spouse .avatar-photo { background: #b8b4ad !important; }
+body.theme-c .legend-dot.spouse { border-color: #a39f98 !important; background: #b8b4ad !important; }
+
+/* ---------- C11: spouses in darker shades of the page tan (#e2dcd5) ---------- */
+.theme-c { --ring-spouse: #a29482; } /* was #a39f98 gray */
+body.theme-c .person.spouse .avatar-photo { background: #c4b9ab !important; }
+body.theme-c .legend-dot.spouse { border-color: #a29482 !important; background: #c4b9ab !important; }
+
+/* ---------- C12: lines read as structure; names sit on a page-bg backing ---------- */
+body.theme-c { --line: #9c8b76; --line-w: 1.25px; }
+body.theme-c .person-name, body.theme-c .person-english, body.theme-c .person-dates {
+  position: relative; z-index: 1; padding: 0 3px; /* no page-colour backing: it hid couple down-lines; single-parent lines now start below the text (tree.js) */
+}
+body.theme-c .branch-toggle { border-color: #9c8b76; color: var(--ink); position: relative; z-index: 2; }
+
+/* ---------- C13: 温 (U+6E29) from LXGW WenKai (SC build); WenKai TC draws 温 like 溫 ---------- */
+@font-face { font-family: "BrushKaiWen"; src: url("fonts/lxgw-wenkai-medium-u6e29.ttf?v=4g") format("truetype"); font-weight: 700; unicode-range: U+6E29; font-display: block; }
+.theme-c .person-name, .theme-c .toolbar button { font-family: "BrushKaiWen", "BrushKai", var(--font); }
+
+/* ---------- v3: spouse ring = connector tone; avatar on page colour ---------- */
+.theme-c { --ring-spouse: #9c8b76; }
+body.theme-c .person.spouse .avatar-photo { background: #e2dcd5 !important; }
+body.theme-c .legend-dot.spouse { border-color: #9c8b76 !important; background: #e2dcd5 !important; }
+
+/* ---------- v3: generation rail (book-spine strip + 白文 世 stamp) ---------- */
+body.theme-c { --rail-w: 52px; }
+body.theme-c #tree-wrap { padding-left: var(--rail-w); }
+.gen-rail { position: fixed; left: 0; bottom: 0; width: var(--rail-w); z-index: 40; pointer-events: none;
+  background: #d5ccbf; box-shadow: inset -1px 0 0 #2a2622, inset -4px 0 0 #d5ccbf, inset -5px 0 0 #2a2622; }
+.gen-r { position: absolute; left: 0; width: calc(100% - 5px); display: flex; justify-content: center; transform: translateY(-50%);
+  opacity: 0; transition: opacity .25s ease; }
+.gen-r.on { opacity: 1; }
+.gen-l { writing-mode: vertical-rl; font: 700 15px/1 "BrushKaiWen", "BrushKai", var(--font); letter-spacing: .12em; color: var(--ink); }
+.gen-shi { display: inline-block; writing-mode: horizontal-tb; width: 17px; height: 17px; margin-top: 4px; font: 700 13px/15px "BrushKai", var(--font);
+  text-align: center; color: #efe6da; background: #8f4a42; border: 1.25px solid #8f4a42; border-radius: 1.5px; letter-spacing: 0; filter: url(#seal-worn); }
+@media (max-width: 600px) {
+  body.theme-c { --rail-w: 30px; }
+  .gen-l { font-size: 11px; letter-spacing: .05em; }
+  .gen-shi { width: 13px; height: 13px; font-size: 10px; line-height: 11px; margin-top: 3px; }
+}
+
+/* rail sits below the fixed header and is clipped there; header always on top */
+body[class*="theme-"] .site-header, .site-header { z-index: 50; }
+.gen-rail { top: var(--bar-h, 0px); overflow: hidden; z-index: 15; }
+
+/* ===== multiple wives (otherSpouseIds): 妻一/妻二 labels, per-mother child groups + toggles ===== */
+.spouse-tag { margin: 0 0 .15rem; font-size: .8rem; line-height: 1; letter-spacing: .1em; color: var(--ink-soft, #6b5f52); font-weight: 600; }
+.child-slot.mgroup-start { margin-left: calc(var(--sibling-gap) * 1.2); } /* extra space between mother groups */
+.child-slot.mg-hidden { display: none !important; }
+/* every per-wife toggle is positioned absolutely by tree.js (left = that wife's drop x) */
+body .toggle-row > .branch-toggle[data-mgroup] { position: absolute; top: 0.55rem; left: 0; translate: -50% 0; }
+
+/* ===== in-laws known by surname only (surnameOnly): rendered as 湯（名未詳） by tree.js ===== */
+.person-name.surname-only { letter-spacing: .02em; }
+
+/* ===== tight full-width brackets in names (spans from tree.js bracketText) ===== */
+.br-open { margin-left: -0.45em; }
+.br-close { margin-right: -0.45em; }
+
+.branch-toggle.wife-empty { visibility: hidden; pointer-events: none; }
