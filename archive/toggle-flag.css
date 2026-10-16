@@ -11,3 +11,8 @@ html[data-lang=en] .lflag::after{left:calc(100% - var(--fw))}
 @media(max-width:820px){.site-header .langtg.lflag{--fw:21px;gap:7px;height:24px;padding-bottom:5px!important}.lflag .fl{width:21px;height:14px}.lflag .sep{font-size:14px}.lflag::after{bottom:2px}}
 @media(prefers-reduced-motion:reduce){.lflag::after,.lflag .fl{transition:none}}
 html body .site-header .langtg.lflag>span.vh{position:absolute!important;width:1px!important;height:1px!important;overflow:hidden!important;clip:rect(0 0 0 0)!important;padding:0!important;margin:-1px!important;display:block!important;font-size:1px!important}
+
+/* Hover / focus-visible: light up the inactive flag (active flag unchanged) */
+.lflag .fl{transition:filter .15s,opacity .15s}
+html:not([data-lang=en]) .lflag:is(:hover,:focus-visible) .fl.us,
+html[data-lang=en] .lflag:is(:hover,:focus-visible) .fl.roc{filter:grayscale(.25);opacity:.75}
