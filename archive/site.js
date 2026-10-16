@@ -63,7 +63,7 @@ const items=SEC.map(([l,n,m],i)=>{let id=n===0?'cover':'pg-'+n;if(m&&n){const se
 const lbl=it=>it.i===0?L('封面','Cover'):it.i===1?L('序章','Preface'):it.i===2?L('陳氏家廟','Temple'):it.l;
 nav.innerHTML=items.map(it=>`<a href="#${it.id}" data-i="${it.i}" title="${it.l}"><span class="lbl">${lbl(it)}</span></a>`).join('');
 const MT=[0,1,"*",26],mtop=document.getElementById('mtop'),mdrop=document.getElementById('mdrop');
-mtop.innerHTML=MT.map(k=>k==='*'?`<button class="mt" id="mtgen" aria-expanded="false">世系<i class="car"></i></button>`:`<a class="mt" href="#${items[k].id}" data-i="${k}">${lbl(items[k])}</a>`).join('');
+mtop.innerHTML=MT.map(k=>k==='*'?`<button class="mt" id="mtgen" aria-expanded="false"><span class="zh">世系</span><span class="en">Generations</span><i class="car"></i></button>`:`<a class="mt" href="#${items[k].id}" data-i="${k}">${lbl(items[k])}</a>`).join('');
 mdrop.innerHTML=items.filter(it=>!MT.includes(it.i)).map(it=>`<a href="#${it.id}" data-i="${it.i}">${it.l}</a>`).join('');
 const mtg=document.getElementById('mtgen');const setDrop=o=>{mdrop.hidden=!o;mtg.setAttribute('aria-expanded',o);mtg.classList.toggle('open',o)};
 mtg.onclick=e=>{e.stopPropagation();setDrop(mdrop.hidden)};document.addEventListener('click',e=>{if(!mdrop.hidden&&!e.target.closest('#mbar'))setDrop(false)});
