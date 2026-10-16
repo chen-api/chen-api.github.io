@@ -1,0 +1,40 @@
+@media(min-width:901px){
+html body .side .nav.nx{padding:4px 18px 48px 26px!important;-webkit-mask-image:linear-gradient(#000 0,#000 calc(100% - 56px),transparent);mask-image:linear-gradient(#000 0,#000 calc(100% - 56px),transparent)}
+html body .side .nav.nx a{font-size:15px!important;line-height:1.5!important;padding:7px 0 7px 12px!important;color:#3a332d!important;letter-spacing:.06em!important;font-weight:400!important}
+html body .side .nav.nx a::before{content:""!important;position:absolute!important;left:0!important;top:7px!important;bottom:7px!important;width:2px!important;height:auto!important;margin:0!important;border-radius:0!important;background:transparent!important}
+html body .side .nav.nx a.on{color:#8f4a42!important;font-weight:600!important}
+html body .side .nav.nx a.on::before{background:#8f4a42!important}
+.nx-h{margin:18px 0 6px 12px;font:600 12px/1.5 "Noto Serif TC","Noto Serif CJK TC",serif;letter-spacing:.32em;color:#8a7d70}
+.nx-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px 4px;margin:0 0 14px 12px;padding:8px 0 10px;border-top:1px solid #2a26221a;border-bottom:1px solid #2a26221a}
+html body .side .nav.nx .nx-grid a{padding:4px 0!important;text-align:center!important;justify-content:center!important;font-size:15px!important;border-radius:3px}
+html body .side .nav.nx .nx-grid a .lbl{padding:0!important;text-indent:0!important;text-align:center}
+html body .side .nav.nx .nx-grid a::before{display:none!important}
+html body .side .nav.nx .nx-grid a.on{background:#8f4a42!important;color:#f6eee4!important}
+html body .side .nav.nx .nx-grid a.nx-tw{box-shadow:inset 0 -1.5px 0 #8f4a4266}
+}
+/* D: tree left-rail colours + double rule, copied from mock-v4-g1617 .gen-rail */
+@media(min-width:901px){:root,html,body{--rail-w:var(--nw,168px)!important}
+html body .side .sidein{background:#d5ccbf!important;background-image:none!important;box-shadow:inset -1px 0 0 #2a2622,inset -4px 0 0 #d5ccbf,inset -5px 0 0 #2a2622!important;border:0!important}
+html body .side .nav.nx{padding:4px 16px 48px 18px!important;-webkit-mask-image:linear-gradient(#000 0,#000 calc(100% - 56px),transparent);mask-image:linear-gradient(#000 0,#000 calc(100% - 56px),transparent)}
+html body .side .nav.nx a{font-size:14.5px!important;padding:6px 0 6px 10px!important;color:#1a1a1a!important}
+.nx-h{margin-left:10px;color:#5a534c}.nx-grid{grid-template-columns:repeat(3,1fr);margin-left:10px;border-color:#2a262233}}
+
+/* 渡臺開基: muted gray label row in the grid (no brick) */
+html body .side .nav.nx .nx-grid a.nx-tw{box-shadow:none!important}
+.nx-tw-l{grid-column:1/-1;display:flex;align-items:center;gap:6px;margin:6px 0 2px;font:500 10.5px/1.4 "Noto Serif TC","Noto Serif CJK TC",serif;letter-spacing:.3em;color:#8a7d70}
+.nx-tw-l::before,.nx-tw-l::after{content:"";flex:1;height:1px;background:#2a262222}
+html body .side .nav.nx .nx-grid a.on .lbl,html body .side .nav.nx .nx-grid a.on .zh{color:#f6eee4!important}
+/* no hanging indent: wrapped lines flush left, tight within item, more space between items */
+@media(min-width:901px){
+html body .side .nav.nx a .lbl{padding-left:0!important;text-indent:0!important;line-height:1.45!important}
+html body .side .nav.nx a{line-height:1.45!important;padding-top:7px!important;padding-bottom:7px!important}
+html body .side .nav.nx .nx-grid a{padding-top:4px!important;padding-bottom:4px!important}}
+/* === unified active state (list + generation grid) === */
+@media(min-width:901px){
+html body .side .nav.nx a::before,html body .side .nav.nx .nx-grid a::before{content:""!important;display:block!important;position:absolute!important;left:0!important;top:7px!important;bottom:7px!important;width:2px!important;height:auto!important;margin:0!important;border-radius:0!important;background:transparent!important}
+html body .side .nav.nx .nx-grid a::before{top:5px!important;bottom:5px!important}
+html body .side .nav.nx a.on,html body .side .nav.nx .nx-grid a.on{background:none!important;color:#8f4a42!important;font-weight:600!important}
+html body .side .nav.nx a.on .lbl,html body .side .nav.nx a.on .zh,html body .side .nav.nx .nx-grid a.on .lbl,html body .side .nav.nx .nx-grid a.on .zh{color:#8f4a42!important;font-weight:600!important}
+html body .side .nav.nx a.on::before,html body .side .nav.nx .nx-grid a.on::before{background:#8f4a42!important}
+}
+@media(min-width:901px){html body .side .nav.nx .nx-grid a{font-size:14.5px!important}}

@@ -1,0 +1,33 @@
+/* Segmented language toggle: single pill, 中文 | English, flush active fill */
+.langtg.lseg{all:unset;box-sizing:border-box;display:inline-flex!important;align-items:center;height:var(--th)!important;cursor:pointer;--th:28px;--c:#2a2622;--bw:1.5px;margin-left:auto;background:none!important;border:0!important;box-shadow:none!important;padding:0!important}
+.lseg .lg-seg{position:relative;display:grid!important;grid-template-columns:1fr 1fr;height:var(--th);box-sizing:border-box;border:var(--bw) solid var(--c);border-radius:999px;padding:0!important;background:transparent;isolation:isolate}
+.lseg .lg-ind{position:absolute;top:calc(var(--bw)*-1);bottom:calc(var(--bw)*-1);left:calc(var(--bw)*-1);width:calc(50% + var(--bw));border-radius:999px;background:var(--c);transition:transform .2s ease;padding:0!important;z-index:0}
+html[data-lang=en] .lseg:not(.zh) .lg-ind,.lseg.en .lg-ind{transform:translateX(calc(100% - var(--bw)*2))}
+.lseg .lg-seg>span.lz,.lseg .lg-seg>span.le{all:unset;position:relative;z-index:1;display:flex!important;align-items:center;justify-content:center;padding:0 calc(var(--th)*.5)!important;min-width:calc(var(--th)*1.85);color:var(--c)!important;background:none!important;transition:color .2s ease;white-space:nowrap;font-weight:700!important}
+.lseg .lg-seg>span.lz{font:700 calc(var(--th)*.47)/1 "Noto Serif TC","Noto Serif CJK TC",serif!important;letter-spacing:.06em!important}
+.lseg .lg-seg>span.le{font:700 calc(var(--th)*.43)/1 -apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif!important;letter-spacing:.01em!important}
+html:not([data-lang=en]) .lseg:not(.en) .lg-seg>span.lz,html[data-lang=en] .lseg:not(.zh) .lg-seg>span.le,.lseg.en .lg-seg>span.le,.lseg.zh .lg-seg>span.lz{color:#fff!important}
+.lseg.zh .lg-seg>span.le{color:var(--c)!important}.lseg.en .lg-seg>span.lz{color:var(--c)!important}
+.lseg.zh .lg-ind{transform:none}
+.lseg.brick{--c:#8f4a42}
+.lseg:focus-visible .lg-seg{outline:2px solid #8f4a42;outline-offset:2px}
+@media(max-width:820px){.langtg.lseg{--th:24px}}
+@media(prefers-reduced-motion:reduce){.lseg .lg-ind{transition:none}}
+/* v2: flush fill via left/right (exact edges), icon left of pill */
+.lseg .lg-ind{width:auto!important;transform:none!important;left:calc(var(--bw)*-1)!important;right:50%!important;transition:left .2s ease,right .2s ease!important}
+html[data-lang=en] .lseg:not(.zh) .lg-ind,.lseg.en .lg-ind{left:50%!important;right:calc(var(--bw)*-1)!important}
+.langtg.lseg{gap:calc(var(--th)*.29)}
+.lseg .lg-icon{all:unset;flex:none;display:block!important;width:calc(var(--th)*.64);height:calc(var(--th)*.64);color:var(--c);padding:0!important;background:none!important}
+.lseg .lg-icon svg{width:100%;height:100%;display:block}
+/* Options G–J: labels outside a small switch */
+.lsw{--h:20px;--w:36px;--c:#2a2622;--k:#fff;display:inline-flex;align-items:center;gap:calc(var(--h)*.4);font-size:calc(var(--h)*.7);line-height:1;white-space:nowrap}
+.lsw .l{color:#9d9389;font-weight:500;transition:color .2s}
+.lsw .l.zh{font-family:"Noto Serif TC","Noto Serif CJK TC",serif;letter-spacing:.04em}
+.lsw .l.en{font-family:-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;font-size:.94em}
+.lsw.is-zh .l.zh,.lsw.is-en .l.en{color:var(--c);font-weight:700}
+.lsw .sw{position:relative;flex:none;width:var(--w);height:var(--h);border-radius:999px;background:var(--c);box-sizing:border-box}
+.lsw .sw::after{content:"";position:absolute;top:calc(var(--h)*.1);left:calc(var(--h)*.1);width:calc(var(--h)*.8);height:calc(var(--h)*.8);border-radius:50%;background:var(--k);box-shadow:0 1px 2px #0000004d;transition:transform .2s ease}
+.lsw.is-en .sw::after{transform:translateX(calc(var(--w) - var(--h)))}
+.lsw.outline .sw{background:transparent;border:calc(var(--h)*.075) solid #8f4a42}
+.lsw.outline .sw::after{background:#8f4a42;box-shadow:none;top:calc(var(--h)*.1 - var(--h)*.075);left:calc(var(--h)*.1 - var(--h)*.075)}
+.lsw .ic{width:calc(var(--h)*.9);height:calc(var(--h)*.9);color:var(--c);flex:none}.lsw .ic svg{width:100%;height:100%;display:block}
