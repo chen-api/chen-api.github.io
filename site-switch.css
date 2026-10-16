@@ -13,11 +13,9 @@
 }
 
 /* Align the flag language toggle (#langtg.lflag) to the switch's center line:
-   same box height as the switch, flags centered, underline out of flow. */
+   same box height as the switch, flags centered. */
 .site-header{align-items:center}
-html body .site-header .langtg.lflag{height:26px!important;padding:0!important;align-self:center;--fh:16px}
-html body .site-header .langtg.lflag::after{bottom:auto!important;top:calc(50% + var(--fh)/2 + 2px)}
-@media (max-width:820px){html body .site-header .langtg.lflag{--fh:14px}}
+html body .site-header .langtg.lflag{height:26px!important;padding:0!important;align-self:center}
 @media (max-width:700px){html body .site-header .langtg.lflag{height:22px!important}}
 
 /* Hover / focus-visible */
