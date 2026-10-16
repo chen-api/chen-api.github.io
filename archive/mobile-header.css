@@ -1,0 +1,28 @@
+/* Shared mobile header (tree + microsite archive) — keep both copies identical.
+   Main row 58px; tree toolbar becomes a second sticky row styled like the microsite .mbar/.mt menu. */
+@media (max-width:700px){
+  :root{--hd-h:58px!important;--mh-base:#e2dcd5;--mh-grain:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .28 0 0 0 0 .2 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+  html body .site-header{min-height:58px!important;padding-left:12px!important;padding-right:12px!important;align-items:center!important}
+  html body .site-header h1{font-size:23px!important;gap:8px!important;line-height:1!important}
+  html body .site-header h1 .seal{width:38px!important;height:38px!important}
+  html body .site-header .site-switch{height:26px!important}
+  html body .site-header .site-switch a{width:30px!important}
+  html body .site-header .site-switch a svg{width:16px!important;height:16px!important}
+  html body .site-header .langtg.lflag,html body .site-header #langtg{height:26px!important}
+  /* microsite: fixed row height (the menu row below uses --hd-h) */
+  html body:not(.tree-site) .site-header:not(.has-toolrow){height:58px!important}
+  /* tree: header = 58px row + toolbar row */
+  html body .site-header.has-toolrow{height:auto!important;flex-wrap:wrap!important;padding-top:0!important;padding-bottom:0!important;row-gap:0!important;border-bottom:0!important;box-shadow:none!important;background:var(--mh-base) var(--mh-grain)!important}
+  html body .site-header.has-toolrow h1{height:57px;display:inline-flex!important;align-items:center}
+  html body .site-header.has-toolrow .bar-right{display:contents!important}
+  html body .site-header.has-toolrow .site-switch{margin-left:auto!important;order:1}
+  html body .site-header.has-toolrow .toolbar{order:2;flex:0 0 calc(100% + 24px)!important;margin:0 -12px!important;display:flex!important;gap:0!important;height:51px;box-sizing:border-box;overflow-x:auto;scrollbar-width:none;
+    background:var(--mh-base) var(--mh-grain)!important;border-top:1px solid #1a1a1a;border-bottom:2px solid #c9a45c}
+  html body .site-header.has-toolrow .toolbar::-webkit-scrollbar{display:none}
+  html body .site-header.has-toolrow .toolbar button{flex:1 0 auto!important;min-width:56px;height:48px!important;padding:0 6px!important;margin:0!important;display:flex;align-items:center;justify-content:center;
+    background:none!important;border:0!important;border-bottom:3px solid transparent!important;border-radius:0!important;box-shadow:none!important;
+    font:500 16px "Noto Serif TC","Noto Serif CJK TC","BookSupp",serif!important;letter-spacing:.08em!important;color:#2a2622!important;transition:color .15s}
+  html body .site-header.has-toolrow .toolbar button:hover,html body .site-header.has-toolrow .toolbar button:focus-visible{color:#8f4a42!important;outline:none}
+  html body .site-header.has-toolrow .toolbar button:active{color:#8f4a42!important;border-bottom-color:#c8102e!important;font-weight:700!important}
+}
+@media (max-width:360px){html body .site-header h1{font-size:21px!important}html body .site-header.has-toolrow .toolbar button{min-width:48px;letter-spacing:.04em!important}}
