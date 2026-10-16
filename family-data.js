@@ -50,7 +50,7 @@ window.FAMILY_DATA = {
     },
     "yebo": {
       "id": "yebo",
-      "name": "陳葉泊",
+      "name": "葉（簡）泊",
       "englishName": "",
       "gender": "female",
       "role": "spouse",
