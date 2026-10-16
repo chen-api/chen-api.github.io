@@ -1,9 +1,9 @@
 :root{--tan:#e2dcd5;--brick:#8f4a42;--blue:#34528f;--seal:#c8102e;--ink:#1f1a17;--gold:#c9a45c;--paper:#f1e7d2}
-*{box-sizing:border-box}html{scroll-behavior:smooth}@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}body{margin:0;font-family:"Noto Serif TC",serif;color:var(--ink)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}body{margin:0;font-family:"Noto Serif TC","BookSupp",serif;color:var(--ink)}
 .paperbg{background:url(assets/paper.svg),radial-gradient(ellipse at 50% 30%,#f7efdf 20%,#eadcc0 100%),var(--paper);background-size:400px,100% 100%,auto}
 .wash{position:absolute;inset:auto 0 0 0;height:70%;background:url(assets/mountains.svg) bottom/cover no-repeat;opacity:.75;pointer-events:none}
 .seal{display:inline-grid;place-items:center;background:var(--seal);color:#f8ece4;border-radius:2px;box-shadow:inset 0 0 0 2px #f8ece4aa,inset 0 0 0 3px var(--seal);opacity:.88;filter:url(#rough);
- writing-mode:vertical-rl;width:26px;padding:6px 0;line-height:1.05;font:700 13px "Noto Serif TC"}
+ writing-mode:vertical-rl;width:26px;padding:6px 0;line-height:1.05;font:700 13px "Noto Serif TC","BookSupp"}
 .seal.sm{width:40px;height:40px;padding:0}
 .sec{position:relative;scroll-margin-top:var(--sm,20px)}
 .title{min-height:78vh;display:flex;align-items:center;justify-content:center;overflow:hidden}
@@ -14,9 +14,9 @@
 .gh h2{writing-mode:vertical-rl;font:400 48px "Ma Shan Zheng";letter-spacing:.12em;margin:0}
 .entries{writing-mode:vertical-rl;height:min(62vh,560px);overflow-x:auto;overflow-y:hidden;flex:1;scrollbar-width:thin;scrollbar-color:#8f4a4255 transparent}
 .entry{margin:0 0 0 2.2em;padding:4px 6px;border-radius:2px;transition:background .6s}
-.entry h3{font:900 24px "Noto Serif TC";letter-spacing:.1em;margin:0 0 0 .5em;padding-top:.3em;border-top:2px solid #0000}
+.entry h3{font:900 24px "Noto Serif TC","BookSupp";letter-spacing:.1em;margin:0 0 0 .5em;padding-top:.3em;border-top:2px solid #0000}
 .entry.main h3{border-top-color:var(--brick)}
-.entry p{font:500 16px/1.8 "Noto Serif TC";letter-spacing:.08em;margin:0 0 0 .5em;color:#3a302a}
+.entry p{font:500 16px/1.8 "Noto Serif TC","BookSupp";letter-spacing:.08em;margin:0 0 0 .5em;color:#3a302a}
 .entry.minor h3{font-size:19px;font-weight:700;color:#4a3d34}.entry.minor p{font-size:14px;color:#6b5a4c}
 .entry.flash{background:#c8102e18}
 .ill{color:var(--brick);font-style:normal}.unsure{text-decoration:underline dotted #8f4a4299;text-underline-offset:3px}
@@ -46,7 +46,7 @@ body{--sm:24px}
  background:linear-gradient(270deg,#0000,#8f4a420a)}
 .sidein::before{content:"";position:absolute;right:4px;top:0;bottom:0;width:6px;background:url(assets/brocade.svg);opacity:.85}
 .nav{display:flex;flex-direction:column;gap:1px;overflow-y:auto;scrollbar-width:none}
-.nav a{font:500 14px "Noto Serif TC";letter-spacing:.06em;color:#6b5a4c;text-decoration:none;padding:4px 14px;border-left:2px solid #0000;text-align:center;white-space:nowrap}
+.nav a{font:500 14px "Noto Serif TC","BookSupp";letter-spacing:.06em;color:#6b5a4c;text-decoration:none;padding:4px 14px;border-left:2px solid #0000;text-align:center;white-space:nowrap}
 .nav a:hover{color:var(--ink)}.nav a.on{color:var(--seal);border-left-color:var(--seal);font-weight:700}
 .main{padding:0 40px 60px}
 .sec.gen,.sec.yuan{margin:28px 0;border:1px solid #c9a45c99;outline:1px solid #c9a45c55;outline-offset:5px;background:#fbf6ea66}
@@ -72,12 +72,12 @@ body{--sm:24px}
 .navtoggle{display:none}
 .pn{display:flex;justify-content:space-between;gap:12px;padding:30px 0 0;writing-mode:horizontal-tb;width:100%;position:absolute;left:0;bottom:24px;padding:0 56px}
 .gen{padding-bottom:110px}
-.pn a{border:1.5px solid var(--brick);color:var(--brick);text-decoration:none;padding:6px 16px;font:600 14px "Noto Serif TC";border-radius:2px}.pn a:hover{background:var(--brick);color:#f8ece4}
+.pn a{border:1.5px solid var(--brick);color:var(--brick);text-decoration:none;padding:6px 16px;font:600 14px "Noto Serif TC","BookSupp";border-radius:2px}.pn a:hover{background:var(--brick);color:#f8ece4}
 .pn a:only-child{margin-left:auto}
 .page{margin:28px 0;border:1px solid #c9a45c99;outline:1px solid #c9a45c55;outline-offset:5px;background:#fbf6ea66;padding:56px;min-height:70vh}
 .ph{font:400 48px "Ma Shan Zheng";letter-spacing:.2em;margin:0 0 28px;color:var(--ink)}
-.cy h3{font:700 20px "Noto Serif TC";color:var(--brick);margin:26px 0 10px;border-bottom:1px solid #c9a45c88;padding-bottom:6px}
-.cy li{font:500 16px/2 "Noto Serif TC";color:#3a302a}
+.cy h3{font:700 20px "Noto Serif TC","BookSupp";color:var(--brick);margin:26px 0 10px;border-bottom:1px solid #c9a45c88;padding-bottom:6px}
+.cy li{font:500 16px/2 "Noto Serif TC","BookSupp";color:#3a302a}
 .ph-empty{height:50vh;border:1px dashed #8f4a4266;display:grid;place-items:center}.ph-empty .seal{opacity:.35}
 .end{margin:28px 0;min-height:80vh}
 @media (max-width:760px){
@@ -89,7 +89,7 @@ body{--sm:24px}
 @media (max-width:760px){.sidein{backdrop-filter:none}}
 
 .nav{gap:1px}
-.nav .dv{display:flex;align-items:center;gap:6px;margin:10px 0 6px;color:var(--brick);font:600 12px "Noto Serif TC";letter-spacing:.12em;white-space:nowrap}
+.nav .dv{display:flex;align-items:center;gap:6px;margin:10px 0 6px;color:var(--brick);font:600 12px "Noto Serif TC","BookSupp";letter-spacing:.12em;white-space:nowrap}
 .nav .dv::before,.nav .dv::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,#8f4a4200,#8f4a4299)}.nav .dv::after{transform:scaleX(-1)}
 @media (max-width:760px){
  .nav{display:none;position:fixed;top:54px;left:0;right:0;bottom:0;width:auto;background:#efe4cd;padding:20px 30px 40px;overflow-y:auto;flex-direction:column;gap:2px;z-index:40}
@@ -110,22 +110,22 @@ body{--sm:24px}
  .mbar{display:block;position:sticky;top:0;z-index:50;background:#efe4cd;border-bottom:2px solid var(--gold);box-shadow:0 4px 10px #0000001a}
  .mbar::after{content:"";position:absolute;left:0;right:0;bottom:-8px;height:6px;background:url(assets/brocade.svg);border-bottom:1px solid var(--gold)}
  .mtop{display:flex;overflow-x:auto;scrollbar-width:none}
- .mt{flex:1 0 auto;min-width:56px;height:48px;display:flex;align-items:center;justify-content:center;gap:3px;background:none;border:0;border-bottom:3px solid #0000;color:#6b5a4c;font:500 16px "Noto Serif TC";letter-spacing:.06em;text-decoration:none;padding:0 6px;cursor:pointer}
+ .mt{flex:1 0 auto;min-width:56px;height:48px;display:flex;align-items:center;justify-content:center;gap:3px;background:none;border:0;border-bottom:3px solid #0000;color:#6b5a4c;font:500 16px "Noto Serif TC","BookSupp";letter-spacing:.06em;text-decoration:none;padding:0 6px;cursor:pointer}
  .mt.on{color:var(--seal);border-bottom-color:var(--seal);font-weight:700}
  .car{width:0;height:0;border:4px solid #0000;border-top:5px solid currentColor;margin-top:5px;transition:transform .2s}.mt.open .car{transform:rotate(180deg);margin-top:-4px}
  .mt.open{color:var(--ink)}
  .mdrop{position:absolute;left:0;right:0;top:100%;margin-top:8px;background:#efe4cd;border-bottom:2px solid var(--gold);box-shadow:0 14px 26px #00000033;padding:8px 18px 14px;display:grid;grid-template-columns:1fr 1fr;column-gap:14px;max-height:75vh;overflow-y:auto}
  .mdrop[hidden]{display:none}
- .mdrop a{min-height:44px;display:flex;align-items:center;padding:0 12px;color:#4a3d34;text-decoration:none;font:500 17px "Noto Serif TC";letter-spacing:.06em;border-left:3px solid #0000}
+ .mdrop a{min-height:44px;display:flex;align-items:center;padding:0 12px;color:#4a3d34;text-decoration:none;font:500 17px "Noto Serif TC","BookSupp";letter-spacing:.06em;border-left:3px solid #0000}
  .mdrop a.on{color:var(--seal);border-left-color:var(--seal);font-weight:700;background:#c8102e0d}
- .mdrop .dv{grid-column:1/-1;display:flex;align-items:center;gap:8px;margin:8px 0;color:var(--brick);font:600 14px "Noto Serif TC";letter-spacing:.12em}
+ .mdrop .dv{grid-column:1/-1;display:flex;align-items:center;gap:8px;margin:8px 0;color:var(--brick);font:600 14px "Noto Serif TC","BookSupp";letter-spacing:.12em}
  .mdrop .dv::before,.mdrop .dv::after{content:"";flex:1;height:1px;background:#8f4a4277}
  .sec{scroll-margin-top:70px}
 }
 .entry.main{min-height:0}
 .hw{color:#4b5a73}.entry del,.cy del{text-decoration:line-through 1.5px #8f4a42aa;color:#7a6a5e}
 .entry p.pg{font-size:12px;color:#8a7a6c;text-align:right;margin-top:.4em;letter-spacing:.1em}
-.cy .key{font:500 14px/2 "Noto Serif TC";color:#5a4a3e;border:1px dashed #c9a45c88;padding:4px 10px;display:inline-block}
+.cy .key{font:500 14px/2 "Noto Serif TC","BookSupp";color:#5a4a3e;border:1px dashed #c9a45c88;padding:4px 10px;display:inline-block}
 .cy .pr{font-size:12px;color:#8a7a6c;margin-left:.8em;white-space:nowrap}
 .entry p{overflow-wrap:anywhere}
 .entry h3 small{display:block;font-size:1em;font-weight:900;color:inherit;margin-top:.3em;letter-spacing:.08em}
@@ -144,12 +144,12 @@ html{scroll-behavior:smooth}@media (prefers-reduced-motion:reduce){html{scroll-b
  .v4s+.v4s{border-top:1px dashed #c9a45c88;outline:0}
  .v4s .gh{position:static;align-self:flex-start}.v4s .gh.ghost{visibility:hidden}
  .vflow{writing-mode:vertical-rl;flex:1;min-width:0;height:100%;overflow:hidden}
- .vflow h3{font:900 23px "Noto Serif TC";letter-spacing:.1em;margin:0 0 0 .4em;padding:0;border:0}
+ .vflow h3{font:900 23px "Noto Serif TC","BookSupp";letter-spacing:.1em;margin:0 0 0 .4em;padding:0;border:0}
  .vflow h3 small{font-size:1em;font-weight:900}
- .vflow p{font:500 16px/1.8 "Noto Serif TC";letter-spacing:.08em;margin:0 0 0 .3em;color:#3a302a}
+ .vflow p{font:500 16px/1.8 "Noto Serif TC","BookSupp";letter-spacing:.08em;margin:0 0 0 .3em;color:#3a302a}
  .vflow h3.sep{margin-right:1.6em;padding-right:1.4em;border-right:1px solid #c9a45c77}
  .vflow h3.sep.top{margin-right:0;padding-right:0;border-right:0}
- .smark{position:absolute;left:20px;bottom:14px;font:600 13px "Noto Serif TC";color:var(--brick);letter-spacing:.2em;writing-mode:vertical-rl}
+ .smark{position:absolute;left:20px;bottom:14px;font:600 13px "Noto Serif TC","BookSupp";color:var(--brick);letter-spacing:.2em;writing-mode:vertical-rl}
 }@media (min-width:901px){.sec{scroll-margin-top:calc(var(--hh,0px) + 16px)}.yuanents .sub{scroll-margin-top:calc(var(--hh,0px) + 12px)}}
 @media (min-width:901px){.yuanents .entries{writing-mode:horizontal-tb;display:flex;flex-wrap:wrap;flex-direction:row-reverse;overflow:visible!important;height:auto!important;gap:14px 0;max-width:100%}.yuanents .entry{writing-mode:vertical-rl;height:190px}.yuanents .sub{justify-content:flex-end}}
 
@@ -198,11 +198,11 @@ html{scroll-behavior:smooth}@media (prefers-reduced-motion:reduce){html{scroll-b
  .nav .dv::before,.nav .dv::after{content:"";display:block!important;flex:1;height:1px;background:#8f4a4288}
 }
 @media (min-width:901px) and (max-height:760px){.nav .lbl{font-size:13px;padding:2px 8px}.nav a{padding:1px 0}.nav .dv{margin:4px 0}}
-@font-face{font-family:"ChenKai";src:url("fonts/lxgw-wenkai-tc-700-chen.woff2?v=c3") format("woff2");font-weight:700;font-display:block}
+@font-face{font-family:"ChenKai";src:url("fonts/lxgw-wenkai-tc-700-chen.woff2?v=p108") format("woff2");font-weight:700;font-display:block}
 @media (min-width:901px){.nav .lbl,.nav .dv{font-family:"ChenKai","BrushKai",var(--ft-font)}}
 /* handwritten notes: 辰宇落雁體 (OFL), same ink, 0.5px stroke */
 @font-face{font-family:"HandNote";src:url("fonts/hw-chenyuluoyan.woff2?v=hw4b") format("woff2");font-display:swap}
-.hw,.entry .hw,.cy .hw,.key .hw{color:inherit!important;font-family:"HandNote","Noto Serif TC",serif!important;font-weight:400;letter-spacing:0;position:relative;left:-3px;-webkit-text-stroke:.5px currentColor}
+.hw,.entry .hw,.cy .hw,.key .hw{color:inherit!important;font-family:"HandNote","Noto Serif TC","BookSupp",serif!important;font-weight:400;letter-spacing:0;position:relative;left:-3px;-webkit-text-stroke:.5px currentColor}
 
 /* p3b page layout (approved) */
 @media (min-width:901px){
@@ -233,6 +233,6 @@ body.p3b .v4s::after{display:none!important}
 @media (min-width:901px){.vflow h3 small,.v4s .vflow h3 small{font-size:1em!important}}
 @media (min-width:901px){
  .v4s.tightlh .vflow p{line-height:1.6!important}
- .sec.gen .smark{left:auto!important;right:20px!important;bottom:18px;font:700 20px "Noto Serif TC"}
+ .sec.gen .smark{left:auto!important;right:20px!important;bottom:18px;font:700 20px "Noto Serif TC","BookSupp"}
 }
 .vflow h3 small .hnote,.entry h3 small .hnote{font-size:.6em;font-weight:700}

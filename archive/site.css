@@ -3,27 +3,50 @@
 .sec.bp{margin:18px 4px;scroll-margin-top:calc(var(--hh,60px) + 16px)}
 .bp .sheet{position:relative;box-sizing:border-box;min-height:calc(100vh - var(--hh,60px) - 40px);padding:44px 48px 56px;background:#ece6dd;border:1px solid #c9a45c99;box-shadow:0 1px 0 #c9a45c55,0 10px 30px -12px #3a302a33,inset 0 0 40px #c9a45c22;display:flex;flex-direction:column;gap:14px}
 .bp .ln{display:block;white-space:pre}
-.bp .vt{--f:clamp(14px,calc((100vh - var(--hh,60px) - 170px) / 33),21px);writing-mode:vertical-rl;height:calc(var(--f) * 32.5);font:400 var(--f)/1.9 "Noto Serif TC",serif;letter-spacing:.04em;color:#1f1a17;overflow-x:auto;overflow-y:hidden;align-self:stretch}
+.bp .vt{--f:clamp(14px,calc((100vh - var(--hh,60px) - 170px) / 33),21px);writing-mode:vertical-rl;height:calc(var(--f) * 32.5);font:400 var(--f)/1.9 "Noto Serif TC","BookSupp",serif;letter-spacing:.04em;color:#1f1a17;overflow-x:auto;overflow-y:hidden;align-self:stretch}
 .bp .vt p{margin:0}
 .bp .ln.hd{font-weight:900;color:#1f1a17}
 .bp .ln.hd:first-child{font-size:1.06em}
 .bp .q{color:#8f4a42;font-size:.7em;font-weight:700;writing-mode:horizontal-tb;text-combine-upright:all}
 .bp .bf{margin:0;align-self:center;max-width:100%}.bp .bf img{display:block;max-width:100%;max-height:calc(100vh - var(--hh,60px) - 160px);box-shadow:0 1px 6px #0003}
-.bp .cap{margin:0;text-align:center;font:500 17px/1.6 "Noto Serif TC",serif;letter-spacing:.05em}
+.bp .cap{margin:0;text-align:center;font:500 17px/1.6 "Noto Serif TC","BookSupp",serif;letter-spacing:.05em}
 .bp .cnote{margin:0;text-align:center;font-size:13px;color:#8a7a6a}
-.bp .folio{position:absolute;right:20px;bottom:14px;font:500 15px "Noto Serif TC",serif;color:#8a7a6a}
-.bp .todo{flex:1;display:grid;place-items:center;font:700 34px "Noto Serif TC",serif;color:#8f4a42aa;letter-spacing:.2em;min-height:300px}
-.tbw{overflow-x:auto}.bp table{border-collapse:collapse;width:100%;font:15px/1.5 "Noto Serif TC",serif;background:#fbf6ea}
+.bp .folio{position:absolute;right:20px;bottom:14px;font:500 15px "Noto Serif TC","BookSupp",serif;color:#8a7a6a}
+.bp .todo{flex:1;display:grid;place-items:center;font:700 34px "Noto Serif TC","BookSupp",serif;color:#8f4a42aa;letter-spacing:.2em;min-height:300px}
+.tbw{overflow-x:auto}.bp table{border-collapse:collapse;width:100%;font:15px/1.5 "Noto Serif TC","BookSupp",serif;background:#fbf6ea}
 .bp th,.bp td{border:1px solid #8a7a6a88;padding:5px 7px;text-align:center}.bp th{background:#e2d6c2;font-weight:700}
-.bp .bken{font:18px/1.7 Georgia,serif}.bp .bken p{margin:0 0 1em}.bp .enh{font:600 30px Georgia,serif;margin:0 0 16px}.bp .enh small{font:500 16px "Noto Serif TC",serif;color:#8a7a6a;margin-left:8px}
+.bp .bken{font:18px/1.7 Georgia,serif}.bp .bken p{margin:0 0 1em}.bp .enh{font:600 30px Georgia,serif;margin:0 0 16px}.bp .enh small{font:500 16px "Noto Serif TC","BookSupp",serif;color:#8a7a6a;margin-left:8px}
 html[data-lang=en] .bp .cap{font-family:Georgia,serif;letter-spacing:0}
 /* cover: on web same width as page sheets */
 @media(min-width:901px){.sec.bkcover{width:auto;aspect-ratio:auto;height:calc(100vh - var(--hh,60px) - 40px);margin:18px 4px}
  .bkcover .rule{inset:28px}.bkcover .t{font-size:64px}.bkcover .d{left:54px;bottom:54px}.bkcover .en-sub{bottom:54px;left:100px;right:40px}}
 .sec.bkcover{scroll-margin-top:calc(var(--hh,60px) + 16px)}
 @media(max-width:900px){.bp .sheet{min-height:0;padding:22px 16px 40px}
- .bp .vt{writing-mode:horizontal-tb;height:auto;font-size:17px;line-height:1.85;overflow:visible}
+ .bp .vt{writing-mode:horizontal-tb;height:auto!important;font-size:17px;line-height:1.85;overflow:visible}
  .bp .ln{display:inline;white-space:normal}.bp .vt p{margin:0 0 .5em}.bp .ln.ind{} .bp .ln.hd{display:block}
  .bp .q{font-size:.75em}.bp .cap{font-size:15px}.bp table{font-size:12px}}
 .nav a .lbl{white-space:normal;display:inline-block;max-width:150px;line-height:1.35}
 .bp .cap.hdc{font-weight:700;font-size:19px}
+
+/* v3 consolidation mock */
+@media(min-width:901px){.bp .vt{--f:15.5px}
+ .bp.cons .vt{padding-top:1.9em}
+ .bp .ln.pmh{position:relative}
+ .bp .pm{position:absolute;top:-1.9em;left:50%;transform:translateX(-50%);writing-mode:horizontal-tb;white-space:nowrap;font:500 10px/1 "Noto Serif TC","BookSupp",serif;letter-spacing:0;color:#9a8670;opacity:.85}
+ .bp .pg{display:contents}}
+@media(max-width:900px){.bp .pg{display:block}.bp .pm{display:block;margin:.6em 0 .2em;font:500 11px "Noto Serif TC","BookSupp",serif;color:#9a8670;text-align:right}.bp .pg:first-child .pm{margin-top:0}}
+/* book characters missing from Google's Noto Serif TC (尙爲愼荆…, from Noto Serif CJK TC) + PUA U+E002 */
+@font-face{font-family:"BookSupp";src:url("fonts/noto-serif-supp-400.woff2?v=v3pub") format("woff2");font-weight:300 600;unicode-range:U+518C,U+5C19,U+5C5B,U+613C,U+654E,U+6A2A,U+6DF8,U+7232,U+8346}
+@font-face{font-family:"BookSupp";src:url("fonts/noto-serif-supp-900.woff2?v=v3pub") format("woff2");font-weight:601 900;unicode-range:U+518C,U+5C19,U+5C5B,U+613C,U+654E,U+6A2A,U+6DF8,U+7232,U+8346}
+@font-face{font-family:"BookSupp";src:url("fonts/book-pua-400.woff2?v=v3pub") format("woff2");font-weight:300 600;unicode-range:U+E001-E002,U+FE11-FE12}
+@font-face{font-family:"BookSupp";src:url("fonts/book-pua-900.woff2?v=v3pub") format("woff2");font-weight:601 900;unicode-range:U+E001-E002,U+FE11-FE12}
+
+/* redrawn charts  */
+.bp .bcw{flex:1;display:flex;justify-content:center;align-items:flex-start;overflow-x:auto;direction:rtl}
+.bp .bchart{direction:ltr;display:block;flex:none;width:auto;height:calc(100vh - var(--hh,60px) - 140px);min-height:520px;max-width:100%}
+.bchart text{font-family:"Noto Serif TC","BookSupp",serif;dominant-baseline:central;fill:#1f1a17;font-weight:500}.bchart text:not([text-anchor]){text-anchor:middle}
+.bchart .t{font-weight:700}.bchart .g{fill:#8f4a42;font-weight:600}.bchart .num{font-family:Georgia,"Noto Serif TC",serif;font-weight:400}
+.bchart .q{fill:#8f4a42;font-weight:700;font-family:"Noto Serif TC",serif}.bchart .tcy{font-family:Georgia,"Noto Serif TC",serif}
+.bchart line{stroke:#2a2420;stroke-width:1.5;stroke-linecap:square}
+.bp .bpoem{text-align:center;font:500 18px/2 "Noto Serif TC","BookSupp",serif;letter-spacing:.1em}.bp .bpoem p{margin:0}
+@media(max-width:900px){.bp .bcw{margin:0 -8px;justify-content:flex-start}.bp .bchart{height:auto;width:calc(var(--vw) * 0.82px);max-width:none;min-height:0}.bp .bpoem{font-size:15px}}

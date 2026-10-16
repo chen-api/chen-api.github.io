@@ -1,6 +1,6 @@
 /* Copied from ../family-tree-v4/styles.css (fixed title bar + calligraphy title + seal + theme-c), adapted only for placement */
 @font-face{font-family:"TitleBrush";src:url("assets/fonts/yuji-syuku-title.woff2") format("woff2");font-display:block}
-@font-face{font-family:"BrushKai";src:url("assets/fonts/lxgw-wenkai-tc-700-subset.woff2") format("woff2");font-weight:700;font-display:block}
+@font-face{font-family:"BrushKai";src:url("assets/fonts/lxgw-wenkai-tc-700-subset.woff2?v=p108") format("woff2");font-weight:700;font-display:block}
 :root{--bar-h:56px;--ft-font:"Segoe UI","PingFang TC","PingFang SC","Hiragino Sans GB","Noto Sans TC","Noto Sans SC","Microsoft JhengHei","Microsoft YaHei",system-ui,sans-serif}
 .site-header{--bg:#e2dcd5;--ink:#1a1a1a;--ink-soft:#5a534c;--btn-border:#2a2622;--btn-hover:#d6cec3;--engrave-blue:#4a4b6b;--guilloche-tan:#d39c7d;--seal-red:#c8102e;
  position:sticky;top:0;z-index:60;width:100%;margin:0;background:var(--bg);border-bottom:1px solid var(--ink);
