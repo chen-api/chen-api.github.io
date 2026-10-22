@@ -41,10 +41,27 @@ html body .side .nav.nx a.on::before,html body .side .nav.nx .nx-grid a.on::befo
 
 /* === hover / focus-visible (list + generation grid + mobile menus) === */
 html body .side .nav.nx a,.mtop a,.mtop button,.mdrop a{transition:color .15s!important}
-html body .side .nav.nx a:not(.on):is(:hover,:focus-visible),
-html body .side .nav.nx .nx-grid a:not(.on):is(:hover,:focus-visible){color:#8f4a42!important}
-html body .side .nav.nx a:not(.on):is(:hover,:focus-visible) :is(.lbl,.zh){color:#8f4a42!important}
-.mtop a:not(.on):is(:hover,:focus-visible),.mtop button:is(:hover,:focus-visible),
-.mdrop a:not(.on):is(:hover,:focus-visible){color:#8f4a42!important}
+
+html body .side .nav.nx a:not(.on):focus-visible,
+html body .side .nav.nx .nx-grid a:not(.on):focus-visible{color:#8f4a42!important}
+@media (hover:hover) and (pointer:fine){html body .side .nav.nx a:not(.on):hover,
+html body .side .nav.nx .nx-grid a:not(.on):hover{color:#8f4a42!important}}
+
+html body .side .nav.nx a:not(.on):focus-visible :is(.lbl,.zh){color:#8f4a42!important}
+@media (hover:hover) and (pointer:fine){html body .side .nav.nx a:not(.on):hover :is(.lbl,.zh){color:#8f4a42!important}}
+
+.mtop a:not(.on):focus-visible,
+.mtop button:focus-visible,
+.mdrop a:not(.on):focus-visible{color:#8f4a42!important}
+@media (hover:hover) and (pointer:fine){.mtop a:not(.on):hover,
+.mtop button:hover,
+.mdrop a:not(.on):hover{color:#8f4a42!important}}
 html body .side .nav.nx a:focus-visible,.mtop :is(a,button):focus-visible,.mdrop a:focus-visible{outline:none}
 @media(prefers-reduced-motion:reduce){html body .side .nav.nx a,.mtop a,.mtop button,.mdrop a{transition:none!important}}
+
+/* msfix 2026-10-21: mobile 世系 dropdown — wrapped labels no longer get 2.2 line gaps; scrolling the list doesn't scroll the page */
+.mdrop{overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+.mdrop a{line-height:1.35!important;padding-top:6px!important;padding-bottom:6px!important}
+
+/* menu3: three mobile tabs (序章 · 陳氏家譜 · 世系); keep each label on one line */
+.mtop .mt{white-space:nowrap}

@@ -47,7 +47,8 @@ body{--sm:24px}
 .sidein::before{content:"";position:absolute;right:4px;top:0;bottom:0;width:6px;background:url(assets/brocade.svg);opacity:.85}
 .nav{display:flex;flex-direction:column;gap:1px;overflow-y:auto;scrollbar-width:none}
 .nav a{font:500 14px "Noto Serif TC","BookSupp";letter-spacing:.06em;color:#6b5a4c;text-decoration:none;padding:4px 14px;border-left:2px solid #0000;text-align:center;white-space:nowrap}
-.nav a:hover{color:var(--ink)}.nav a.on{color:var(--seal);border-left-color:var(--seal);font-weight:700}
+
+@media (hover:hover) and (pointer:fine){.nav a:hover{color:var(--ink)}}.nav a.on{color:var(--seal);border-left-color:var(--seal);font-weight:700}
 .main{padding:0 40px 60px}
 .sec.gen,.sec.yuan{margin:28px 0;border:1px solid #c9a45c99;outline:1px solid #c9a45c55;outline-offset:5px;background:#fbf6ea66}
 .title{border-bottom:1px solid #c9a45c66}
@@ -72,7 +73,8 @@ body{--sm:24px}
 .navtoggle{display:none}
 .pn{display:flex;justify-content:space-between;gap:12px;padding:30px 0 0;writing-mode:horizontal-tb;width:100%;position:absolute;left:0;bottom:24px;padding:0 56px}
 .gen{padding-bottom:110px}
-.pn a{border:1.5px solid var(--brick);color:var(--brick);text-decoration:none;padding:6px 16px;font:600 14px "Noto Serif TC","BookSupp";border-radius:2px}.pn a:hover{background:var(--brick);color:#f8ece4}
+.pn a{border:1.5px solid var(--brick);color:var(--brick);text-decoration:none;padding:6px 16px;font:600 14px "Noto Serif TC","BookSupp";border-radius:2px}
+@media (hover:hover) and (pointer:fine){.pn a:hover{background:var(--brick);color:#f8ece4}}
 .pn a:only-child{margin-left:auto}
 .page{margin:28px 0;border:1px solid #c9a45c99;outline:1px solid #c9a45c55;outline-offset:5px;background:#fbf6ea66;padding:56px;min-height:70vh}
 .ph{font:400 48px "Ma Shan Zheng";letter-spacing:.2em;margin:0 0 28px;color:var(--ink)}
@@ -167,7 +169,8 @@ html{scroll-behavior:smooth}@media (prefers-reduced-motion:reduce){html{scroll-b
  .nav .gen-l{writing-mode:vertical-rl;font:700 15px/1 "BrushKai",var(--ft-font);letter-spacing:.12em;color:#1a1a1a;display:inline-flex;align-items:center}
  .nav .gen-shi{display:inline-block;writing-mode:horizontal-tb;width:17px;height:17px;margin-top:4px;font:700 13px/15px "BrushKai",var(--ft-font);text-align:center;color:#1a1a1a;border:1.25px solid transparent;border-radius:1.5px;letter-spacing:0;box-sizing:border-box}
  .nav .gen-w{padding:4px 2px;border:1.25px solid transparent;border-radius:1.5px}
- .nav a:hover .gen-l{color:#8f4a42}
+ 
+@media (hover:hover) and (pointer:fine){.nav a:hover .gen-l{color:#8f4a42}}
  .nav a.on .gen-shi{color:#efe6da;background:#8f4a42;border-color:#8f4a42;filter:url(#seal-worn)}
  .nav a.on .gen-w{color:#efe6da;background:#8f4a42;border-color:#8f4a42;filter:url(#seal-worn)}
  .nav .dv{writing-mode:vertical-rl;font:700 11px/1 "BrushKai",var(--ft-font);letter-spacing:.2em;color:#8f4a42;opacity:.8;padding:4px 0;margin:0;border:0;width:auto}
@@ -192,7 +195,8 @@ html{scroll-behavior:smooth}@media (prefers-reduced-motion:reduce){html{scroll-b
  .nav{justify-content:flex-start;gap:2px;padding-top:6px}
  .nav a{padding:3px 0}
  .nav .lbl{display:inline-block;writing-mode:horizontal-tb;white-space:nowrap;font:700 15px/1.25 "BrushKai",var(--ft-font);letter-spacing:.12em;color:#1a1a1a;padding:3px 9px 3px 10px;border:1.25px solid transparent;border-radius:1.5px}
- .nav a:hover .lbl{color:#8f4a42}
+ 
+@media (hover:hover) and (pointer:fine){.nav a:hover .lbl{color:#8f4a42}}
  .nav a.on .lbl{color:#efe6da;background:#8f4a42;border-color:#8f4a42;filter:url(#seal-worn)}
  .nav .dv{writing-mode:horizontal-tb;white-space:nowrap;font:700 12px/1 "BrushKai",var(--ft-font);letter-spacing:.15em;color:#8f4a42;opacity:.85;padding:0;margin:8px 0 6px;display:flex;align-items:center;gap:5px;width:84%}
  .nav .dv::before,.nav .dv::after{content:"";display:block!important;flex:1;height:1px;background:#8f4a4288}

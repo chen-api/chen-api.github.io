@@ -20,6 +20,10 @@ html body .site-header .langtg.lflag{height:26px!important;padding:0!important;a
 
 /* Hover / focus-visible */
 .site-switch a{transition:background-color .15s,color .15s}
-.site-switch a:not([aria-current="page"]):is(:hover,:focus-visible){background:rgba(42,38,34,.08);color:#8f4a42}
-.site-switch a[aria-current="page"]:is(:hover,:focus-visible){background:#7a3d36}
+
+.site-switch a:not([aria-current="page"]):focus-visible{background:rgba(42,38,34,.08);color:#8f4a42}
+@media (hover:hover) and (pointer:fine){.site-switch a:not([aria-current="page"]):hover{background:rgba(42,38,34,.08);color:#8f4a42}}
+
+.site-switch a[aria-current="page"]:focus-visible{background:#7a3d36}
+@media (hover:hover) and (pointer:fine){.site-switch a[aria-current="page"]:hover{background:#7a3d36}}
 @media(prefers-reduced-motion:reduce){.site-switch a{transition:none}}

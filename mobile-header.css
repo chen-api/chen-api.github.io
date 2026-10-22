@@ -22,7 +22,9 @@
   html body .site-header.has-toolrow .toolbar button{flex:1 0 auto!important;min-width:56px;height:48px!important;padding:0 6px!important;margin:0!important;display:flex;align-items:center;justify-content:center;
     background:none!important;border:0!important;border-bottom:3px solid transparent!important;border-radius:0!important;box-shadow:none!important;
     font:500 16px "Noto Serif TC","Noto Serif CJK TC","BookSupp",serif!important;letter-spacing:.08em!important;color:#2a2622!important;transition:color .15s}
-  html body .site-header.has-toolrow .toolbar button:hover,html body .site-header.has-toolrow .toolbar button:focus-visible{color:#8f4a42!important;outline:none}
+  
+html body .site-header.has-toolrow .toolbar button:focus-visible{color:#8f4a42!important;outline:none}
+@media (hover:hover) and (pointer:fine){html body .site-header.has-toolrow .toolbar button:hover{color:#8f4a42!important;outline:none}}
   html body .site-header.has-toolrow .toolbar button:active{color:#8f4a42!important;border-bottom-color:#c8102e!important;font-weight:700!important}
 }
 @media (max-width:360px){html body .site-header h1{font-size:21px!important}html body .site-header.has-toolrow .toolbar button{min-width:48px;letter-spacing:.04em!important}}

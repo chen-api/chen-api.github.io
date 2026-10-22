@@ -20,7 +20,8 @@
 .site-header .legend-dot.spouse{border-color:var(--guilloche-tan);border-style:dashed;background:none}
 .site-header .toolbar{display:flex;flex-wrap:nowrap;gap:.4rem;margin:0}
 .site-header .tbtn{font-family:"BrushKai",var(--ft-font);font-weight:700;font-size:.8rem;color:var(--ink);background:transparent;border:1px solid var(--btn-border);border-radius:999px;padding:.28rem .75rem;white-space:nowrap;text-decoration:none;transition:background .2s,border-color .2s}
-.site-header .tbtn:hover{background:var(--btn-hover);border-color:var(--ink)}
+
+@media (hover:hover) and (pointer:fine){.site-header .tbtn:hover{background:var(--btn-hover);border-color:var(--ink)}}
 .lbl-short{display:none}
 @media (max-width:1000px){.site-header .intro{display:none}}
 /* placement in chen-pages */

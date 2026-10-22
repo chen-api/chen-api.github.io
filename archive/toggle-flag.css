@@ -12,5 +12,8 @@ html body .site-header .langtg.lflag>span.vh{position:absolute!important;width:1
 
 /* Hover / focus-visible: light up the inactive flag (active flag unchanged) */
 .lflag .fl{transition:filter .15s,opacity .15s}
-html:not([data-lang=en]) .lflag:is(:hover,:focus-visible) .fl.us,
-html[data-lang=en] .lflag:is(:hover,:focus-visible) .fl.roc{filter:grayscale(.25);opacity:.75}
+
+html:not([data-lang=en]) .lflag:focus-visible .fl.us,
+html[data-lang=en] .lflag:focus-visible .fl.roc{filter:grayscale(.25);opacity:.75}
+@media (hover:hover) and (pointer:fine){html:not([data-lang=en]) .lflag:hover .fl.us,
+html[data-lang=en] .lflag:hover .fl.roc{filter:grayscale(.25);opacity:.75}}

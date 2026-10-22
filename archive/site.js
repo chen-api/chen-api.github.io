@@ -23,10 +23,12 @@ function pTxt(p,mark){return (p.paras||[]).map((par,pi)=>`<p>${par.map((l,li)=>{
 const SECSTART=new Set(SEC.map(x=>x[1]));
 const textOnly=p=>p&&p.n>4&&!p.todo&&!(p.imgs||[]).length&&!p.table&&!p.chartnote&&(p.paras||[]).length;
 const BUILD=/[?&]build/.test(location.search);
+// designer-content.js now loads before this file: render the web sections directly, so the book-sheet cover (.bkcover) never paints
+const DZ=!BUILD&&typeof window.DESIGNER_HTML==='string';
 let GROUPS=window.CONS||null;
 let h=`<section class="sec bkcover" id="cover" data-n="0"><div class="rule"></div><h1 class="t">陳氏家譜</h1><p class="d">一九八八年八月八日重整</p><p class="en-sub en">Chen Family Genealogy · Reorganized August 8, 1988</p></section>`;
 const GMAP={};if(GROUPS&&!BUILD)for(const g of GROUPS)if(g.length>1)g.forEach((n,i)=>GMAP[n]=i?null:g);
-for(const p of PG){if(p.n===0)continue;
+for(const p of (DZ?[]:PG)){if(p.n===0)continue;
  if(GMAP[p.n]===null)continue;
  if(GMAP[p.n]){h+=mergedSheet(GMAP[p.n].map(n=>PG.find(q=>q.n===n)));continue}
  let body='';
@@ -49,7 +51,7 @@ for(const p of PG){if(p.n===0)continue;
 function mergedSheet(ps){const ml=Math.max(4,...ps.flatMap(p=>p.paras.flat()).map(l=>l.replace(/⟦\?⟧/g,'').length));
  const txt=ps.map((p,i)=>`<div class="pg"${i?` id="pg-${p.n}"`:''} data-n="${p.n}">${pTxt(p,true)}</div>`).join('');
  return `<section class="sec bp k-text cons" id="pg-${ps[0].n}" data-n="${ps[0].n}" data-pages="${ps.map(p=>p.n).join(',')}"><div class="sheet"><div class="vt" style="height:calc(var(--f) * ${vh(ml)})">${txt}</div><span class="folio">${ps[0].lab}–${ps[ps.length-1].lab}</span></div></section>`}
-C.innerHTML=h;
+if(DZ){C.innerHTML=window.DESIGNER_HTML;C.dataset.dz='1'}else C.innerHTML=h;
 const fixH=root=>{if(innerWidth<=900)return;root.querySelectorAll('.bp .vt').forEach(v=>{const d=v.scrollHeight-v.clientHeight;if(d>0)v.style.height=(parseFloat(getComputedStyle(v).height)+d+2)+'px'})};fixH(C);
 if(BUILD){ // greedy grouping measured in the live layout
  const fits=ps=>{const t=document.createElement('div');t.innerHTML=mergedSheet(ps);const sec=t.firstElementChild;C.appendChild(sec);fixH(sec);const v=sec.querySelector('.vt');const ok=v.scrollWidth<=v.clientWidth+1;sec.remove();return ok};
@@ -59,16 +61,17 @@ if(BUILD){ // greedy grouping measured in the live layout
   else{cur=[p.n];G.push(cur)}}
  window.__GROUPS=G;}
 // anchors
-const items=SEC.map(([l,n,m],i)=>{let id=n===0?'cover':'pg-'+n;if(m&&n){const sec=document.getElementById('pg-'+n);const ln=[...sec.querySelectorAll('.ln')].find(x=>x.textContent.trim().startsWith(m));if(ln){ln.id='s'+i;id='s'+i}}return {l,n,id,i}});
-const lbl=it=>it.i===0?L('封面','Cover'):it.i===1?L('序章','Preface'):it.i===2?L('陳氏家廟','Temple'):it.l;
-nav.innerHTML=items.map(it=>`<a href="#${it.id}" data-i="${it.i}" title="${it.l}"><span class="lbl">${lbl(it)}</span></a>`).join('');
-const MT=[0,1,"*",26],mtop=document.getElementById('mtop'),mdrop=document.getElementById('mdrop');
+const items=SEC.map(([l,n,m],i)=>{let id=n===0?'cover':'pg-'+n;if(DZ){if(n&&document.getElementById('s'+i))id='s'+i;return {l,n,id,i}}if(m&&n){const sec=document.getElementById('pg-'+n);const ln=[...sec.querySelectorAll('.ln')].find(x=>x.textContent.trim().startsWith(m));if(ln){ln.id='s'+i;id='s'+i}}return {l,n,id,i}});
+const lbl=it=>it.i===0?L('封面','Cover'):it.i===1?L('序章','Preface'):it.i===2?L('陳氏家廟','Chen Family Ancestral Temple'):it.l;
+const MI=items.filter(it=>it.i!==0);
+nav.innerHTML=MI.map(it=>`<a href="#${it.id}" data-i="${it.i}" title="${it.l}"><span class="lbl">${lbl(it)}</span></a>`).join('');
+const MT=[1,6,"*"],mtop=document.getElementById('mtop'),mdrop=document.getElementById('mdrop');
 mtop.innerHTML=MT.map(k=>k==='*'?`<button class="mt" id="mtgen" aria-expanded="false"><span class="zh">世系</span><span class="en">Generations</span><i class="car"></i></button>`:`<a class="mt" href="#${items[k].id}" data-i="${k}">${lbl(items[k])}</a>`).join('');
-mdrop.innerHTML=items.filter(it=>!MT.includes(it.i)).map(it=>`<a href="#${it.id}" data-i="${it.i}">${it.l}</a>`).join('');
+mdrop.innerHTML=MI.filter(it=>!MT.includes(it.i)).map(it=>`<a href="#${it.id}" data-i="${it.i}">${it.l}</a>`).join('');
 const mtg=document.getElementById('mtgen');const setDrop=o=>{mdrop.hidden=!o;mtg.setAttribute('aria-expanded',o);mtg.classList.toggle('open',o)};
 mtg.onclick=e=>{e.stopPropagation();setDrop(mdrop.hidden)};document.addEventListener('click',e=>{if(!mdrop.hidden&&!e.target.closest('#mbar'))setDrop(false)});
 mdrop.addEventListener('click',e=>{if(e.target.closest('a'))setDrop(false)});
-function spy(){const off=(parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--hh'))||60)+60;let cur=0;for(const it of items){const el=document.getElementById(it.id);if(el&&el.getBoundingClientRect().top<=off)cur=it.i}
+function spy(){const cs=getComputedStyle(document.documentElement),st=parseFloat(cs.getPropertyValue('--stick'))||0;const off=Math.max((parseFloat(cs.getPropertyValue('--hh'))||60)+60,st+8);let cur=1,ct=-1e9;for(const it of MI){const el=document.getElementById(it.id);if(el){const t=el.getBoundingClientRect().top;if(t<=off){cur=it.i;ct=t}}}document.querySelectorAll('#content [data-spy]').forEach(m=>{const t=m.getBoundingClientRect().top;if(t<=off&&t>ct){cur=+m.dataset.spy;ct=t}});
  [nav,mtop,mdrop].forEach(c=>c.querySelectorAll('a').forEach(a=>a.classList.toggle('on',+a.dataset.i===cur)));mtg.classList.toggle('on',!MT.includes(cur));
  const on=nav.querySelector('a.on');if(on&&getComputedStyle(nav).display!=='none'){const r=on.getBoundingClientRect(),n=nav.getBoundingClientRect();if(r.top<n.top||r.bottom>n.bottom)on.scrollIntoView({block:'nearest'})}}
 window.spy=spy;let tk=0;addEventListener('scroll',()=>{if(!tk){tk=1;requestAnimationFrame(()=>{tk=0;spy()})}},{passive:true});
