@@ -16,9 +16,20 @@
  *                           (partial dates like "1975" or "1975-11" OK)
  *   deathDate    string     optional; kept for your records but NEVER displayed
  *   notes        string     optional free-text source notes (book page refs etc.); not displayed
+ *   visibleNote  string     optional, RARE (Bill-approved only): short note shown under the birthday in muted style (e.g. 爲舜 尙白之子過房)
  *   photoUrl     string     optional image path or URL; default avatar (avatars/) by gender if omitted
  *   spouseId     string     optional id of spouse (set on both partners)
  *   childrenIds  string[]   ids of children (usually listed on the bloodline parent)
+ *   otherSpouseIds string[] optional extra spouses (wives of a bloodline male, or husbands of a bloodline female);
+ *                           children are grouped by motherId (male anchor) or fatherId (female anchor)
+ *   skipRows     number     optional: this child sits N generation rows below parent+1 (e.g. 平英, 廿一世 heir of 十九世 爲讀,
+ *                           skipRows 1). Rendered at its TRUE generation (rail, avatars, descendants); the parent's drop line
+ *                           runs through the empty row(s).
+ *   refOf        string     optional: this node is a REFERENCE COPY of another person (adoption rule, Bill 2026-10-21).
+ *                           The copy sits under the birth father; name/birthDate/gender/englishName/photo are inherited
+ *                           from the main node, the copy has its own visibleNote, NO children, and shows the main node's
+ *                           wife/wives (rendered as virtual reference cards; no duplicate ids). Descendants show only
+ *                           under the main node (adoptive father).
  *
  * rootId: the top-most person to start drawing from.
  * focusId: person whose direct line (from rootId) is expanded by default (陳清水).
@@ -812,7 +823,10 @@ window.FAMILY_DATA = {
       "deathDate": null,
       "photoUrl": null,
       "spouseId": null,
-      "childrenIds": []
+      "childrenIds": [
+        "g18_shangbai"
+      ],
+      "notes": "四子 of 新長; d. 光緒戊子 age 30; 後嗣爲尙白 (p.170). 尙白's branch placed here per Bill 2026-10-21 adoption rule."
     },
     "g17_chuangbao": {
       "id": "g17_chuangbao",
@@ -826,7 +840,7 @@ window.FAMILY_DATA = {
       "spouseId": "g17_chuangbao_w",
       "childrenIds": [
         "g18_jin",
-        "g18_shangbai",
+        "g18_shangbai__ref",
         "g18_shangsan"
       ]
     },
@@ -836,18 +850,20 @@ window.FAMILY_DATA = {
       "englishName": "",
       "gender": "male",
       "role": "bloodline",
-      "birthDate": "",
+      "birthDate": "1884-10-08",
       "deathDate": null,
       "photoUrl": null,
       "spouseId": "g18_shangbai_w",
       "childrenIds": [
+        "g19_bai_s1",
         "g19_bai_s2",
         "g19_bai_s3",
         "g19_bai_s4",
         "g19_bai_s5",
         "g19_bai_s6"
       ],
-      "notes": "Born to 窓抱 (次子); 後嗣 of 四子 窓卯 (p.170)."
+      "notes": "Born to 窓抱 (次子); 後嗣 of 四子 窓卯 (p.170 「四子窓卯…後嗣爲尙白」). Main node moved under 窓卯 with wife and descendants; reference copy g18_shangbai__ref (過房窓卯) under 窓抱 in his birth-order slot (2nd of 進・尙白・尙三, p.169) per Bill 2026-10-21 adoption rule. Birth 光緒甲申年八月二十日 lunar (book) = 1884-10-08 via sxtwl.",
+      "visibleNote": "窓抱之子過房"
     },
     "g18_shangsan": {
       "id": "g18_shangsan",
@@ -859,7 +875,9 @@ window.FAMILY_DATA = {
       "deathDate": null,
       "photoUrl": null,
       "spouseId": null,
-      "childrenIds": []
+      "childrenIds": [
+        "g19_weichao"
+      ]
     },
     "g18_jin": {
       "id": "g18_jin",
@@ -875,7 +893,7 @@ window.FAMILY_DATA = {
         "g19_wang",
         "g19_chun",
         "g19_weicun",
-        "g19_weichao",
+        "g19_weichao__ref",
         "g19_weijun",
         "g19_jin_d1",
         "g19_jin_d2"
@@ -890,15 +908,30 @@ window.FAMILY_DATA = {
       "birthDate": "",
       "deathDate": null,
       "photoUrl": null,
-      "spouseId": null,
+      "spouseId": "g19_wang_w",
       "childrenIds": [
         "g20_xi",
         "g20_xian",
         "g20_ping",
+        "g20_zhaonan__ref",
+        "g20_wang_d1",
         "g20_wang_d2",
         "g20_wang_d3",
         "g20_wang_d4"
       ]
+    },
+    "g19_wang_w": {
+      "id": "g19_wang_w",
+      "name": "林麵娘",
+      "englishName": "",
+      "gender": "female",
+      "role": "spouse",
+      "birthDate": "1899-01-10",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": "g19_wang",
+      "childrenIds": [],
+      "notes": "Wife of 旺; printed 妻林氏麵娘 (p.174); chart p.170 prints 妻陳林麵. Born 戊戌年十一月廿九日酉時 (lunar; = 1899-01-10 via sxtwl). 卒于丙午年十一月廿二日丑時, 壽元六九歲 (p.174; kept in notes only). Mother of 錫, 賢, 長祿, 昭南(昭男), 喜, 秀丹, 秀鳳, 秀蘭 (p.174). 麵 confirmed by Bill 2026-10-21."
     },
     "g19_chun": {
       "id": "g19_chun",
@@ -913,8 +946,35 @@ window.FAMILY_DATA = {
       "childrenIds": [
         "g20_cheng",
         "qingshui",
+        "g20_chun_d1",
         "g20_feng"
       ]
+    },
+    "g20_chun_d1": {
+      "id": "g20_chun_d1",
+      "name": "陳葉",
+      "englishName": "",
+      "gender": "female",
+      "role": "bloodline",
+      "birthDate": "",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": "g20_chun_d1_h",
+      "childrenIds": [],
+      "notes": "長女 of 春; p.186 「長女陳葉嫁大草埔朱湖　生三男二女住梅山鄉大南村大草埔廿一號」; p.184 chart 長女 葉－; five children not named; placed between 清水 and 逢 per Bill 2026-10-21."
+    },
+    "g20_chun_d1_h": {
+      "id": "g20_chun_d1_h",
+      "name": "朱湖",
+      "englishName": "",
+      "gender": "male",
+      "role": "spouse",
+      "birthDate": "",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": "g20_chun_d1",
+      "childrenIds": [],
+      "notes": "Husband of 陳葉 (春's 長女), of 大草埔 (p.186)."
     },
     "g19_weicun": {
       "id": "g19_weicun",
@@ -922,41 +982,46 @@ window.FAMILY_DATA = {
       "englishName": "(16歲歿)",
       "gender": "male",
       "role": "bloodline",
-      "birthDate": "",
-      "deathDate": null,
-      "photoUrl": null,
-      "spouseId": null,
-      "childrenIds": []
-    },
-    "g19_weichao": {
-      "id": "g19_weichao",
-      "name": "陳爲朝",
-      "englishName": "",
-      "gender": "male",
-      "role": "bloodline",
-      "birthDate": "",
+      "birthDate": "1904-09-19",
       "deathDate": null,
       "photoUrl": null,
       "spouseId": null,
       "childrenIds": [
-        "g20_qingying",
-        "g20_qingjian"
+        "g20_qingying"
       ],
-      "notes": "p.169 chart also lists 惟朝（進之四子） under 尙三."
+      "notes": "d. age 16 (p.175); heir 清盈 placed here per Bill 2026-10-21 adoption rule. Birth 甲辰年八月十日 lunar (book) = 1904-09-19 via sxtwl."
     },
-    "g19_weijun": {
-      "id": "g19_weijun",
-      "name": "陳爲軍",
+    "g19_weichao": {
+      "id": "g19_weichao",
+      "name": "陳惟朝",
       "englishName": "",
       "gender": "male",
       "role": "bloodline",
-      "birthDate": "",
+      "birthDate": "1910-04-17",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": null,
+      "childrenIds": [
+        "g20_qingying__ref",
+        "g20_qingjian"
+      ],
+      "notes": "p.169 chart: 尙三 → 惟朝（進之四子）; pp.172/175 進公之四子 (p.172 傳五男二女…四子惟朝). p.175 生于民前二年庚戌年三月八日 (stored as printed, 1910-03-08). Old tree spelled 爲朝 and placed him under 進; moved under 尙三 with 清盈/清鑑 per Bill 2026-10-21. visibleNote 進之四子 shown on tree. Reference copy g19_weichao__ref (過房尙三) under 進 per Bill 2026-10-21 adoption rule. Birth 庚戌年三月八日 lunar (p.175) = 1910-04-17 via sxtwl.",
+      "visibleNote": "進之子過房"
+    },
+    "g19_weijun": {
+      "id": "g19_weijun",
+      "name": "陳惟軍",
+      "englishName": "",
+      "gender": "male",
+      "role": "bloodline",
+      "birthDate": "1917-01-28",
       "deathDate": null,
       "photoUrl": null,
       "spouseId": "g19_weijun_w",
       "childrenIds": [
         "g20_guoxiong"
-      ]
+      ],
+      "notes": "p.172 五子惟軍; p.176 第十九世惟軍 (進公之五男); p.169 chart prints 爲軍. Old tree spelled 爲軍; renamed per Bill 2026-10-21. Birth 丁巳年一月六日 lunar (book) = 1917-01-28 via sxtwl."
     },
     "g20_qingying": {
       "id": "g20_qingying",
@@ -969,7 +1034,8 @@ window.FAMILY_DATA = {
       "photoUrl": null,
       "spouseId": null,
       "childrenIds": [],
-      "notes": "Heir (後嗣) of 爲存 (pp.169, 175)."
+      "notes": "Born to 惟朝; heir (後嗣) of 爲存 (p.169 「爲存 ─ 清盈爲其後嗣」; p.175 「清盈爲其後嗣」). Main node moved under 爲存 with visibleNote 惟朝之子過房; reference copy g20_qingying__ref (過房爲存) under 惟朝 per Bill 2026-10-21 adoption rule.",
+      "visibleNote": "惟朝之子過房"
     },
     "g20_qingjian": {
       "id": "g20_qingjian",
@@ -1004,13 +1070,14 @@ window.FAMILY_DATA = {
       "birthDate": "",
       "deathDate": null,
       "photoUrl": null,
-      "spouseId": null,
+      "spouseId": "g20_xi_w",
       "childrenIds": [
         "g21_xi_c1",
         "g21_xi_c2",
         "g21_xi_c3",
         "g21_xi_c4"
-      ]
+      ],
+      "motherId": "g19_wang_w"
     },
     "g20_xian": {
       "id": "g20_xian",
@@ -1028,11 +1095,12 @@ window.FAMILY_DATA = {
         "g21_xian_c3",
         "g21_xian_c4",
         "g21_xian_c5"
-      ]
+      ],
+      "motherId": "g19_wang_w"
     },
     "g20_ping": {
       "id": "g20_ping",
-      "name": "陳瓶",
+      "name": "陳長祿（瓶）",
       "englishName": "",
       "gender": "male",
       "role": "bloodline",
@@ -1042,10 +1110,39 @@ window.FAMILY_DATA = {
       "spouseId": "g20_ping_w",
       "childrenIds": [
         "g21_ping_c1",
+        "g21_ping_d1",
         "g21_ping_c2",
         "g21_ping_c3"
       ],
-      "notes": "Book: 陳長祿（瓶）, 字瓶 (pp.177–179); name form under review."
+      "notes": "Book: 陳長祿（瓶）, 字瓶 (pp.177–179). Tree name set to 陳長祿（瓶） per Bill 2026-10-21 (was 陳瓶 from old PDF tree).",
+      "motherId": "g19_wang_w"
+    },
+    "g20_wang_d1": {
+      "id": "g20_wang_d1",
+      "name": "陳玉喜",
+      "englishName": "",
+      "gender": "female",
+      "role": "bloodline",
+      "birthDate": "",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": "g20_wang_d1_h",
+      "childrenIds": [],
+      "notes": "長女 of 旺; p.174 「長女喜適吳新桂」, p.178/180 陳吳玉喜（長女）, 現有二男二女, 住址古坑鄉華山村龜仔頭四一號. Name 陳玉喜 per Bill 2026-10-21.",
+      "motherId": "g19_wang_w"
+    },
+    "g20_wang_d1_h": {
+      "id": "g20_wang_d1_h",
+      "name": "吳新桂",
+      "englishName": "",
+      "gender": "male",
+      "role": "spouse",
+      "birthDate": "",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": "g20_wang_d1",
+      "childrenIds": [],
+      "notes": "Husband of 陳玉喜 (p.174)."
     },
     "g20_cheng": {
       "id": "g20_cheng",
@@ -1368,15 +1465,16 @@ window.FAMILY_DATA = {
     },
     "g20_laihao": {
       "id": "g20_laihao",
-      "name": "許來好",
+      "name": "許來好（芳子）",
       "englishName": "",
       "gender": "female",
       "role": "spouse",
-      "birthDate": "",
+      "birthDate": "1932-12-23",
       "deathDate": null,
       "photoUrl": null,
       "spouseId": "g20_feng",
-      "childrenIds": []
+      "childrenIds": [],
+      "notes": "Wife of 陳逢. Old PDF tree: 許來好. Book p.184 chart 妻許好子; p.186 妻陳許好子 民國廿一年十二月廿三日生, with 「芳子」 handwritten beside it (好 marked). Shown as 許來好（芳子） per Bill 2026-10-21."
     },
     "g21_liangquan": {
       "id": "g21_liangquan",
@@ -1781,7 +1879,7 @@ window.FAMILY_DATA = {
       "photoUrl": null,
       "spouseId": "g18_zhongshi",
       "childrenIds": [
-        "g19_wanen",
+        "g19_wanen__ref",
         "g19_weidu",
         "g19_weixiang",
         "g19_wuniang",
@@ -1793,7 +1891,7 @@ window.FAMILY_DATA = {
       ]
     },
     "g18_shangchu": {
-      "notes": "早逝世，由兄尙鄒之長子萬恩過房，接廿一世平英繼承 (p.104, p.106).",
+      "notes": "早逝世，由兄尙鄒之長子萬恩過房，接廿一世平英繼承 (p.104, p.106). 萬恩's branch placed here per Bill 2026-10-21 adoption rule. 平英 placed under 爲讀 instead (Bill 2026-10-21); 尙楚's line shown through 萬恩 → 陳勤.",
       "id": "g18_shangchu",
       "name": "陳尙楚",
       "englishName": "(居瑞峰村)",
@@ -1803,7 +1901,9 @@ window.FAMILY_DATA = {
       "deathDate": null,
       "photoUrl": null,
       "spouseId": null,
-      "childrenIds": []
+      "childrenIds": [
+        "g19_wanen"
+      ]
     },
     "g18_shangkui": {
       "id": "g18_shangkui",
@@ -1821,6 +1921,7 @@ window.FAMILY_DATA = {
         "g19_weidong",
         "g19_kui_d1",
         "g19_kui_d2",
+        "g19_kui_d2b",
         "g19_kui_d3"
       ]
     },
@@ -2237,6 +2338,7 @@ window.FAMILY_DATA = {
       "photoUrl": null,
       "spouseId": "g03_yw",
       "childrenIds": [
+        "g04_jindeng__ref",
         "g04_jindi"
       ]
     },
@@ -2281,8 +2383,8 @@ window.FAMILY_DATA = {
     "g04_jindeng": {
       "id": "g04_jindeng",
       "name": "陳金登",
-      "englishName": "(有貴之長子・出嗣)",
-      "notes": "p.18: 有貴之長子，出嗣與元貴公爲子 (born to 有貴, adopted as 元貴's son).",
+      "englishName": "",
+      "notes": "p.18: 有貴之長子，出嗣與元貴公爲子 (born to 有貴, adopted as 元貴's son). visibleNote 有貴之長子過房 (p.18 「長子金登出嗣與元貴公爲子」; p.19 「有貴公之長子也。自幼出嗣與元貴公爲子」; book wording is 出嗣, note uses the 過房 pattern per Bill). Reference copy g04_jindeng__ref (過房元貴) first under 有貴 per Bill 2026-10-21 adoption rule.",
       "gender": "male",
       "role": "bloodline",
       "birthDate": "",
@@ -2291,7 +2393,8 @@ window.FAMILY_DATA = {
       "spouseId": null,
       "childrenIds": [
         "g05_zhiming"
-      ]
+      ],
+      "visibleNote": "有貴之子過房"
     },
     "g05_zhiming": {
       "id": "g05_zhiming",
@@ -2756,14 +2859,18 @@ window.FAMILY_DATA = {
     "g05_zhaowang": {
       "id": "g05_zhaowang",
       "name": "陳昭旺",
-      "englishName": "(另配占氏・下圩)",
+      "englishName": "",
       "gender": "male",
       "role": "bloodline",
       "birthDate": "",
       "deathDate": null,
       "photoUrl": null,
       "spouseId": "g05_ww",
-      "childrenIds": []
+      "childrenIds": [],
+      "otherSpouseIds": [
+        "g05_zhanshi"
+      ],
+      "notes": "Wives per p.21: 鄭氏九娘 (tree keeps old-PDF 鄭氏) and 詹氏二十二娘 (added 2026-10-21 per Bill). Book p.20: 生于永樂甲辰年正月十六日, 卒于弘治庚戌年六月十一日 (not shown; tree follows old PDF). (Former second line: (另配占氏・下圩).)"
     },
     "g05_ww": {
       "id": "g05_ww",
@@ -2775,7 +2882,22 @@ window.FAMILY_DATA = {
       "deathDate": null,
       "photoUrl": null,
       "spouseId": "g05_zhaowang",
-      "childrenIds": []
+      "childrenIds": [],
+      "spouseLabel": "妻一"
+    },
+    "g05_zhanshi": {
+      "id": "g05_zhanshi",
+      "name": "詹氏二十二娘",
+      "englishName": "",
+      "gender": "female",
+      "role": "spouse",
+      "birthDate": "",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": "g05_zhaowang",
+      "childrenIds": [],
+      "notes": "妻二 of 昭旺; p.21 「媽詹氏二十二娘 生于永樂甲辰年八月二十七日，卒于弘治己酉年四月二十八日。享壽六十六歲」. Old PDF tree: 另配占氏 (下圩). Dates not shown (old-PDF tree has none for this generation).",
+      "spouseLabel": "妻二"
     },
     "g06_xingzhang": {
       "id": "g06_xingzhang",
@@ -2982,6 +3104,7 @@ window.FAMILY_DATA = {
       "photoUrl": null,
       "spouseId": "g19_weiji_w",
       "childrenIds": [
+        "g20_zhaonan",
         "g20_weiji_c1",
         "g20_weiji_c2",
         "g20_weiji_c3",
@@ -3055,7 +3178,8 @@ window.FAMILY_DATA = {
         "g20_jie_wanen",
         "g20_jing_wanen"
       ],
-      "notes": "From p.83 chart (names only). 過房尙楚 (p.104 「尙楚早逝世由萬恩過房」; p.106 「由兄之長子萬恩過房，接廿一世平英繼承」)."
+      "notes": "From p.83 chart (names only). 過房尙楚 (p.104 「尙楚早逝世由萬恩過房」; p.106 「由兄之長子萬恩過房，接廿一世平英繼承」). Main node moved under 尙楚 with wife and all descendants; reference copy g19_wanen__ref (過房尙楚) first under 尙鄒 per Bill 2026-10-21 adoption rule. 平英 left in place inside the branch (his own adoption still open).",
+      "visibleNote": "尙鄒之子過房"
     },
     "g19_weidu": {
       "id": "g19_weidu",
@@ -3067,8 +3191,10 @@ window.FAMILY_DATA = {
       "deathDate": null,
       "photoUrl": null,
       "spouseId": null,
-      "childrenIds": [],
-      "notes": "From p.83 chart (names only)."
+      "childrenIds": [
+        "g21_pingying"
+      ],
+      "notes": "From p.83 chart (names only). 早逝; heir 平英 (陳勤之次子, 廿一世) placed here per p.110 「早逝由勤娘之次子過房繼承」 and Bill 2026-10-21 (skipRows 1)."
     },
     "g19_weixiang": {
       "id": "g19_weixiang",
@@ -3097,7 +3223,7 @@ window.FAMILY_DATA = {
       "birthDate": "1905-12-05",
       "deathDate": null,
       "photoUrl": null,
-      "spouseId": "g19_jiangchen",
+      "spouseId": "g19_pengshi",
       "childrenIds": [
         "g20_xiurong",
         "g20_qingfu",
@@ -3108,10 +3234,25 @@ window.FAMILY_DATA = {
         "g20_xiuqiong",
         "g20_xiuyu"
       ],
-      "notes": "Eldest son; stayed at 梅山鄉太興村 老家; 太興村 village head, 梅山鄉農會 chairman (pp.46, 50–51). Birth 西歷一九〇五(乙己)十二月五日 as printed (p.50). Wives: 彭氏 (瑞里村, divorced); 江氏沉 (b. lunar 辛亥 9/10 = 1911-10-31, d. 1982-12-26; mother of 秀蓉, adoptive mother of 清富); 簡氏春 (mother of 清源, 清標, 秀梅, 秀麗, 秀琼, 秀玉) (pp.51–52). Tree allows one spouseId, so 簡氏春 is linked; 江氏沉 is recorded as a separate unlinked entry.",
+      "notes": "Eldest son; stayed at 梅山鄉太興村 老家; 太興村 village head, 梅山鄉農會 chairman (pp.46, 50–51). Birth 西歷一九〇五(乙己)十二月五日 as printed (p.50). Wives in order: 彭氏 (瑞里村人, divorced; no children; pp.43, 51); 江氏沉 (b. lunar 辛亥 9/10 = 1911-10-31, d. 1982-12-26; mother of 秀蓉, adoptive mother of 清富); 簡氏春 (mother of 清源, 清標, 秀梅, 秀麗, 秀琼, 秀玉) (pp.51–52). Rendered as 妻一/妻二/妻三 via spouseId + otherSpouseIds; children grouped by motherId.",
       "otherSpouseIds": [
+        "g19_jiangchen",
         "g19_jianchun"
       ]
+    },
+    "g19_pengshi": {
+      "id": "g19_pengshi",
+      "name": "彭氏",
+      "englishName": "",
+      "gender": "female",
+      "role": "spouse",
+      "birthDate": "",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": "g19_weitian",
+      "childrenIds": [],
+      "notes": "First wife of 爲添; 瑞里村人; divorced (pp.43, 51). No dates or children given. Added 2026-10-21 per Bill.",
+      "spouseLabel": "元配"
     },
     "g19_jianchun": {
       "id": "g19_jianchun",
@@ -3138,7 +3279,7 @@ window.FAMILY_DATA = {
       "photoUrl": null,
       "spouseId": "g19_weitian",
       "childrenIds": [],
-      "notes": "Second wife of 為添 (g19_weitian); not linked via spouseId because the tree supports one spouse. Birth lunar 辛亥年九月初十日酉時 (year from 辛亥=1911), via lunardate; death as printed; buried 台南市公共墓園 (p.51).",
+      "notes": "Second wife of 為添 (g19_weitian), after 彭氏 (divorced); listed in otherSpouseIds. Birth lunar 辛亥年九月初十日酉時 (year from 辛亥=1911), via lunardate; death as printed; buried 台南市公共墓園 (p.51).",
       "spouseLabel": "妻"
     },
     "g20_xiurong": {
@@ -3185,10 +3326,12 @@ window.FAMILY_DATA = {
       "spouseId": "g20_yexiufeng",
       "childrenIds": [
         "g21_qingfu_c1",
+        "g21_qingfu_d1",
         "g21_qingfu_c2"
       ],
-      "notes": "Born third son of 為築; adopted (過房) to 為添 (pp.51, 63, 84). Placed under 為添 as in the p.84 chart.",
-      "motherId": "g19_jiangchen"
+      "notes": "Born third son of 為築; adopted (過房) to 為添 (pp.51, 63, 84). Placed under 為添 as in the p.84 chart. visibleNote 爲築之三子過房 (p.63 「三子清富（給大兄爲添過房）」; p.143 「胞弟（爲築）三子過房」). Reference copy g20_qingfu__ref (過房爲添) under 爲築 per Bill 2026-10-21 adoption rule.",
+      "motherId": "g19_jiangchen",
+      "visibleNote": "爲築之子過房"
     },
     "g20_yexiufeng": {
       "id": "g20_yexiufeng",
@@ -3241,12 +3384,17 @@ window.FAMILY_DATA = {
       "englishName": "",
       "gender": "female",
       "role": "bloodline",
-      "birthDate": "",
+      "birthDate": "1942-12-22",
       "deathDate": null,
       "photoUrl": null,
       "spouseId": "g20_xiumei_h",
-      "childrenIds": [],
-      "notes": "Daughter of 為添 and 簡氏春 (p.52); husband's surname only given.",
+      "childrenIds": [
+        "g21_xiumei_c1",
+        "g21_xiumei_c2",
+        "g21_xiumei_c3",
+        "g21_xiumei_c4"
+      ],
+      "notes": "Daughter of 爲添 and 簡氏春 (p.52); husband 蔡吉明 (p.141: 生于民國三十一年十二月二十二日, 長榮中學畢業; p.168 chart: 次女 張秀梅 ＝ 蔡吉明, two daughters, a son, a daughter).",
       "motherId": "g19_jianchun"
     },
     "g20_xiuli": {
@@ -3394,14 +3542,16 @@ window.FAMILY_DATA = {
       "englishName": "",
       "gender": "male",
       "role": "bloodline",
-      "birthDate": "",
+      "birthDate": "1937-06-03",
       "deathDate": null,
       "photoUrl": null,
       "spouseId": "g20_limeiyue",
       "childrenIds": [
+        "g21_qinghe_d1",
         "g21_qinghe_c1",
         "g21_qinghe_c2"
-      ]
+      ],
+      "notes": "Son of 爲政 (p.57). b. 1937-06-03 as printed (p.148: 生于一九三七年六月三日); wife 李美月 and children on p.149."
     },
     "g20_limeiyue": {
       "id": "g20_limeiyue",
@@ -3409,11 +3559,12 @@ window.FAMILY_DATA = {
       "englishName": "",
       "gender": "female",
       "role": "spouse",
-      "birthDate": "",
+      "birthDate": "1939-12-28",
       "deathDate": null,
       "photoUrl": null,
       "spouseId": "g20_qinghe",
-      "childrenIds": []
+      "childrenIds": [],
+      "notes": "Wife of 清和 (p.149: 妻李氏美月). b. 1939-12-28 as printed (p.149: 生于一九三九年十二月二十八日)."
     },
     "g20_qingzhe": {
       "id": "g20_qingzhe",
@@ -3502,7 +3653,8 @@ window.FAMILY_DATA = {
       "spouseId": "g20_xiumei2_h",
       "childrenIds": [
         "g21_xiumei2_c1",
-        "g21_xiumei2_c2"
+        "g21_xiumei2_c2",
+        "g21_xiumei2_d1"
       ],
       "notes": "Daughter of 為政 (p.57); husband's surname only given."
     },
@@ -3576,14 +3728,16 @@ window.FAMILY_DATA = {
       "englishName": "",
       "gender": "male",
       "role": "bloodline",
-      "birthDate": "",
+      "birthDate": "1937-10-11",
       "deathDate": null,
       "photoUrl": null,
       "spouseId": "g20_qingfeng_w",
       "childrenIds": [
-        "g21_qingfeng_c1"
+        "g21_qingfeng_c1",
+        "g21_qingfeng_c2",
+        "g21_qingfeng_c3"
       ],
-      "notes": "經濟學博士 (p.59).",
+      "notes": "經濟學博士 (p.59). b. 生于（農曆）丁丑年九月八日卯時 (p.153); lunar; converted with sxtwl → 1937-10-11.",
       "motherId": "g19_zhengying"
     },
     "g20_qingcan": {
@@ -3629,6 +3783,7 @@ window.FAMILY_DATA = {
         "g20_qingbo",
         "g20_biling",
         "g20_guangfu",
+        "g20_qingfu__ref",
         "g20_bihui",
         "g20_bizhu",
         "g20_lingmei",
@@ -3655,7 +3810,7 @@ window.FAMILY_DATA = {
       "englishName": "",
       "gender": "female",
       "role": "bloodline",
-      "birthDate": "",
+      "birthDate": "1939-10-11",
       "deathDate": null,
       "photoUrl": null,
       "spouseId": "g20_yandesong",
@@ -3665,7 +3820,7 @@ window.FAMILY_DATA = {
         "g21_bifang_c3",
         "g21_bifang_c4"
       ],
-      "notes": "Japanese name 智慧子 (p.63)."
+      "notes": "Japanese name 智慧子 (p.63). b. 1939-10-11 as printed (p.155 「生于一九三九年十月十一日」)."
     },
     "g20_yandesong": {
       "id": "g20_yandesong",
@@ -3743,15 +3898,16 @@ window.FAMILY_DATA = {
       "englishName": "",
       "gender": "male",
       "role": "bloodline",
-      "birthDate": "",
+      "birthDate": "1944-10-18",
       "deathDate": null,
       "photoUrl": null,
       "spouseId": "g20_licaiyun",
       "childrenIds": [
+        "g21_guangfu_c0",
         "g21_guangfu_c1",
         "g21_guangfu_c2"
       ],
-      "notes": "Japanese name 重夫 (p.63)."
+      "notes": "Japanese name 重夫 (p.63). b. 1944-10-18 as printed (p.158 「生于一九四四年十月十八日小梅四三二番地」, follows 「光甫　妻李彩雲」; the birthplace is the family home as on p.157, so the date is 光甫's; 李彩雲 has none)."
     },
     "g20_licaiyun": {
       "id": "g20_licaiyun",
@@ -3771,13 +3927,15 @@ window.FAMILY_DATA = {
       "englishName": "",
       "gender": "female",
       "role": "bloodline",
-      "birthDate": "",
+      "birthDate": "1948-11-29",
       "deathDate": null,
       "photoUrl": null,
       "spouseId": "g20_jiangqingzong",
       "childrenIds": [
-        "g21_bihui_c1"
-      ]
+        "g21_bihui_c1",
+        "g21_bihui_c2"
+      ],
+      "notes": "b. 1948-11-29 as printed (p.159 「生于一九四八年十一月二十九日梅山鄉梅南村八號」); husband 江慶宗 (花蓮人), surname 江 confirmed by zoomed crop 2026-10-21."
     },
     "g20_jiangqingzong": {
       "id": "g20_jiangqingzong",
@@ -3789,7 +3947,8 @@ window.FAMILY_DATA = {
       "deathDate": null,
       "photoUrl": null,
       "spouseId": "g20_bihui",
-      "childrenIds": []
+      "childrenIds": [],
+      "notes": "Husband of 碧惠 (p.159 「配偶　江慶宗（花蓮人）服務中國石油公司」; p.63 配偶于江慶宗); surname 江 confirmed by zoomed crop 2026-10-21 (p159_jiang_v1.jpg)."
     },
     "g20_bizhu": {
       "id": "g20_bizhu",
@@ -3797,14 +3956,14 @@ window.FAMILY_DATA = {
       "englishName": "",
       "gender": "female",
       "role": "bloodline",
-      "birthDate": "",
+      "birthDate": "1950-03-24",
       "deathDate": null,
       "photoUrl": null,
-      "spouseId": null,
+      "spouseId": "g20_huangmingjun",
       "childrenIds": [
         "g21_bizhu_c1"
       ],
-      "notes": "Fourth daughter of 為築 (p.63)."
+      "notes": "Fourth daughter of 為築 (p.63). Husband 黃明俊 (p.63; p.159 「碧珠　配偶　黃明俊　服務東元工業公司」); one daughter 馨茹 (p.160 「生下一女　名馨茹」). p.63 re-read 2026-10-21 (photo 30 L): 四女碧珠 配偶于黃明俊, 五女玲美 配偶于黃信忠, 六女鈴玉 (no spouse); the old transcript had the spouses shifted down one line. b. 1950-03-24 as printed (p.159 「生于一九五〇年三月二十四日　梅山鄉梅南村八號」)."
     },
     "g20_lingmei": {
       "id": "g20_lingmei",
@@ -3812,13 +3971,15 @@ window.FAMILY_DATA = {
       "englishName": "",
       "gender": "female",
       "role": "bloodline",
-      "birthDate": "",
+      "birthDate": "1953-12-12",
       "deathDate": null,
       "photoUrl": null,
-      "spouseId": "g20_huangmingjun",
+      "spouseId": "g20_huangxinzhong",
       "childrenIds": [
-        "g21_lingmei_c1"
-      ]
+        "g21_lingmei_c1",
+        "g21_lingmei_c2"
+      ],
+      "notes": "Fifth daughter of 為築 (p.63). Husband 黃信忠 (p.63; p.160 「玲美　配偶黃信忠（花蓮人）服務中華紙廠」); two sons 士銘, 士恒 (p.161 「傳下二子　長子士銘　次子士恒」; 恒 confirmed 2026-10-21). b. 1953-12-12 as printed (p.160 「生于一九五三年十二月十二日　嘉義市和平路八一號」). p.63 re-read 2026-10-21 (photo 30 L): 四女碧珠 配偶于黃明俊, 五女玲美 配偶于黃信忠, 六女鈴玉 (no spouse); the old transcript had the spouses shifted down one line."
     },
     "g20_huangmingjun": {
       "id": "g20_huangmingjun",
@@ -3829,8 +3990,9 @@ window.FAMILY_DATA = {
       "birthDate": "",
       "deathDate": null,
       "photoUrl": null,
-      "spouseId": "g20_lingmei",
-      "childrenIds": []
+      "spouseId": "g20_bizhu",
+      "childrenIds": [],
+      "notes": "Husband of 碧珠 (g20_bizhu) (p.63 四女碧珠 配偶于黃明俊; p.159). Works for 東元工業公司 (p.159). p.63 re-read 2026-10-21 (photo 30 L): 四女碧珠 配偶于黃明俊, 五女玲美 配偶于黃信忠, 六女鈴玉 (no spouse); the old transcript had the spouses shifted down one line."
     },
     "g20_lingyu": {
       "id": "g20_lingyu",
@@ -3838,11 +4000,12 @@ window.FAMILY_DATA = {
       "englishName": "",
       "gender": "female",
       "role": "bloodline",
-      "birthDate": "",
+      "birthDate": "1956-04-21",
       "deathDate": null,
       "photoUrl": null,
-      "spouseId": "g20_huangxinzhong",
-      "childrenIds": []
+      "spouseId": null,
+      "childrenIds": [],
+      "notes": "Sixth daughter of 為築 (p.63); no spouse given (p.63; p.161 「第二十世　鈴玉」). p.63 re-read 2026-10-21 (photo 30 L): 四女碧珠 配偶于黃明俊, 五女玲美 配偶于黃信忠, 六女鈴玉 (no spouse); the old transcript had the spouses shifted down one line. b. 1956-04-21 as printed (p.161 「生于一九五六年四月二十一日　嘉義市」)."
     },
     "g20_huangxinzhong": {
       "id": "g20_huangxinzhong",
@@ -3853,8 +4016,9 @@ window.FAMILY_DATA = {
       "birthDate": "",
       "deathDate": null,
       "photoUrl": null,
-      "spouseId": "g20_lingyu",
-      "childrenIds": []
+      "spouseId": "g20_lingmei",
+      "childrenIds": [],
+      "notes": "Husband of 玲美 (g20_lingmei) (p.63 五女玲美 配偶于黃信忠; p.160 「黃信忠（花蓮人）」). Works for 中華紙廠 (p.160). p.63 re-read 2026-10-21 (photo 30 L): 四女碧珠 配偶于黃明俊, 五女玲美 配偶于黃信忠, 六女鈴玉 (no spouse); the old transcript had the spouses shifted down one line."
     },
     "g20_zhiguang": {
       "id": "g20_zhiguang",
@@ -3909,9 +4073,22 @@ window.FAMILY_DATA = {
       "birthDate": "",
       "deathDate": null,
       "photoUrl": null,
-      "spouseId": null,
+      "spouseId": "g20_jiayuan_w",
       "childrenIds": [],
       "notes": "USA, HELMETS INC. VP (p.70)."
+    },
+    "g20_jiayuan_w": {
+      "id": "g20_jiayuan_w",
+      "name": "天恩",
+      "englishName": "",
+      "gender": "female",
+      "role": "spouse",
+      "birthDate": "",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": "g20_jiayuan",
+      "childrenIds": [],
+      "notes": "長媳天恩, wife of 蔡佳園; given name only, no dates (p.71 蔡江泉先生事畧: 長媳天恩, 次媳毓秀, 三媳玉玲)."
     },
     "g20_jiahong": {
       "id": "g20_jiahong",
@@ -3922,9 +4099,22 @@ window.FAMILY_DATA = {
       "birthDate": "",
       "deathDate": null,
       "photoUrl": null,
-      "spouseId": null,
+      "spouseId": "g20_jiahong_w",
       "childrenIds": [],
       "notes": "北港; 嘉義客運 managing director (p.70)."
+    },
+    "g20_jiahong_w": {
+      "id": "g20_jiahong_w",
+      "name": "毓秀",
+      "englishName": "",
+      "gender": "female",
+      "role": "spouse",
+      "birthDate": "",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": "g20_jiahong",
+      "childrenIds": [],
+      "notes": "次媳毓秀, wife of 蔡佳宏; given name only, no dates (p.71 蔡江泉先生事畧: 長媳天恩, 次媳毓秀, 三媳玉玲)."
     },
     "g20_jiamou": {
       "id": "g20_jiamou",
@@ -3935,9 +4125,22 @@ window.FAMILY_DATA = {
       "birthDate": "",
       "deathDate": null,
       "photoUrl": null,
-      "spouseId": null,
+      "spouseId": "g20_jiamou_w",
       "childrenIds": [],
       "notes": "Canada (p.70)."
+    },
+    "g20_jiamou_w": {
+      "id": "g20_jiamou_w",
+      "name": "玉玲",
+      "englishName": "",
+      "gender": "female",
+      "role": "spouse",
+      "birthDate": "",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": "g20_jiamou",
+      "childrenIds": [],
+      "notes": "三媳玉玲, wife of 蔡佳謀; given name only, no dates (p.71 蔡江泉先生事畧: 長媳天恩, 次媳毓秀, 三媳玉玲)."
     },
     "g20_jiaxun": {
       "id": "g20_jiaxun",
@@ -3954,7 +4157,7 @@ window.FAMILY_DATA = {
     },
     "g20_zhijiang": {
       "id": "g20_zhijiang",
-      "name": "蔡直江",
+      "name": "蔡直江（素貞?）",
       "englishName": "",
       "gender": "female",
       "role": "bloodline",
@@ -3963,7 +4166,7 @@ window.FAMILY_DATA = {
       "photoUrl": null,
       "spouseId": "g20_sato",
       "childrenIds": [],
-      "notes": "Married in Japan (p.70)."
+      "notes": "Married in Japan (p.70 長女直江, 嫁居日本, 配偶佐藤). p.71 「唯一掌珠素貞…適佐藤」: same person; label 蔡直江（素貞?） per Bill 2026-10-21."
     },
     "g20_sato": {
       "id": "g20_sato",
@@ -4070,13 +4273,15 @@ window.FAMILY_DATA = {
       "englishName": "",
       "gender": "female",
       "role": "bloodline",
-      "birthDate": "",
+      "birthDate": "1948-10-11",
       "deathDate": null,
       "photoUrl": null,
       "spouseId": "g20_kikuchi",
       "childrenIds": [
-        "g21_bie_c1"
-      ]
+        "g21_bie_c1",
+        "g21_bie_c2"
+      ],
+      "notes": "Daughter of 爲捷 (p.165, 爲捷系列部份 from p.163). b. 1948-10-11 as printed (p.165 「生于西歷一九四八年十月十一日」); 適于菊池道夫."
     },
     "g20_kikuchi": {
       "id": "g20_kikuchi",
@@ -4084,12 +4289,12 @@ window.FAMILY_DATA = {
       "englishName": "",
       "gender": "male",
       "role": "spouse",
-      "birthDate": "",
+      "birthDate": "1947-12-31",
       "deathDate": null,
       "photoUrl": null,
       "spouseId": "g20_bie",
       "childrenIds": [],
-      "notes": "Dentist (p.75)."
+      "notes": "Dentist (p.75). b. 1947-12-31 as printed (p.165 「適于菊池道夫　一九四七年十二月三十一日生」)."
     },
     "g20_bizhu2": {
       "id": "g20_bizhu2",
@@ -4097,12 +4302,14 @@ window.FAMILY_DATA = {
       "englishName": "",
       "gender": "female",
       "role": "bloodline",
-      "birthDate": "",
+      "birthDate": "1950-12-14",
       "deathDate": null,
       "photoUrl": null,
       "spouseId": "g20_arai",
-      "childrenIds": [],
-      "notes": "Third daughter of 為捷, from photo caption p.73 (p.75 lists 1 son 3 daughters)."
+      "childrenIds": [
+        "g21_bizhu2_c1"
+      ],
+      "notes": "Third daughter of 為捷, from photo caption p.73 (p.75 lists 1 son 3 daughters). b. 1950-12-14 as printed (p.165 「第二十世　碧珠」「生于西歷一九五〇年十二月十四日」, in 爲捷系列部份, a different 碧珠 from p.159); 適于荒井昇 (p.166)."
     },
     "g20_arai": {
       "id": "g20_arai",
@@ -4110,11 +4317,12 @@ window.FAMILY_DATA = {
       "englishName": "",
       "gender": "male",
       "role": "spouse",
-      "birthDate": "",
+      "birthDate": "1949-05-01",
       "deathDate": null,
       "photoUrl": null,
       "spouseId": "g20_bizhu2",
-      "childrenIds": []
+      "childrenIds": [],
+      "notes": "Husband of 碧珠 (g20_bizhu2); 華僑; b. 1949-05-01 as printed (p.166 「適于荒井昇（華僑）一九四九年五月一日生」)."
     },
     "g19_weicai": {
       "id": "g19_weicai",
@@ -4163,12 +4371,12 @@ window.FAMILY_DATA = {
       "englishName": "",
       "gender": "male",
       "role": "spouse",
-      "birthDate": "",
+      "birthDate": "1941-03-08",
       "deathDate": null,
       "photoUrl": null,
       "spouseId": "g20_xiumei",
       "childrenIds": [],
-      "notes": "Husband of 秀梅; book gives surname only (p.52: 配偶蔡). Full name 蔡吉明 (pp.141, 168)."
+      "notes": "Husband of 秀梅; p.52 gives surname only (配偶蔡). Full name 蔡吉明 (pp.141, 168); p.141: 生于民國三十年三月八日, 畢業于吳鳳工專."
     },
     "g20_xiuli_h": {
       "id": "g20_xiuli_h",
@@ -4695,7 +4903,7 @@ window.FAMILY_DATA = {
     },
     "g18_bang": {
       "id": "g18_bang",
-      "name": "陳邦",
+      "name": "陳尙邦",
       "englishName": "",
       "gender": "male",
       "role": "bloodline",
@@ -4709,11 +4917,11 @@ window.FAMILY_DATA = {
         "g19_weifu",
         "g19_weixue"
       ],
-      "notes": "長子 of 窓冉; 傳下四子居生毛樹（瑞峰村） (p.101)."
+      "notes": "長子 of 窓冉; 傳下四子居生毛樹（瑞峰村） (p.101). pp.101 text prints 陳邦/公邦; p.122 chart prints 尙邦. Name 陳尙邦 per Bill 2026-10-21."
     },
     "g18_yu": {
       "id": "g18_yu",
-      "name": "陳語",
+      "name": "陳尙語",
       "englishName": "",
       "gender": "male",
       "role": "bloodline",
@@ -4726,7 +4934,7 @@ window.FAMILY_DATA = {
         "g19_chong",
         "g19_weishun"
       ],
-      "notes": "次子 of 窓冉; 傳下二女一養子 (p.102)."
+      "notes": "次子 of 窓冉; 傳下二女一養子 (p.102). pp.101–102 text prints 陳語/公語; p.122 chart prints 尙語. Name 陳尙語 per Bill 2026-10-21."
     },
     "g19_weigui": {
       "id": "g19_weigui",
@@ -4821,6 +5029,7 @@ window.FAMILY_DATA = {
         "g20_chong_c2",
         "g20_chong_c3",
         "g20_chong_c4",
+        "g20_chong_d0",
         "g20_chong_c5",
         "g20_chong_c6",
         "g20_chong_c7"
@@ -4851,7 +5060,8 @@ window.FAMILY_DATA = {
       "photoUrl": null,
       "spouseId": null,
       "childrenIds": [],
-      "notes": "養子 of 語 (g18_yu); 由太平村陳尙伯之子過房, 遷出中埔鄉 (p.102)."
+      "notes": "養子 of 語 (g18_yu); 由太平村陳尙伯之子過房, 遷出中埔鄉 (p.102). p.102 prints 尙伯 (misprint of 尙白); p.122 chart says 爲舜（尙白之子過房）. visibleNote shown on tree per Bill 2026-10-21 (exception to hidden-notes rule).",
+      "visibleNote": "尙白之子過房"
     },
     "g20_bei_wanen": {
       "id": "g20_bei_wanen",
@@ -4902,6 +5112,8 @@ window.FAMILY_DATA = {
         "g21_si_c2",
         "g21_si_c3",
         "g21_si_c4",
+        "g21_si_d1",
+        "g21_si_d2",
         "g21_si_c5"
       ],
       "motherId": "g19_wushi",
@@ -4933,7 +5145,7 @@ window.FAMILY_DATA = {
       "childrenIds": [
         "g21_pingsong",
         "g21_caizhu",
-        "g21_pingying",
+        "g21_pingying__ref",
         "g21_pingtai",
         "g21_cailu",
         "g21_pingchang",
@@ -4969,8 +5181,9 @@ window.FAMILY_DATA = {
       "childrenIds": [
         "g21_min_c1",
         "g21_min_c2",
-        "g21_min_c3",
-        "g21_min_c4"
+        "g21_min_d1",
+        "g21_min_c4",
+        "g21_min_c3"
       ],
       "motherId": "g19_wushi",
       "notes": "四女 of 萬恩 (g19_wanen); 適 曾修萬; 嫁出, 住台中縣大里鄉 (p.105)."
@@ -5034,7 +5247,8 @@ window.FAMILY_DATA = {
       "childrenIds": [
         "g21_jing_c1",
         "g21_jing_c2",
-        "g21_jing_c3"
+        "g21_jing_c3",
+        "g21_jing_c4"
       ],
       "motherId": "g19_wushi",
       "notes": "六女 of 萬恩 (g19_wanen); 適 吳國柱; 嫁出, 住嘉義縣梅山鄉 (p.105)."
@@ -5083,6 +5297,9 @@ window.FAMILY_DATA = {
       "photoUrl": null,
       "spouseId": "g21_caizhu_sp",
       "childrenIds": [
+        "g21_caizhu_d1",
+        "g21_caizhu_d2",
+        "g21_caizhu_d3",
         "g21_caizhu_c1",
         "g21_caizhu_c2"
       ],
@@ -5091,7 +5308,7 @@ window.FAMILY_DATA = {
     "g21_pingying": {
       "id": "g21_pingying",
       "name": "陳平英",
-      "englishName": "(過房姓陳)",
+      "englishName": "",
       "gender": "male",
       "role": "bloodline",
       "birthDate": "",
@@ -5104,7 +5321,9 @@ window.FAMILY_DATA = {
         "g21_pingying_c3",
         "g21_pingying_c4"
       ],
-      "notes": "Child of 陳勤 & 黃春添 (p.106). 接尙楚一房繼承 (p.106)."
+      "notes": "Child of 陳勤 & 黃春添 (招婿) (p.106); 次子 (p.114). Former on-tree second line 「(過房姓陳)」 (englishName) removed 2026-10-21, kept here: p.106 chart 男平英（過房姓陳）. Adoptive line conflict in the book: p.106 chart gives both 尙楚 「由兄之長子萬恩過房，接廿一世平英繼承」 and 爲讀 「由兄萬恩過房接廿一世平英繼承」 (p.104 text: 尙楚早逝世由萬恩過房); p.110 「第十九世　公爲讀　早逝由勤娘之次子過房繼承」; p.114 「次子　平英　過房陳姓繼承陳家」. DECISION (Bill 2026-10-21): main node with wife and descendants under 爲讀 (g19_weidu), visibleNote 陳勤之次子過房, skipRows 1 so he renders in the 廿一世 row; reference copy g21_pingying__ref (過房爲讀) under 陳勤. The 尙楚 line is shown through 萬恩 → 陳勤 (萬恩 過房尙楚).",
+      "skipRows": 1,
+      "visibleNote": "勤之子過房"
     },
     "g21_pingtai": {
       "id": "g21_pingtai",
@@ -5148,6 +5367,7 @@ window.FAMILY_DATA = {
       "photoUrl": null,
       "spouseId": "g21_pingchang_sp",
       "childrenIds": [
+        "g21_pingchang_d1",
         "g21_pingchang_c1"
       ],
       "notes": "Child of 陳勤 & 黃春添 (p.106)."
@@ -5323,7 +5543,7 @@ window.FAMILY_DATA = {
       "photoUrl": null,
       "spouseId": null,
       "childrenIds": [],
-      "notes": "Child of 陳巳 & 簡朝久 (p.108; 長女/次女 (簡嫣?, 艷粧?) omitted pending reading)."
+      "notes": "Child of 陳巳 & 簡朝久 (p.108)."
     },
     "g21_si_c2": {
       "id": "g21_si_c2",
@@ -5336,7 +5556,7 @@ window.FAMILY_DATA = {
       "photoUrl": null,
       "spouseId": null,
       "childrenIds": [],
-      "notes": "Child of 陳巳 & 簡朝久 (p.108; 長女/次女 (簡嫣?, 艷粧?) omitted pending reading)."
+      "notes": "Child of 陳巳 & 簡朝久 (p.108)."
     },
     "g21_si_c3": {
       "id": "g21_si_c3",
@@ -5349,7 +5569,7 @@ window.FAMILY_DATA = {
       "photoUrl": null,
       "spouseId": null,
       "childrenIds": [],
-      "notes": "Child of 陳巳 & 簡朝久 (p.108; 長女/次女 (簡嫣?, 艷粧?) omitted pending reading)."
+      "notes": "Child of 陳巳 & 簡朝久 (p.108)."
     },
     "g21_si_c4": {
       "id": "g21_si_c4",
@@ -5362,7 +5582,33 @@ window.FAMILY_DATA = {
       "photoUrl": null,
       "spouseId": null,
       "childrenIds": [],
-      "notes": "Child of 陳巳 & 簡朝久 (p.108; 長女/次女 (簡嫣?, 艷粧?) omitted pending reading)."
+      "notes": "Child of 陳巳 & 簡朝久 (p.108)."
+    },
+    "g21_si_d1": {
+      "id": "g21_si_d1",
+      "name": "簡嬌",
+      "englishName": "",
+      "gender": "female",
+      "role": "bloodline",
+      "birthDate": "",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": null,
+      "childrenIds": [],
+      "notes": "Child of 陳巳 & 簡朝久 (p.108 「簡朝久　傳下四子三女…長女簡嬌　次女艷粧　三女如雪」); glyph confirmed by photo 2026-10-21 (嬌 U+5B0C, 女+喬; transcript had 嫣); 長女."
+    },
+    "g21_si_d2": {
+      "id": "g21_si_d2",
+      "name": "簡艷粧",
+      "englishName": "",
+      "gender": "female",
+      "role": "bloodline",
+      "birthDate": "",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": null,
+      "childrenIds": [],
+      "notes": "Child of 陳巳 & 簡朝久 (p.108 「簡朝久　傳下四子三女…長女簡嬌　次女艷粧　三女如雪」); glyph confirmed by photo 2026-10-21; 次女."
     },
     "g21_si_c5": {
       "id": "g21_si_c5",
@@ -5375,7 +5621,20 @@ window.FAMILY_DATA = {
       "photoUrl": null,
       "spouseId": null,
       "childrenIds": [],
-      "notes": "Child of 陳巳 & 簡朝久 (p.108; 長女/次女 (簡嫣?, 艷粧?) omitted pending reading)."
+      "notes": "Child of 陳巳 & 簡朝久 (p.108)."
+    },
+    "g21_min_d1": {
+      "id": "g21_min_d1",
+      "name": "曾貞媚",
+      "englishName": "",
+      "gender": "female",
+      "role": "bloodline",
+      "birthDate": "",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": null,
+      "childrenIds": [],
+      "notes": "Child of 陳閩 & 曾修萬 (p.109 「曾修萬　傳下三子二女…長女曾貞媚…」); 媚 confirmed by photo 2026-10-21 (transcript had 娟)."
     },
     "g21_min_c1": {
       "id": "g21_min_c1",
@@ -5388,7 +5647,7 @@ window.FAMILY_DATA = {
       "photoUrl": null,
       "spouseId": null,
       "childrenIds": [],
-      "notes": "Child of 陳閩 & 曾修萬 (p.109; 長女 (曾貞娟?) omitted pending reading)."
+      "notes": "Child of 陳閩 & 曾修萬 (p.109)."
     },
     "g21_min_c2": {
       "id": "g21_min_c2",
@@ -5401,7 +5660,7 @@ window.FAMILY_DATA = {
       "photoUrl": null,
       "spouseId": null,
       "childrenIds": [],
-      "notes": "Child of 陳閩 & 曾修萬 (p.109; 長女 (曾貞娟?) omitted pending reading)."
+      "notes": "Child of 陳閩 & 曾修萬 (p.109)."
     },
     "g21_min_c3": {
       "id": "g21_min_c3",
@@ -5414,7 +5673,7 @@ window.FAMILY_DATA = {
       "photoUrl": null,
       "spouseId": null,
       "childrenIds": [],
-      "notes": "Child of 陳閩 & 曾修萬 (p.109; 長女 (曾貞娟?) omitted pending reading)."
+      "notes": "Child of 陳閩 & 曾修萬 (p.109)."
     },
     "g21_min_c4": {
       "id": "g21_min_c4",
@@ -5427,7 +5686,7 @@ window.FAMILY_DATA = {
       "photoUrl": null,
       "spouseId": null,
       "childrenIds": [],
-      "notes": "Child of 陳閩 & 曾修萬 (p.109; 長女 (曾貞娟?) omitted pending reading)."
+      "notes": "Child of 陳閩 & 曾修萬 (p.109)."
     },
     "g21_jie_c1": {
       "id": "g21_jie_c1",
@@ -5494,6 +5753,19 @@ window.FAMILY_DATA = {
       "childrenIds": [],
       "notes": "Child of 陳 & 劉佳舘 (p.109)."
     },
+    "g21_jing_c4": {
+      "id": "g21_jing_c4",
+      "name": "吳鎭鐘",
+      "englishName": "",
+      "gender": "male",
+      "role": "bloodline",
+      "birthDate": "",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": null,
+      "childrenIds": [],
+      "notes": "Child of 陳荆 & 吳國柱 (p.109 「吳國柱　傳下二子二女…次子鎭鐘」); glyph 鐘 identified by Bill 2026-10-21 (transcript had 鎰)."
+    },
     "g21_jing_c1": {
       "id": "g21_jing_c1",
       "name": "吳彩銀",
@@ -5505,7 +5777,7 @@ window.FAMILY_DATA = {
       "photoUrl": null,
       "spouseId": null,
       "childrenIds": [],
-      "notes": "Child of 陳荆 & 吳國柱 (p.109; 次子 (鎭鎰?) omitted pending reading)."
+      "notes": "Child of 陳荆 & 吳國柱 (p.109)."
     },
     "g21_jing_c2": {
       "id": "g21_jing_c2",
@@ -5518,7 +5790,7 @@ window.FAMILY_DATA = {
       "photoUrl": null,
       "spouseId": null,
       "childrenIds": [],
-      "notes": "Child of 陳荆 & 吳國柱 (p.109; 次子 (鎭鎰?) omitted pending reading)."
+      "notes": "Child of 陳荆 & 吳國柱 (p.109)."
     },
     "g21_jing_c3": {
       "id": "g21_jing_c3",
@@ -5531,7 +5803,7 @@ window.FAMILY_DATA = {
       "photoUrl": null,
       "spouseId": null,
       "childrenIds": [],
-      "notes": "Child of 陳荆 & 吳國柱 (p.109; 次子 (鎭鎰?) omitted pending reading)."
+      "notes": "Child of 陳荆 & 吳國柱 (p.109)."
     },
     "g21_pingsong_sp": {
       "id": "g21_pingsong_sp",
@@ -5702,6 +5974,45 @@ window.FAMILY_DATA = {
       "childrenIds": [],
       "notes": "Child of 黃平松 & 許秀蓮 (p.115)."
     },
+    "g21_caizhu_d1": {
+      "id": "g21_caizhu_d1",
+      "name": "林杏微",
+      "englishName": "",
+      "gender": "female",
+      "role": "bloodline",
+      "birthDate": "",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": null,
+      "childrenIds": [],
+      "notes": "Child of 黃彩珠 & 林助 (p.115 「林助　傳下三女二子：…長女杏微…」); 微 confirmed by photo 2026-10-21 (not 薇)."
+    },
+    "g21_caizhu_d2": {
+      "id": "g21_caizhu_d2",
+      "name": "林月堂",
+      "englishName": "",
+      "gender": "female",
+      "role": "bloodline",
+      "birthDate": "",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": null,
+      "childrenIds": [],
+      "notes": "Child of 黃彩珠 & 林助 (p.115 「林助　傳下三女二子：…次女月堂…」); reading confirmed by photo 2026-10-21."
+    },
+    "g21_caizhu_d3": {
+      "id": "g21_caizhu_d3",
+      "name": "林昱伶",
+      "englishName": "",
+      "gender": "female",
+      "role": "bloodline",
+      "birthDate": "",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": null,
+      "childrenIds": [],
+      "notes": "Child of 黃彩珠 & 林助 (p.115 「林助　傳下三女二子：…叁女昱伶…」); reading confirmed by photo 2026-10-21."
+    },
     "g21_caizhu_c1": {
       "id": "g21_caizhu_c1",
       "name": "林建宏",
@@ -5713,7 +6024,7 @@ window.FAMILY_DATA = {
       "photoUrl": null,
       "spouseId": null,
       "childrenIds": [],
-      "notes": "Child of 黃彩珠 & 林助 (p.115; three daughters (杏微?, 月堂?, 昱伶?) omitted pending reading)."
+      "notes": "Child of 黃彩珠 & 林助 (p.115)."
     },
     "g21_caizhu_c2": {
       "id": "g21_caizhu_c2",
@@ -5726,7 +6037,7 @@ window.FAMILY_DATA = {
       "photoUrl": null,
       "spouseId": null,
       "childrenIds": [],
-      "notes": "Child of 黃彩珠 & 林助 (p.115; three daughters (杏微?, 月堂?, 昱伶?) omitted pending reading)."
+      "notes": "Child of 黃彩珠 & 林助 (p.115)."
     },
     "g21_pingying_c1": {
       "id": "g21_pingying_c1",
@@ -5819,6 +6130,19 @@ window.FAMILY_DATA = {
       "childrenIds": [],
       "notes": "Child of 黃彩露 & 董錦南 (p.116)."
     },
+    "g21_pingchang_d1": {
+      "id": "g21_pingchang_d1",
+      "name": "黃鈺玲",
+      "englishName": "",
+      "gender": "female",
+      "role": "bloodline",
+      "birthDate": "",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": null,
+      "childrenIds": [],
+      "notes": "Child of 黃平錩 & 洪大連 (p.116 「平錩　傳下長女鈺玲　長子奕翔」); 鈺 confirmed by photo 2026-10-21."
+    },
     "g21_pingchang_c1": {
       "id": "g21_pingchang_c1",
       "name": "黃奕翔",
@@ -5830,7 +6154,7 @@ window.FAMILY_DATA = {
       "photoUrl": null,
       "spouseId": null,
       "childrenIds": [],
-      "notes": "Child of 黃平錩 & 洪大連 (p.116; 長女 (鈺玲?) omitted pending reading)."
+      "notes": "Child of 黃平錩 & 洪大連 (p.116)."
     },
     "g18_shangkui_w": {
       "id": "g18_shangkui_w",
@@ -5851,12 +6175,12 @@ window.FAMILY_DATA = {
       "englishName": "",
       "gender": "female",
       "role": "bloodline",
-      "birthDate": "",
+      "birthDate": "1910-07-04",
       "deathDate": null,
       "photoUrl": null,
       "spouseId": "g19_kui_d1_h",
       "childrenIds": [],
-      "notes": "Daughter of 尙魁; 嫁 劉通魚 (pp.118, 120). 三女 (綵?) omitted pending reading."
+      "notes": "Daughter of 尙魁; 嫁 劉通魚 (pp.118, 120). Born 民前二年五月二十八日寅時 (p.120; lunar; converted with sxtwl)."
     },
     "g19_kui_d1_h": {
       "id": "g19_kui_d1_h",
@@ -5877,12 +6201,12 @@ window.FAMILY_DATA = {
       "englishName": "",
       "gender": "female",
       "role": "bloodline",
-      "birthDate": "",
+      "birthDate": "1918-07-27",
       "deathDate": null,
       "photoUrl": null,
       "spouseId": "g19_kui_d2_h",
       "childrenIds": [],
-      "notes": "Daughter of 尙魁; 嫁 林彩 (pp.118, 120; printed 林　彩). 三女 (綵?) omitted pending reading."
+      "notes": "Daughter of 尙魁; 嫁 林彩 (pp.118, 120; printed 林　彩). Born 民國七年六月二十日辰時 (p.120; lunar; converted with sxtwl)."
     },
     "g19_kui_d2_h": {
       "id": "g19_kui_d2_h",
@@ -5897,18 +6221,44 @@ window.FAMILY_DATA = {
       "childrenIds": [],
       "notes": "Husband of 陳秦 (pp.118, 120; printed 林　彩)."
     },
+    "g19_kui_d2b": {
+      "id": "g19_kui_d2b",
+      "name": "陳累",
+      "englishName": "",
+      "gender": "female",
+      "role": "bloodline",
+      "birthDate": "1921-10-26",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": "g19_kui_d2b_h",
+      "childrenIds": [],
+      "notes": "Daughter of 尙魁; 嫁竹崎鄉許茂寅 (pp.118, 120); glyph 累 confirmed by photo 2026-10-21. Born 民國十年九月廿六日辰時 (lunar; converted with sxtwl)."
+    },
+    "g19_kui_d2b_h": {
+      "id": "g19_kui_d2b_h",
+      "name": "許茂寅",
+      "englishName": "",
+      "gender": "male",
+      "role": "spouse",
+      "birthDate": "",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": "g19_kui_d2b",
+      "childrenIds": [],
+      "notes": "Husband of 陳累 (pp.118, 120; 竹崎鄉)."
+    },
     "g19_kui_d3": {
       "id": "g19_kui_d3",
       "name": "陳勝",
       "englishName": "",
       "gender": "female",
       "role": "bloodline",
-      "birthDate": "",
+      "birthDate": "1924-10-15",
       "deathDate": null,
       "photoUrl": null,
       "spouseId": "g19_kui_d3_h",
       "childrenIds": [],
-      "notes": "Daughter of 尙魁; 嫁 葉可 (pp.118, 120). 三女 (綵?) omitted pending reading."
+      "notes": "Daughter of 尙魁; 嫁 葉可 (pp.118, 120). Born 民國十三年九月十七日寅時 (p.120; lunar; converted with sxtwl)."
     },
     "g19_kui_d3_h": {
       "id": "g19_kui_d3_h",
@@ -5946,9 +6296,22 @@ window.FAMILY_DATA = {
       "birthDate": "",
       "deathDate": null,
       "photoUrl": null,
-      "spouseId": null,
+      "spouseId": "g20_weiyong_c1_h",
       "childrenIds": [],
-      "notes": "Only daughter of 爲雍 (pp.118, 121); 嫁 劉寧園? (reading uncertain, not added)."
+      "notes": "Only daughter of 爲雍 (pp.118, 121); 嫁劉寧園 (p.118; confirmed by Bill 2026-10-21)."
+    },
+    "g20_weiyong_c1_h": {
+      "id": "g20_weiyong_c1_h",
+      "name": "劉寧園",
+      "englishName": "",
+      "gender": "male",
+      "role": "spouse",
+      "birthDate": "",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": "g20_weiyong_c1",
+      "childrenIds": [],
+      "notes": "Husband of 迎; p.118 「傳下一女　迎　嫁劉寧園　住出水坑」 (verified on photo m118). Confirmed by Bill 2026-10-21."
     },
     "g19_weiji_w": {
       "id": "g19_weiji_w",
@@ -5974,7 +6337,7 @@ window.FAMILY_DATA = {
       "photoUrl": null,
       "spouseId": null,
       "childrenIds": [],
-      "notes": "Child of 爲給 & 葉氏端 (pp.119, 121). 長子昭男 (adopted from 旺, pp.178/180) not added pending review."
+      "notes": "Child of 爲給 & 葉氏端 (pp.119, 121). 長子昭男 (adopted from 旺, pp.178/180) added 2026-10-21 as g20_zhaonan, first under 爲給."
     },
     "g20_weiji_c2": {
       "id": "g20_weiji_c2",
@@ -5987,7 +6350,7 @@ window.FAMILY_DATA = {
       "photoUrl": null,
       "spouseId": null,
       "childrenIds": [],
-      "notes": "Child of 爲給 & 葉氏端 (pp.119, 121). 長子昭男 (adopted from 旺, pp.178/180) not added pending review."
+      "notes": "Child of 爲給 & 葉氏端 (pp.119, 121). 長子昭男 (adopted from 旺, pp.178/180) added 2026-10-21 as g20_zhaonan, first under 爲給."
     },
     "g20_weiji_c3": {
       "id": "g20_weiji_c3",
@@ -6000,7 +6363,7 @@ window.FAMILY_DATA = {
       "photoUrl": null,
       "spouseId": null,
       "childrenIds": [],
-      "notes": "Child of 爲給 & 葉氏端 (pp.119, 121). 長子昭男 (adopted from 旺, pp.178/180) not added pending review."
+      "notes": "Child of 爲給 & 葉氏端 (pp.119, 121). 長子昭男 (adopted from 旺, pp.178/180) added 2026-10-21 as g20_zhaonan, first under 爲給."
     },
     "g20_weiji_c4": {
       "id": "g20_weiji_c4",
@@ -6013,7 +6376,7 @@ window.FAMILY_DATA = {
       "photoUrl": null,
       "spouseId": null,
       "childrenIds": [],
-      "notes": "Child of 爲給 & 葉氏端 (pp.119, 121). 長子昭男 (adopted from 旺, pp.178/180) not added pending review."
+      "notes": "Child of 爲給 & 葉氏端 (pp.119, 121). 長子昭男 (adopted from 旺, pp.178/180) added 2026-10-21 as g20_zhaonan, first under 爲給."
     },
     "g20_weiji_c5": {
       "id": "g20_weiji_c5",
@@ -6026,7 +6389,7 @@ window.FAMILY_DATA = {
       "photoUrl": null,
       "spouseId": null,
       "childrenIds": [],
-      "notes": "Child of 爲給 & 葉氏端 (pp.119, 121). 長子昭男 (adopted from 旺, pp.178/180) not added pending review."
+      "notes": "Child of 爲給 & 葉氏端 (pp.119, 121). 長子昭男 (adopted from 旺, pp.178/180) added 2026-10-21 as g20_zhaonan, first under 爲給."
     },
     "g20_weiji_c6": {
       "id": "g20_weiji_c6",
@@ -6039,7 +6402,7 @@ window.FAMILY_DATA = {
       "photoUrl": null,
       "spouseId": null,
       "childrenIds": [],
-      "notes": "Child of 爲給 & 葉氏端 (pp.119, 121). 長子昭男 (adopted from 旺, pp.178/180) not added pending review."
+      "notes": "Child of 爲給 & 葉氏端 (pp.119, 121). 長子昭男 (adopted from 旺, pp.178/180) added 2026-10-21 as g20_zhaonan, first under 爲給."
     },
     "g20_weiji_c7": {
       "id": "g20_weiji_c7",
@@ -6052,7 +6415,7 @@ window.FAMILY_DATA = {
       "photoUrl": null,
       "spouseId": null,
       "childrenIds": [],
-      "notes": "Child of 爲給 & 葉氏端 (pp.119, 121). 長子昭男 (adopted from 旺, pp.178/180) not added pending review."
+      "notes": "Child of 爲給 & 葉氏端 (pp.119, 121). 長子昭男 (adopted from 旺, pp.178/180) added 2026-10-21 as g20_zhaonan, first under 爲給."
     },
     "g19_weidong_w": {
       "id": "g19_weidong_w",
@@ -6143,7 +6506,7 @@ window.FAMILY_DATA = {
       "photoUrl": null,
       "spouseId": null,
       "childrenIds": [],
-      "notes": "Child of 陳巃 & 黃春任 (p.124; 黃春任入戶). 長女 (秀蜜?) omitted pending reading."
+      "notes": "Child of 陳巃 & 黃春任 (p.124; 黃春任入戶)."
     },
     "g20_chong_c2": {
       "id": "g20_chong_c2",
@@ -6156,7 +6519,7 @@ window.FAMILY_DATA = {
       "photoUrl": null,
       "spouseId": null,
       "childrenIds": [],
-      "notes": "Child of 陳巃 & 黃春任 (p.124; 黃春任入戶). 長女 (秀蜜?) omitted pending reading."
+      "notes": "Child of 陳巃 & 黃春任 (p.124; 黃春任入戶)."
     },
     "g20_chong_c3": {
       "id": "g20_chong_c3",
@@ -6169,7 +6532,7 @@ window.FAMILY_DATA = {
       "photoUrl": null,
       "spouseId": null,
       "childrenIds": [],
-      "notes": "Child of 陳巃 & 黃春任 (p.124; 黃春任入戶). 長女 (秀蜜?) omitted pending reading."
+      "notes": "Child of 陳巃 & 黃春任 (p.124; 黃春任入戶)."
     },
     "g20_chong_c4": {
       "id": "g20_chong_c4",
@@ -6182,7 +6545,20 @@ window.FAMILY_DATA = {
       "photoUrl": null,
       "spouseId": null,
       "childrenIds": [],
-      "notes": "Child of 陳巃 & 黃春任 (p.124; 黃春任入戶). 長女 (秀蜜?) omitted pending reading."
+      "notes": "Child of 陳巃 & 黃春任 (p.124; 黃春任入戶)."
+    },
+    "g20_chong_d0": {
+      "id": "g20_chong_d0",
+      "name": "黃秀蜜",
+      "englishName": "",
+      "gender": "female",
+      "role": "bloodline",
+      "birthDate": "",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": null,
+      "childrenIds": [],
+      "notes": "Child of 陳巃 & 黃春任 (p.124 「長男德在　女秀蜜」); 長女. Glyph 蜜 confirmed from photo m124 (crop p124_mi_v2.jpg) 2026-10-21."
     },
     "g20_chong_c5": {
       "id": "g20_chong_c5",
@@ -6195,7 +6571,7 @@ window.FAMILY_DATA = {
       "photoUrl": null,
       "spouseId": null,
       "childrenIds": [],
-      "notes": "Child of 陳巃 & 黃春任 (p.124; 黃春任入戶). 長女 (秀蜜?) omitted pending reading."
+      "notes": "Child of 陳巃 & 黃春任 (p.124; 黃春任入戶)."
     },
     "g20_chong_c6": {
       "id": "g20_chong_c6",
@@ -6208,7 +6584,7 @@ window.FAMILY_DATA = {
       "photoUrl": null,
       "spouseId": null,
       "childrenIds": [],
-      "notes": "Child of 陳巃 & 黃春任 (p.124; 黃春任入戶). 長女 (秀蜜?) omitted pending reading."
+      "notes": "Child of 陳巃 & 黃春任 (p.124; 黃春任入戶)."
     },
     "g20_chong_c7": {
       "id": "g20_chong_c7",
@@ -6221,7 +6597,7 @@ window.FAMILY_DATA = {
       "photoUrl": null,
       "spouseId": null,
       "childrenIds": [],
-      "notes": "Child of 陳巃 & 黃春任 (p.124; 黃春任入戶). 長女 (秀蜜?) omitted pending reading."
+      "notes": "Child of 陳巃 & 黃春任 (p.124; 黃春任入戶)."
     },
     "g18_zhu_s1": {
       "id": "g18_zhu_s1",
@@ -6232,12 +6608,27 @@ window.FAMILY_DATA = {
       "birthDate": "1877-04-04",
       "deathDate": null,
       "photoUrl": null,
-      "spouseId": null,
+      "spouseId": "g18_zhu_s1_w",
       "childrenIds": [
         "g19_weiyao",
-        "g19_weitai"
+        "g19_weijiu",
+        "g19_weitai",
+        "g19_weixun"
       ],
-      "notes": "Son of 窓註 (pp.125–126). Born 西歷一八七七年四月四日子時 (p.128). Wife 王氏束娘 (p.128) / 王玉東 (p.127 caption) not added pending review."
+      "notes": "Son of 窓註 (pp.125–126). Born 西歷一八七七年四月四日子時 (p.128)."
+    },
+    "g18_zhu_s1_w": {
+      "id": "g18_zhu_s1_w",
+      "name": "王玉東",
+      "englishName": "",
+      "gender": "female",
+      "role": "spouse",
+      "birthDate": "1883-09-17",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": "g18_zhu_s1",
+      "childrenIds": [],
+      "notes": "p.128 text prints 王氏束娘; p.127 caption 王玉東. Born 西歷一八八三年九月十七日 (p.128). Name per Bill 2026-10-21."
     },
     "g18_zhu_s2": {
       "id": "g18_zhu_s2",
@@ -6313,13 +6704,54 @@ window.FAMILY_DATA = {
       "birthDate": "1901-09-15",
       "deathDate": null,
       "photoUrl": null,
-      "spouseId": null,
+      "spouseId": "g19_weiyao_w",
       "childrenIds": [
         "g20_weiyao_s1",
         "g20_weiyao_s2",
-        "g20_weiyao_s3"
+        "g20_weiyao_s5",
+        "g20_weiyao_s3",
+        "g20_weiyao_d1"
       ],
-      "notes": "長子 of 尙科 (pp.125, 128–129). Born 西歷一九〇一年九月十五日 (p.129). Wife 張氏續? not added pending reading."
+      "notes": "長子 of 尙科 (pp.125, 128–129). Born 西歷一九〇一年九月十五日 (p.129)."
+    },
+    "g19_weijiu": {
+      "id": "g19_weijiu",
+      "name": "陳惟鳩",
+      "englishName": "",
+      "gender": "male",
+      "role": "bloodline",
+      "birthDate": "",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": null,
+      "childrenIds": [],
+      "notes": "次子 of 尙科 (p.128 長子惟堯, 次子惟鳩, 三子惟泰, 四子惟蟳). No birth date given. Reading confirmed from retake (Bill, 2026-10-21)."
+    },
+    "g19_weixun": {
+      "id": "g19_weixun",
+      "name": "陳惟蟳",
+      "englishName": "",
+      "gender": "male",
+      "role": "bloodline",
+      "birthDate": "",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": null,
+      "childrenIds": [],
+      "notes": "四子 of 尙科 (p.128). No birth date given. Last character read 蟳 from retake, confirmed by Bill 2026-10-21."
+    },
+    "g19_weiyao_w": {
+      "id": "g19_weiyao_w",
+      "name": "張氏續",
+      "englishName": "",
+      "gender": "female",
+      "role": "spouse",
+      "birthDate": "1904-06-15",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": "g19_weiyao",
+      "childrenIds": [],
+      "notes": "Wife of 惟堯; p.129 「媽張氏續，生于一九〇四年六月十五日」 (no 西歷 marker, may be lunar; stored as printed per Bill 2026-10-21)."
     },
     "g19_weitai": {
       "id": "g19_weitai",
@@ -6330,14 +6762,28 @@ window.FAMILY_DATA = {
       "birthDate": "1913-04-19",
       "deathDate": null,
       "photoUrl": null,
-      "spouseId": null,
+      "spouseId": "g19_weitai_w",
       "childrenIds": [
+        "g20_weitai_c0",
         "g20_weitai_c1",
         "g20_weitai_c2",
         "g20_weitai_c3",
         "g20_weitai_c4"
       ],
-      "notes": "Son of 尙科; pp.125/128 list as 三子, p.136 as 四子. 生于一九一三年四月十九日 (p.136). Brothers 惟鳩?, 惟蟳? omitted pending reading."
+      "notes": "Son of 尙科; pp.125/128 list as 三子, p.136 as 四子; tree follows p.128 order (惟堯, 惟鳩, 惟泰, 惟蟳). 生于一九一三年四月十九日 (p.136)."
+    },
+    "g19_weitai_w": {
+      "id": "g19_weitai_w",
+      "name": "黃甭",
+      "englishName": "",
+      "gender": "female",
+      "role": "spouse",
+      "birthDate": "1915-09-02",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": "g19_weitai",
+      "childrenIds": [],
+      "notes": "Wife of 惟泰; printed 娘　黃氏甭, 生于一九一五年九月二日 (p.136). 甭 confirmed by Bill 2026-10-21."
     },
     "g20_weiyao_s1": {
       "id": "g20_weiyao_s1",
@@ -6356,7 +6802,7 @@ window.FAMILY_DATA = {
         "g21_qingyang_c4",
         "g21_qingyang_c5"
       ],
-      "notes": "Son of 惟堯 (pp.125, 130–134). 三子清黨? and daughter 飩? omitted pending reading."
+      "notes": "Son of 惟堯 (pp.125, 130–134)."
     },
     "g20_weiyao_s2": {
       "id": "g20_weiyao_s2",
@@ -6370,11 +6816,15 @@ window.FAMILY_DATA = {
       "spouseId": "g20_weiyao_s2_w",
       "childrenIds": [
         "g21_qinglai_c1",
+        "g21_qinglai_c5",
         "g21_qinglai_c2",
         "g21_qinglai_c3",
         "g21_qinglai_c4"
       ],
-      "notes": "Son of 惟堯 (pp.125, 130–134). 三子清黨? and daughter 飩? omitted pending reading."
+      "otherSpouseIds": [
+        "g20_weiyao_s2_w2"
+      ],
+      "notes": "Son of 惟堯 (pp.125, 130–134)."
     },
     "g20_weiyao_s3": {
       "id": "g20_weiyao_s3",
@@ -6389,9 +6839,10 @@ window.FAMILY_DATA = {
       "childrenIds": [
         "g21_qingxi_c1",
         "g21_qingxi_c2",
+        "g21_qingxi_c2b",
         "g21_qingxi_c3"
       ],
-      "notes": "Son of 惟堯 (pp.125, 130–134). 三子清黨? and daughter 飩? omitted pending reading.",
+      "notes": "Son of 惟堯 (pp.125, 130–134).",
       "otherSpouseIds": [
         "g20_weiyao_s3_w2"
       ]
@@ -6485,7 +6936,34 @@ window.FAMILY_DATA = {
       "photoUrl": null,
       "spouseId": "g20_weiyao_s2",
       "childrenIds": [],
-      "notes": "Wife of 清來; printed 張氏淑霞 (p.132). Second wife 陳氏荼甲? not added pending reading."
+      "notes": "Wife of 清來; printed 張氏淑霞 (p.132). Second wife 陳氏菜甲 (Bill confirmed 菜, 2026-10-21)."
+    },
+    "g20_weiyao_s2_w2": {
+      "id": "g20_weiyao_s2_w2",
+      "name": "陳菜甲",
+      "englishName": "",
+      "gender": "female",
+      "role": "spouse",
+      "birthDate": "",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": "g20_weiyao_s2",
+      "childrenIds": [],
+      "notes": "Second wife of 清來; printed 陳氏菜甲 (p.132), mother of 火旺 and 良志. Bill confirmed 菜 on 2026-10-21."
+    },
+    "g21_qinglai_c5": {
+      "id": "g21_qinglai_c5",
+      "name": "陳珍福（折福?）",
+      "englishName": "",
+      "gender": "male",
+      "role": "bloodline",
+      "birthDate": "",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": null,
+      "childrenIds": [],
+      "motherId": "g20_weiyao_s2_w",
+      "notes": "次子 of 清來 & 張淑霞. p.132 text prints 珍福, p.125 chart prints 折福; Bill chose 陳珍福（折福?） on 2026-10-21."
     },
     "g21_qinglai_c1": {
       "id": "g21_qinglai_c1",
@@ -6499,7 +6977,7 @@ window.FAMILY_DATA = {
       "spouseId": null,
       "childrenIds": [],
       "motherId": "g20_weiyao_s2_w",
-      "notes": "Child of 清來 & 張淑霞 (p.132). 次子 珍福/折福 omitted (conflict)."
+      "notes": "Child of 清來 & 張淑霞 (p.132)."
     },
     "g21_qinglai_c2": {
       "id": "g21_qinglai_c2",
@@ -6513,7 +6991,7 @@ window.FAMILY_DATA = {
       "spouseId": null,
       "childrenIds": [],
       "motherId": "g20_weiyao_s2_w",
-      "notes": "Child of 清來 & 張淑霞 (p.132). 次子 珍福/折福 omitted (conflict)."
+      "notes": "Child of 清來 & 張淑霞 (p.132)."
     },
     "g21_qinglai_c3": {
       "id": "g21_qinglai_c3",
@@ -6526,7 +7004,8 @@ window.FAMILY_DATA = {
       "photoUrl": null,
       "spouseId": null,
       "childrenIds": [],
-      "notes": "Son of 清來 by second wife 陳氏荼甲? (p.132; wife not added pending reading)."
+      "motherId": "g20_weiyao_s2_w2",
+      "notes": "Son of 清來 by second wife 陳氏菜甲 (p.132)."
     },
     "g21_qinglai_c4": {
       "id": "g21_qinglai_c4",
@@ -6539,7 +7018,197 @@ window.FAMILY_DATA = {
       "photoUrl": null,
       "spouseId": null,
       "childrenIds": [],
-      "notes": "Son of 清來 by second wife 陳氏荼甲? (p.132; wife not added pending reading)."
+      "motherId": "g20_weiyao_s2_w2",
+      "notes": "Son of 清來 by second wife 陳氏菜甲 (p.132)."
+    },
+    "g20_weiyao_d1": {
+      "id": "g20_weiyao_d1",
+      "name": "陳飩",
+      "englishName": "",
+      "gender": "female",
+      "role": "bloodline",
+      "birthDate": "",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": null,
+      "childrenIds": [],
+      "notes": "一女 of 惟堯 (p.130: 傳下四子…一女飩). Only mention in the book; Bill confirmed 飩 on 2026-10-21."
+    },
+    "g20_weiyao_s5": {
+      "id": "g20_weiyao_s5",
+      "name": "陳清鱟",
+      "englishName": "",
+      "gender": "male",
+      "role": "bloodline",
+      "birthDate": "1930-07-03",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": "g20_weiyao_s5_w",
+      "childrenIds": [
+        "g21_qinghou_c1",
+        "g21_qinghou_c2",
+        "g21_qinghou_c3"
+      ],
+      "otherSpouseIds": [
+        "g20_weiyao_s5_w2"
+      ],
+      "notes": "三子 of 惟堯 (pp.125, 130, 132–133). Born 西歷一九三〇年七月三日 (p.132). Name glyph (黑-bottom, printed like 黨) read as 鱟 by Bill 2026-10-21. 嘉義農專森林科畢業; 林務局埔里林區管理處技師, 埔里林區工作站主任 (pp.132–133). Portrait captioned 清鱟 on p.133."
+    },
+    "g20_weiyao_s5_w": {
+      "id": "g20_weiyao_s5_w",
+      "name": "呂蕉微",
+      "englishName": "",
+      "gender": "female",
+      "role": "spouse",
+      "birthDate": "1931-07-01",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": "g20_weiyao_s5",
+      "childrenIds": [],
+      "notes": "Wife of 清鱟; printed 呂氏蕉微, born 一九三一年七月一日未時, 嘉義水上鄉人; mother of 良秋 and 良鴻 (p.133). Portrait captioned 呂蕉微 (p.133)."
+    },
+    "g20_weiyao_s5_w2": {
+      "id": "g20_weiyao_s5_w2",
+      "name": "林素雲",
+      "englishName": "",
+      "gender": "female",
+      "role": "spouse",
+      "birthDate": "1933-08-10",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": "g20_weiyao_s5",
+      "childrenIds": [],
+      "notes": "Second wife of 清鱟; printed 林氏素雲, born 一九三三年八月十日辰時, 基隆市人; mother of 芳貞 (p.133). Portrait captioned 林素雲 (p.133)."
+    },
+    "g21_qinghou_c1": {
+      "id": "g21_qinghou_c1",
+      "name": "陳良秋",
+      "englishName": "",
+      "gender": "male",
+      "role": "bloodline",
+      "birthDate": "1952-03-23",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": "g21_qinghou_c1_w",
+      "childrenIds": [
+        "g22_renkai",
+        "g22_yifan"
+      ],
+      "motherId": "g20_weiyao_s5_w",
+      "notes": "長子 of 清鱟 & 呂蕉微 (pp.133, 137). Born 一九五二年三月二十三日午時, printed 「於嘉義市共和路」 after the date; 嶺東商專畢業, 從事商業 (p.137). Portrait with wife on p.137."
+    },
+    "g21_qinghou_c2": {
+      "id": "g21_qinghou_c2",
+      "name": "陳良鴻",
+      "englishName": "",
+      "gender": "male",
+      "role": "bloodline",
+      "birthDate": "1953-11-06",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": "g21_qinghou_c2_w",
+      "childrenIds": [
+        "g22_junwei",
+        "g22_jingyi"
+      ],
+      "motherId": "g20_weiyao_s5_w",
+      "notes": "次子 of 清鱟 & 呂蕉微 (pp.133, 138). Born 一九五三年十一月六日辰時; 嘉義農專森林科畢業, 林務局埔里林區管理處服務 (p.138). Portrait with wife on p.138."
+    },
+    "g21_qinghou_c3": {
+      "id": "g21_qinghou_c3",
+      "name": "陳芳貞",
+      "englishName": "",
+      "gender": "female",
+      "role": "bloodline",
+      "birthDate": "",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": null,
+      "childrenIds": [],
+      "motherId": "g20_weiyao_s5_w2",
+      "notes": "長女 of 清鱟 & 林素雲 (p.133)."
+    },
+    "g21_qinghou_c1_w": {
+      "id": "g21_qinghou_c1_w",
+      "name": "童秋菊",
+      "englishName": "",
+      "gender": "female",
+      "role": "spouse",
+      "birthDate": "1953-05-01",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": "g21_qinghou_c1",
+      "childrenIds": [],
+      "notes": "Wife of 良秋; printed 妻童氏秋菊, 一九七八年結婚, 埔里鎭人, born 一九五三年五月一日 (p.137)."
+    },
+    "g22_renkai": {
+      "id": "g22_renkai",
+      "name": "陳任凱",
+      "englishName": "",
+      "gender": "male",
+      "role": "bloodline",
+      "birthDate": "",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": null,
+      "childrenIds": [],
+      "motherId": "g21_qinghou_c1_w",
+      "notes": "長子 of 良秋 & 童秋菊 (p.137: 傳下一子 長子任凱)."
+    },
+    "g22_yifan": {
+      "id": "g22_yifan",
+      "name": "陳依凡",
+      "englishName": "",
+      "gender": "female",
+      "role": "bloodline",
+      "birthDate": "",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": null,
+      "childrenIds": [],
+      "motherId": "g21_qinghou_c1_w",
+      "notes": "長女 of 良秋 & 童秋菊 (p.137: 一女 長女依凡)."
+    },
+    "g21_qinghou_c2_w": {
+      "id": "g21_qinghou_c2_w",
+      "name": "涂麗惠",
+      "englishName": "",
+      "gender": "female",
+      "role": "spouse",
+      "birthDate": "1958-11-05",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": "g21_qinghou_c2",
+      "childrenIds": [],
+      "notes": "Wife of 良鴻; printed 妻涂氏麗惠, 埔里鎭人, 一九八一年結婚, born 一九五八年十一月五日卯時 (p.138)."
+    },
+    "g22_junwei": {
+      "id": "g22_junwei",
+      "name": "陳俊維",
+      "englishName": "",
+      "gender": "male",
+      "role": "bloodline",
+      "birthDate": "",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": null,
+      "childrenIds": [],
+      "motherId": "g21_qinghou_c2_w",
+      "notes": "長子 of 良鴻 & 涂麗惠 (p.138: 傳下一子 長子俊維)."
+    },
+    "g22_jingyi": {
+      "id": "g22_jingyi",
+      "name": "陳靜怡",
+      "englishName": "",
+      "gender": "female",
+      "role": "bloodline",
+      "birthDate": "",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": null,
+      "childrenIds": [],
+      "motherId": "g21_qinghou_c2_w",
+      "notes": "長女 of 良鴻 & 涂麗惠 (p.138: 一女 長女靜怡)."
     },
     "g20_weiyao_s3_w": {
       "id": "g20_weiyao_s3_w",
@@ -6577,13 +7246,14 @@ window.FAMILY_DATA = {
       "birthDate": "1959-07-11",
       "deathDate": null,
       "photoUrl": null,
-      "spouseId": null,
+      "spouseId": "g21_qingxi_c1_w",
       "childrenIds": [
+        "g22_lianglu_c0",
         "g22_lianglu_c1",
         "g22_lianglu_c2"
       ],
       "motherId": "g20_weiyao_s3_w",
-      "notes": "Child of 清溪 & 許秀琴 (pp.135, 139). 次女 芳姿? omitted pending reading."
+      "notes": "Child of 清溪 & 許秀琴 (pp.135, 139)."
     },
     "g21_qingxi_c2": {
       "id": "g21_qingxi_c2",
@@ -6597,7 +7267,21 @@ window.FAMILY_DATA = {
       "spouseId": null,
       "childrenIds": [],
       "motherId": "g20_weiyao_s3_w",
-      "notes": "Child of 清溪 & 許秀琴 (pp.135, 139). 次女 芳姿? omitted pending reading."
+      "notes": "Child of 清溪 & 許秀琴 (pp.135, 139)."
+    },
+    "g21_qingxi_c2b": {
+      "id": "g21_qingxi_c2b",
+      "name": "陳芳姿",
+      "englishName": "",
+      "gender": "female",
+      "role": "bloodline",
+      "birthDate": "",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": null,
+      "childrenIds": [],
+      "motherId": "g20_weiyao_s3_w",
+      "notes": "Child of 清溪 & 許秀琴 (p.135 「傳下一子三女　長子良祿　長女芳雪　次女芳姿　三女芳紅」); 姿 confirmed by photo 2026-10-21."
     },
     "g21_qingxi_c3": {
       "id": "g21_qingxi_c3",
@@ -6611,7 +7295,33 @@ window.FAMILY_DATA = {
       "spouseId": null,
       "childrenIds": [],
       "motherId": "g20_weiyao_s3_w",
-      "notes": "Child of 清溪 & 許秀琴 (pp.135, 139). 次女 芳姿? omitted pending reading."
+      "notes": "Child of 清溪 & 許秀琴 (pp.135, 139)."
+    },
+    "g21_qingxi_c1_w": {
+      "id": "g21_qingxi_c1_w",
+      "name": "吳春鯈",
+      "englishName": "",
+      "gender": "female",
+      "role": "spouse",
+      "birthDate": "1960-04-02",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": "g21_qingxi_c1",
+      "childrenIds": [],
+      "notes": "吳氏春鯈，桃園人，一九八五年結婚 (p.139); glyph 鯈 identified by Bill 2026-10-21. Born 一九六〇年四月二日申時 (Gregorian as printed)."
+    },
+    "g22_lianglu_c0": {
+      "id": "g22_lianglu_c0",
+      "name": "陳善嶽",
+      "englishName": "",
+      "gender": "male",
+      "role": "bloodline",
+      "birthDate": "",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": null,
+      "childrenIds": [],
+      "notes": "Child of 良祿 & 吳春鯈 (p.139 「傳下二子　長子善嶽　次子善謙　一女　長女郁忻」)."
     },
     "g22_lianglu_c1": {
       "id": "g22_lianglu_c1",
@@ -6624,7 +7334,7 @@ window.FAMILY_DATA = {
       "photoUrl": null,
       "spouseId": null,
       "childrenIds": [],
-      "notes": "Child of 良祿 (p.139). 長子 善嶽? and wife 吳氏春絛? omitted pending reading."
+      "notes": "Child of 良祿 & 吳春鯈 (p.139)."
     },
     "g22_lianglu_c2": {
       "id": "g22_lianglu_c2",
@@ -6637,7 +7347,21 @@ window.FAMILY_DATA = {
       "photoUrl": null,
       "spouseId": null,
       "childrenIds": [],
-      "notes": "Child of 良祿 (p.139). 長子 善嶽? and wife 吳氏春絛? omitted pending reading."
+      "notes": "Child of 良祿 & 吳春鯈 (p.139)."
+    },
+    "g20_weitai_c0": {
+      "id": "g20_weitai_c0",
+      "name": "陳清浮",
+      "englishName": "",
+      "gender": "male",
+      "role": "bloodline",
+      "birthDate": "",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": null,
+      "childrenIds": [],
+      "motherId": "g19_weitai_w",
+      "notes": "長子 of 惟泰 & 黃甭 (p.136: 傳下三子 長子清浮). Approved by Bill 2026-10-21. No own entry in the book (p.189: 尙科公系列內惟鳩、惟泰、惟蟳部份尙缺資料)."
     },
     "g20_weitai_c1": {
       "id": "g20_weitai_c1",
@@ -6650,7 +7374,8 @@ window.FAMILY_DATA = {
       "photoUrl": null,
       "spouseId": null,
       "childrenIds": [],
-      "notes": "Child of 惟泰 (p.136). 長子 清浮? and wife 黃氏甭? omitted pending reading."
+      "notes": "次子 of 惟泰 & 黃甭 (p.136).",
+      "motherId": "g19_weitai_w"
     },
     "g20_weitai_c2": {
       "id": "g20_weitai_c2",
@@ -6663,7 +7388,8 @@ window.FAMILY_DATA = {
       "photoUrl": null,
       "spouseId": null,
       "childrenIds": [],
-      "notes": "Child of 惟泰 (p.136). 長子 清浮? and wife 黃氏甭? omitted pending reading."
+      "notes": "三子 of 惟泰 & 黃甭 (p.136).",
+      "motherId": "g19_weitai_w"
     },
     "g20_weitai_c3": {
       "id": "g20_weitai_c3",
@@ -6676,7 +7402,8 @@ window.FAMILY_DATA = {
       "photoUrl": null,
       "spouseId": null,
       "childrenIds": [],
-      "notes": "Child of 惟泰 (p.136). 長子 清浮? and wife 黃氏甭? omitted pending reading."
+      "notes": "長女 of 惟泰 & 黃甭 (p.136).",
+      "motherId": "g19_weitai_w"
     },
     "g20_weitai_c4": {
       "id": "g20_weitai_c4",
@@ -6689,7 +7416,8 @@ window.FAMILY_DATA = {
       "photoUrl": null,
       "spouseId": null,
       "childrenIds": [],
-      "notes": "Child of 惟泰 (p.136). 長子 清浮? and wife 黃氏甭? omitted pending reading."
+      "notes": "次女 of 惟泰 & 黃甭 (p.136).",
+      "motherId": "g19_weitai_w"
     },
     "g21_xiurong_c1": {
       "id": "g21_xiurong_c1",
@@ -6780,7 +7508,20 @@ window.FAMILY_DATA = {
       "photoUrl": null,
       "spouseId": null,
       "childrenIds": [],
-      "notes": "Child of 清富 & 葉秀鳳 (pp.143, 168). 長女 祺瑩? omitted pending reading."
+      "notes": "Child of 清富 & 葉秀鳳 (pp.143, 168)."
+    },
+    "g21_qingfu_d1": {
+      "id": "g21_qingfu_d1",
+      "name": "張祺瑩",
+      "englishName": "",
+      "gender": "female",
+      "role": "bloodline",
+      "birthDate": "",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": null,
+      "childrenIds": [],
+      "notes": "Child of 清富 & 葉秀鳳 (p.143 「傳下一男　長子祺祐　二女長女祺瑩　次女祺津」; p.168 張祺瑩); 瑩 confirmed by photo 2026-10-21."
     },
     "g21_qingfu_c2": {
       "id": "g21_qingfu_c2",
@@ -6793,7 +7534,7 @@ window.FAMILY_DATA = {
       "photoUrl": null,
       "spouseId": null,
       "childrenIds": [],
-      "notes": "Child of 清富 & 葉秀鳳 (pp.143, 168). 長女 祺瑩? omitted pending reading."
+      "notes": "Child of 清富 & 葉秀鳳 (pp.143, 168)."
     },
     "g21_xiuqiong_c1": {
       "id": "g21_xiuqiong_c1",
@@ -6964,6 +7705,19 @@ window.FAMILY_DATA = {
       "childrenIds": [],
       "notes": "Child of 秀蓮 & 湯禮文 (p.148)."
     },
+    "g21_qinghe_d1": {
+      "id": "g21_qinghe_d1",
+      "name": "張芸嫻",
+      "englishName": "",
+      "gender": "female",
+      "role": "bloodline",
+      "birthDate": "",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": null,
+      "childrenIds": [],
+      "notes": "Daughter of 清和 & 李美月 (p.149 「傳下一女　長女芸嫻」); reading confirmed by photo 2026-10-21."
+    },
     "g21_qinghe_c1": {
       "id": "g21_qinghe_c1",
       "name": "張鎭寰",
@@ -6975,7 +7729,7 @@ window.FAMILY_DATA = {
       "photoUrl": null,
       "spouseId": null,
       "childrenIds": [],
-      "notes": "Son of 清和 & 李美月 (p.149). 長女 芸嫻? omitted pending reading."
+      "notes": "Son of 清和 & 李美月 (p.149)."
     },
     "g21_qinghe_c2": {
       "id": "g21_qinghe_c2",
@@ -6988,7 +7742,7 @@ window.FAMILY_DATA = {
       "photoUrl": null,
       "spouseId": null,
       "childrenIds": [],
-      "notes": "Son of 清和 & 李美月 (p.149). 長女 芸嫻? omitted pending reading."
+      "notes": "Son of 清和 & 李美月 (p.149)."
     },
     "g21_xiudun_c1": {
       "id": "g21_xiudun_c1",
@@ -7029,6 +7783,58 @@ window.FAMILY_DATA = {
       "childrenIds": [],
       "notes": "Child of 秀敦 (p.150); husband 黃 per tree."
     },
+    "g21_xiumei_c1": {
+      "id": "g21_xiumei_c1",
+      "name": "蔡碧紅",
+      "englishName": "",
+      "gender": "female",
+      "role": "bloodline",
+      "birthDate": "1965-08-27",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": null,
+      "childrenIds": [],
+      "notes": "Child of 張秀梅 & 蔡吉明 (p.168 chart, position 1 of 4: 蔡碧紅, b. 民國54.8.27); name and gender confirmed by Bill 2026-10-21 (transcript misread 蔡碧銘／蔡如祥)."
+    },
+    "g21_xiumei_c2": {
+      "id": "g21_xiumei_c2",
+      "name": "蔡碧琦",
+      "englishName": "",
+      "gender": "female",
+      "role": "bloodline",
+      "birthDate": "1966-09-20",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": null,
+      "childrenIds": [],
+      "notes": "Child of 張秀梅 & 蔡吉明 (p.168 chart, position 2 of 4: 蔡碧琦, b. 民國55.9.20); name and gender confirmed by Bill 2026-10-21 (transcript misread 蔡碧銘／蔡如祥)."
+    },
+    "g21_xiumei_c3": {
+      "id": "g21_xiumei_c3",
+      "name": "蔡銘祥",
+      "englishName": "",
+      "gender": "male",
+      "role": "bloodline",
+      "birthDate": "1968-02-22",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": null,
+      "childrenIds": [],
+      "notes": "Child of 張秀梅 & 蔡吉明 (p.168 chart, position 3 of 4: 蔡銘祥, b. 民國57.2.22); name and gender confirmed by Bill 2026-10-21 (transcript misread 蔡碧銘／蔡如祥)."
+    },
+    "g21_xiumei_c4": {
+      "id": "g21_xiumei_c4",
+      "name": "蔡碧如",
+      "englishName": "",
+      "gender": "female",
+      "role": "bloodline",
+      "birthDate": "1969-12-25",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": null,
+      "childrenIds": [],
+      "notes": "Child of 張秀梅 & 蔡吉明 (p.168 chart, position 4 of 4: 蔡碧如, b. 民國58.12.25); name and gender confirmed by Bill 2026-10-21 (transcript misread 蔡碧銘／蔡如祥)."
+    },
     "g21_xiumei2_c1": {
       "id": "g21_xiumei2_c1",
       "name": "范逸琛",
@@ -7040,7 +7846,7 @@ window.FAMILY_DATA = {
       "photoUrl": null,
       "spouseId": null,
       "childrenIds": [],
-      "notes": "Son of 秀美 (p.150); husband 范 per tree. 長女 恬甄? omitted pending reading."
+      "notes": "Son of 秀美 (p.150); husband 范 per tree."
     },
     "g21_xiumei2_c2": {
       "id": "g21_xiumei2_c2",
@@ -7053,7 +7859,20 @@ window.FAMILY_DATA = {
       "photoUrl": null,
       "spouseId": null,
       "childrenIds": [],
-      "notes": "Son of 秀美 (p.150); husband 范 per tree. 長女 恬甄? omitted pending reading."
+      "notes": "Son of 秀美 (p.150); husband 范 per tree."
+    },
+    "g21_xiumei2_d1": {
+      "id": "g21_xiumei2_d1",
+      "name": "范恬甄",
+      "englishName": "",
+      "gender": "female",
+      "role": "bloodline",
+      "birthDate": "",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": null,
+      "childrenIds": [],
+      "notes": "Daughter of 秀美 (p.150 「一女　長女恬甄」, listed after 二子 逸琛・文琛); husband 范 per tree; reading confirmed by photo 2026-10-21."
     },
     "g21_qingjing_c1": {
       "id": "g21_qingjing_c1",
@@ -7113,12 +7932,12 @@ window.FAMILY_DATA = {
       "englishName": "",
       "gender": "female",
       "role": "spouse",
-      "birthDate": "",
+      "birthDate": "1955-09-22",
       "deathDate": null,
       "photoUrl": null,
       "spouseId": "g20_qingfeng",
       "childrenIds": [],
-      "notes": "Wife of 清豐; printed 黃氏惠珍 (p.153)."
+      "notes": "Wife of 清豐; printed 黃氏惠珍 (p.153). b. 生于（農曆）乙未年八月七日卯時 (p.153); lunar; converted with sxtwl → 1955-09-22."
     },
     "g21_qingfeng_c1": {
       "id": "g21_qingfeng_c1",
@@ -7131,7 +7950,33 @@ window.FAMILY_DATA = {
       "photoUrl": null,
       "spouseId": null,
       "childrenIds": [],
-      "notes": "Child of 清豐 & 黃惠珍 (p.153). Other two (涵雯?, 境桓?) omitted pending review."
+      "notes": "Child of 清豐 & 黃惠珍 (p.153 「傳下三子　涵郁　涵雯　境桓」, 長子)."
+    },
+    "g21_qingfeng_c2": {
+      "id": "g21_qingfeng_c2",
+      "name": "張涵雯",
+      "englishName": "",
+      "gender": "male",
+      "role": "bloodline",
+      "birthDate": "",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": null,
+      "childrenIds": [],
+      "notes": "Son of 清豐 & 黃惠珍 (p.153 「傳下三子　涵郁　涵雯　境桓」, 次子); reading confirmed by photo 2026-10-21."
+    },
+    "g21_qingfeng_c3": {
+      "id": "g21_qingfeng_c3",
+      "name": "張境桓",
+      "englishName": "",
+      "gender": "male",
+      "role": "bloodline",
+      "birthDate": "",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": null,
+      "childrenIds": [],
+      "notes": "Son of 清豐 & 黃惠珍 (p.153 「傳下三子　涵郁　涵雯　境桓」, 叁子); reading confirmed by photo 2026-10-21."
     },
     "g21_bifang_c1": {
       "id": "g21_bifang_c1",
@@ -7174,16 +8019,16 @@ window.FAMILY_DATA = {
     },
     "g21_bifang_c4": {
       "id": "g21_bifang_c4",
-      "name": "顏玫伶",
+      "name": "顏玟伶",
       "englishName": "",
       "gender": "female",
       "role": "bloodline",
       "birthDate": "",
       "deathDate": null,
       "photoUrl": null,
-      "spouseId": null,
+      "spouseId": "g21_bifang_c4_h",
       "childrenIds": [],
-      "notes": "Child of 碧芳 & 顏德松 (p.155)."
+      "notes": "Child of 碧芳 & 顏德松 (p.155 「三女　玟伶」); 玟 (王+文, U+739F) corrected by Bill 2026-10-21 (was transcribed 玫)."
     },
     "g21_bifang_c2_h": {
       "id": "g21_bifang_c2_h",
@@ -7197,6 +8042,19 @@ window.FAMILY_DATA = {
       "spouseId": "g21_bifang_c2",
       "childrenIds": [],
       "notes": "Husband of 顏秀珍; 住美國 (p.155)."
+    },
+    "g21_bifang_c4_h": {
+      "id": "g21_bifang_c4_h",
+      "name": "徐志暐",
+      "englishName": "",
+      "gender": "male",
+      "role": "spouse",
+      "birthDate": "",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": "g21_bifang_c4",
+      "childrenIds": [],
+      "notes": "Husband of 顏玟伶; 住花蓮 (p.155 「三女　玟伶　配偶徐志暐　住花蓮」); 暐 (日+韋, U+6690) confirmed by photo 2026-10-21."
     },
     "g21_qingbo_c1": {
       "id": "g21_qingbo_c1",
@@ -7289,6 +8147,19 @@ window.FAMILY_DATA = {
       "childrenIds": [],
       "notes": "Child of 碧玲 & 尤金龍 (p.157)."
     },
+    "g21_guangfu_c0": {
+      "id": "g21_guangfu_c0",
+      "name": "張容瑄",
+      "englishName": "",
+      "gender": "female",
+      "role": "bloodline",
+      "birthDate": "",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": null,
+      "childrenIds": [],
+      "notes": "Daughter of 光甫 & 李彩雲 (p.158 「傳下三女」「長女容瑄　花蓮女中」); reading confirmed by photo 2026-10-21."
+    },
     "g21_guangfu_c1": {
       "id": "g21_guangfu_c1",
       "name": "張涵婷",
@@ -7300,7 +8171,7 @@ window.FAMILY_DATA = {
       "photoUrl": null,
       "spouseId": null,
       "childrenIds": [],
-      "notes": "Daughter of 光甫 & 李彩雲 (p.158). 長女 容瑄? omitted pending reading."
+      "notes": "Daughter of 光甫 & 李彩雲 (p.158)."
     },
     "g21_guangfu_c2": {
       "id": "g21_guangfu_c2",
@@ -7313,7 +8184,7 @@ window.FAMILY_DATA = {
       "photoUrl": null,
       "spouseId": null,
       "childrenIds": [],
-      "notes": "Daughter of 光甫 & 李彩雲 (p.158). 長女 容瑄? omitted pending reading."
+      "notes": "Daughter of 光甫 & 李彩雲 (p.158)."
     },
     "g21_bihui_c1": {
       "id": "g21_bihui_c1",
@@ -7326,7 +8197,20 @@ window.FAMILY_DATA = {
       "photoUrl": null,
       "spouseId": null,
       "childrenIds": [],
-      "notes": "Son of 碧惠 & 江慶宗 (p.159). 次子 威汎? omitted pending reading."
+      "notes": "Son of 碧惠 & 江慶宗 (p.159 「傳下二子　長子建億　次子威汎」)."
+    },
+    "g21_bihui_c2": {
+      "id": "g21_bihui_c2",
+      "name": "江威汎",
+      "englishName": "",
+      "gender": "male",
+      "role": "bloodline",
+      "birthDate": "",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": null,
+      "childrenIds": [],
+      "notes": "Son of 碧惠 & 江慶宗 (p.159 「傳下二子　長子建億　次子威汎」, 次子); 汎 (U+6C4E) confirmed by Bill 2026-10-21 — the dot inside 凡 is faint in the print."
     },
     "g21_bizhu_c1": {
       "id": "g21_bizhu_c1",
@@ -7339,7 +8223,7 @@ window.FAMILY_DATA = {
       "photoUrl": null,
       "spouseId": null,
       "childrenIds": [],
-      "notes": "Daughter of 碧珠 (pp.159–160); father 黃 (book: 配偶黃明俊; tree spouse links for 碧珠/玲美/鈴玉 under review)."
+      "notes": "Daughter of 碧珠 & 黃明俊 (p.160 「生下一女　名馨茹」; p.159 配偶黃明俊). Spouse links confirmed by the p.63 re-read, 2026-10-21."
     },
     "g21_lingmei_c1": {
       "id": "g21_lingmei_c1",
@@ -7352,7 +8236,20 @@ window.FAMILY_DATA = {
       "photoUrl": null,
       "spouseId": null,
       "childrenIds": [],
-      "notes": "Son of 玲美 (p.161); father 黃. 次子 士恒? omitted pending reading."
+      "notes": "Elder son of 玲美 & 黃信忠 (p.161 「傳下二子　長子士銘　次子士恒」; p.160 配偶黃信忠). Spouse links confirmed by the p.63 re-read, 2026-10-21."
+    },
+    "g21_lingmei_c2": {
+      "id": "g21_lingmei_c2",
+      "name": "黃士恒",
+      "englishName": "",
+      "gender": "male",
+      "role": "bloodline",
+      "birthDate": "",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": null,
+      "childrenIds": [],
+      "notes": "Younger son of 玲美 & 黃信忠 (p.161 「傳下二子　長子士銘　次子士恒」); 恒 (忄+亘, U+6052) confirmed by zoomed crop 2026-10-21."
     },
     "g21_qingyue_c1": {
       "id": "g21_qingyue_c1",
@@ -7404,7 +8301,33 @@ window.FAMILY_DATA = {
       "photoUrl": null,
       "spouseId": null,
       "childrenIds": [],
-      "notes": "Son of 碧娥 & 菊池道夫; date as printed (p.165). Daughter 麻波? omitted pending reading."
+      "notes": "Son of 碧娥 & 菊池道夫; date as printed (p.165)."
+    },
+    "g21_bie_c2": {
+      "id": "g21_bie_c2",
+      "name": "菊池麻波",
+      "englishName": "",
+      "gender": "female",
+      "role": "bloodline",
+      "birthDate": "1977-08-11",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": null,
+      "childrenIds": [],
+      "notes": "Daughter of 碧娥 & 菊池道夫; date as printed (p.165 「一女　麻波　一九七七年八月十一日生」); reading confirmed by zoomed crop 2026-10-21."
+    },
+    "g21_bizhu2_c1": {
+      "id": "g21_bizhu2_c1",
+      "name": "荒井俊匡",
+      "englishName": "",
+      "gender": "male",
+      "role": "bloodline",
+      "birthDate": "1976-07-05",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": null,
+      "childrenIds": [],
+      "notes": "Son of 碧珠 & 荒井昇; date as printed (p.166 「傳下一男　俊匡　一九七六年七月五日生」); 匡 (王 inside 匚) confirmed by zoomed crop 2026-10-21."
     },
     "g17_chuangbao_w": {
       "id": "g17_chuangbao_w",
@@ -7442,8 +8365,14 @@ window.FAMILY_DATA = {
       "deathDate": null,
       "photoUrl": null,
       "spouseId": "g19_jin_d1_h",
-      "childrenIds": [],
-      "notes": "長女 of 進; 摘九芎坑黃養, later 再嫁 呂萬掌? (p.172)."
+      "childrenIds": [
+        "g20_jin_d1_c1",
+        "g20_jin_d1_c2"
+      ],
+      "otherSpouseIds": [
+        "g19_jin_d1_h2"
+      ],
+      "notes": "長女 of 進; 摘九芎坑黃養，生下二男（名未載）後再嫁呂萬掌，生二男 田丕、明悟 (p.172)."
     },
     "g19_jin_d1_h": {
       "id": "g19_jin_d1_h",
@@ -7457,6 +8386,47 @@ window.FAMILY_DATA = {
       "spouseId": "g19_jin_d1",
       "childrenIds": [],
       "notes": "First husband of 陳夜; of 九芎坑 (p.172)."
+    },
+    "g19_jin_d1_h2": {
+      "id": "g19_jin_d1_h2",
+      "name": "呂萬掌",
+      "englishName": "",
+      "gender": "male",
+      "role": "spouse",
+      "birthDate": "",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": "g19_jin_d1",
+      "childrenIds": [],
+      "notes": "Second husband of 陳夜 (再嫁), father of 田丕 and 明悟 (p.172). Bill approved 2026-10-21."
+    },
+    "g20_jin_d1_c1": {
+      "id": "g20_jin_d1_c1",
+      "name": "呂田丕",
+      "englishName": "",
+      "gender": "male",
+      "role": "bloodline",
+      "birthDate": "",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": null,
+      "childrenIds": [],
+      "fatherId": "g19_jin_d1_h2",
+      "notes": "Son of 陳夜 and second husband 呂萬掌; printed 田丕 (p.172); surname 呂 per Bill 2026-10-21."
+    },
+    "g20_jin_d1_c2": {
+      "id": "g20_jin_d1_c2",
+      "name": "呂明悟",
+      "englishName": "",
+      "gender": "male",
+      "role": "bloodline",
+      "birthDate": "",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": null,
+      "childrenIds": [],
+      "fatherId": "g19_jin_d1_h2",
+      "notes": "Son of 陳夜 and second husband 呂萬掌; printed 明悟 (p.172); surname 呂 per Bill 2026-10-21."
     },
     "g19_jin_d2": {
       "id": "g19_jin_d2",
@@ -7496,6 +8466,21 @@ window.FAMILY_DATA = {
       "spouseId": "g18_shangbai",
       "childrenIds": [],
       "notes": "Wife of 尙白 (p.173)."
+    },
+    "g19_bai_s1": {
+      "id": "g19_bai_s1",
+      "name": "陳爲?",
+      "englishName": "",
+      "gender": "male",
+      "role": "bloodline",
+      "birthDate": "1911-05-16",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": null,
+      "childrenIds": [
+        "g20_weizong_s2"
+      ],
+      "notes": "p.177 「第十九世　爲　尙白公之長子」, 生于宣統辛亥年五月十六日午時 (stored as printed, 1911-05-16). Given name left blank in the book (pp.169/173/177); 世享 (惟宗之次子) 爲其後嗣. Not the same person as 爲舜 (g19_weishun). Added 2026-10-21 per Bill. Heir 世享 placed here per Bill 2026-10-21 adoption rule."
     },
     "g19_bai_s2": {
       "id": "g19_bai_s2",
@@ -7537,7 +8522,7 @@ window.FAMILY_DATA = {
       "photoUrl": null,
       "spouseId": null,
       "childrenIds": [
-        "g20_weizong_s2"
+        "g20_weizong_s2__ref"
       ],
       "notes": "Son of 尙白 (pp.169, 173). 長子 (name blank in book) not added."
     },
@@ -7604,7 +8589,8 @@ window.FAMILY_DATA = {
       "photoUrl": null,
       "spouseId": null,
       "childrenIds": [],
-      "notes": "次子 of 惟宗; 後嗣 of 尙白's 長子 (pp.169, 177)."
+      "notes": "次子 of 惟宗; 後嗣 of 尙白's 長子 陳爲? (p.169 「爲 ─ 世享（惟宗之次子）」; p.177 「世享惟宗之次子爲其後嗣」). Main node moved under 陳爲? (g19_bai_s1) with visibleNote 惟宗之次子過房; reference copy g20_weizong_s2__ref (過房陳爲?) under 惟宗 per Bill 2026-10-21 adoption rule.",
+      "visibleNote": "惟宗之子過房"
     },
     "g19_weijun_w": {
       "id": "g19_weijun_w",
@@ -7630,7 +8616,8 @@ window.FAMILY_DATA = {
       "photoUrl": null,
       "spouseId": "g20_wang_d2_h",
       "childrenIds": [],
-      "notes": "Daughter of 旺; 適 蔡謙成 (pp.174, 180)."
+      "notes": "Daughter of 旺; 適 蔡謙成 (pp.174, 180).",
+      "motherId": "g19_wang_w"
     },
     "g20_wang_d2_h": {
       "id": "g20_wang_d2_h",
@@ -7656,7 +8643,8 @@ window.FAMILY_DATA = {
       "photoUrl": null,
       "spouseId": "g20_wang_d3_h",
       "childrenIds": [],
-      "notes": "Daughter of 旺; 適 張坤泉 (pp.174, 180)."
+      "notes": "Daughter of 旺; 適 張坤泉 (pp.174, 180).",
+      "motherId": "g19_wang_w"
     },
     "g20_wang_d3_h": {
       "id": "g20_wang_d3_h",
@@ -7682,7 +8670,8 @@ window.FAMILY_DATA = {
       "photoUrl": null,
       "spouseId": "g20_wang_d4_h",
       "childrenIds": [],
-      "notes": "Daughter of 旺; 適 葉文雄 (pp.174, 180)."
+      "notes": "Daughter of 旺; 適 葉文雄 (pp.174, 180).",
+      "motherId": "g19_wang_w"
     },
     "g20_wang_d4_h": {
       "id": "g20_wang_d4_h",
@@ -7708,7 +8697,7 @@ window.FAMILY_DATA = {
       "photoUrl": null,
       "spouseId": null,
       "childrenIds": [],
-      "notes": "Child of 陳錫 (pp.178, 180–181). Wife 李浮/李富 not added (conflict)."
+      "notes": "Child of 陳錫 & 李浮（富） (pp.178, 180–181)."
     },
     "g21_xi_c2": {
       "id": "g21_xi_c2",
@@ -7721,7 +8710,7 @@ window.FAMILY_DATA = {
       "photoUrl": null,
       "spouseId": null,
       "childrenIds": [],
-      "notes": "Child of 陳錫 (pp.178, 180–181). Wife 李浮/李富 not added (conflict)."
+      "notes": "Child of 陳錫 & 李浮（富） (pp.178, 180–181)."
     },
     "g21_xi_c3": {
       "id": "g21_xi_c3",
@@ -7734,7 +8723,7 @@ window.FAMILY_DATA = {
       "photoUrl": null,
       "spouseId": null,
       "childrenIds": [],
-      "notes": "Child of 陳錫 (pp.178, 180–181). Wife 李浮/李富 not added (conflict)."
+      "notes": "Child of 陳錫 & 李浮（富） (pp.178, 180–181)."
     },
     "g21_xi_c4": {
       "id": "g21_xi_c4",
@@ -7747,7 +8736,20 @@ window.FAMILY_DATA = {
       "photoUrl": null,
       "spouseId": null,
       "childrenIds": [],
-      "notes": "Child of 陳錫 (pp.178, 180–181). Wife 李浮/李富 not added (conflict)."
+      "notes": "Child of 陳錫 & 李浮（富） (pp.178, 180–181)."
+    },
+    "g20_xi_w": {
+      "id": "g20_xi_w",
+      "name": "李浮（富）",
+      "englishName": "",
+      "gender": "female",
+      "role": "spouse",
+      "birthDate": "1927-05-18",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": "g20_xi",
+      "childrenIds": [],
+      "notes": "Wife of 陳錫; p.178 chart prints 妻陳李浮（富）, p.179 prints 妻陳李富（民國16.5.18.生）. Shown as 李浮（富） per Bill 2026-10-21."
     },
     "g20_xian_w": {
       "id": "g20_xian_w",
@@ -7857,7 +8859,7 @@ window.FAMILY_DATA = {
       "spouseId": null,
       "childrenIds": [],
       "motherId": "g20_ping_w",
-      "notes": "Child of 長祿（瓶） & 簡寶琴 (pp.178, 182–183). Another daughter 淑罕? omitted pending reading."
+      "notes": "Child of 陳長祿（瓶） & 簡寶琴 (pp.178, 182–183)."
     },
     "g21_ping_c2": {
       "id": "g21_ping_c2",
@@ -7871,7 +8873,7 @@ window.FAMILY_DATA = {
       "spouseId": null,
       "childrenIds": [],
       "motherId": "g20_ping_w",
-      "notes": "Child of 長祿（瓶） & 簡寶琴 (pp.178, 182–183). Another daughter 淑罕? omitted pending reading."
+      "notes": "Child of 陳長祿（瓶） & 簡寶琴 (pp.178, 182–183)."
     },
     "g21_ping_c3": {
       "id": "g21_ping_c3",
@@ -7885,7 +8887,122 @@ window.FAMILY_DATA = {
       "spouseId": null,
       "childrenIds": [],
       "motherId": "g20_ping_w",
-      "notes": "Child of 長祿（瓶） & 簡寶琴 (pp.178, 182–183). Another daughter 淑罕? omitted pending reading."
+      "notes": "Child of 陳長祿（瓶） & 簡寶琴 (pp.178, 182–183)."
+    },
+    "g21_ping_d1": {
+      "id": "g21_ping_d1",
+      "name": "陳淑罕",
+      "englishName": "",
+      "gender": "female",
+      "role": "bloodline",
+      "birthDate": "1955-02-24",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": "g21_ping_d1_h",
+      "childrenIds": [],
+      "motherId": "g20_ping_w",
+      "notes": "Child of 陳長祿（瓶） & 簡寶琴 (p.178 chart 「陳長祿 → 陳澤濃、陳淑媛、陳淑罕、陳純瓊」; pp.182–183 「陳淑罕民國四四年二月廿四日生　竹崎國中畢業」). 民國44.2.24 = 1955-02-24 (民國+1911). 竹崎國中畢業 (p.183). Placed between 淑媛 (1952) and 純瓊 (1956) by birth date per Bill 2026-10-21; 罕 confirmed by zoomed crop 2026-10-21 (was 存疑)."
+    },
+    "g21_ping_d1_h": {
+      "id": "g21_ping_d1_h",
+      "name": "史東風",
+      "englishName": "",
+      "gender": "male",
+      "role": "spouse",
+      "birthDate": "",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": "g21_ping_d1",
+      "childrenIds": [],
+      "notes": "Husband of 陳淑罕; 在台北市當警察; 住址台北市吳興街二八四巷三～二號二樓 (p.183 「竹崎國中畢業其夫史東風在台北市當警察　住址台北市吳興街二八四巷三～二號二樓」)."
+    },
+    "g18_shangbai__ref": {
+      "id": "g18_shangbai__ref",
+      "refOf": "g18_shangbai",
+      "role": "bloodline",
+      "childrenIds": [],
+      "visibleNote": "過房窓卯",
+      "notes": "Reference copy of g18_shangbai under birth father 窓抱 (次子, p.169/170); branch + wife shown under 窓卯 (Bill 2026-10-21 adoption rule)."
+    },
+    "g19_wanen__ref": {
+      "id": "g19_wanen__ref",
+      "refOf": "g19_wanen",
+      "role": "bloodline",
+      "childrenIds": [],
+      "visibleNote": "過房尙楚",
+      "notes": "Reference copy of g19_wanen under birth father 尙鄒 (長子, p.106 「由兄之長子萬恩過房」); branch + wife shown under 尙楚 (Bill 2026-10-21 adoption rule)."
+    },
+    "g19_weichao__ref": {
+      "id": "g19_weichao__ref",
+      "refOf": "g19_weichao",
+      "role": "bloodline",
+      "childrenIds": [],
+      "visibleNote": "過房尙三",
+      "notes": "Reference copy of g19_weichao under birth father 進 (四子, pp.172/175), between 爲存 and 惟軍; branch under 尙三 (Bill 2026-10-21 adoption rule)."
+    },
+    "g20_qingfu__ref": {
+      "id": "g20_qingfu__ref",
+      "refOf": "g20_qingfu",
+      "role": "bloodline",
+      "childrenIds": [],
+      "visibleNote": "過房爲添",
+      "notes": "Reference copy of g20_qingfu under birth father 爲築 after 光甫 (p.63 order: 長子清博, 次子光甫, 三子清富); branch + wife under 爲添 (Bill 2026-10-21 adoption rule).",
+      "motherId": "g19_xuyun"
+    },
+    "g04_jindeng__ref": {
+      "id": "g04_jindeng__ref",
+      "refOf": "g04_jindeng",
+      "role": "bloodline",
+      "childrenIds": [],
+      "visibleNote": "過房元貴",
+      "notes": "Reference copy of g04_jindeng first under birth father 有貴 (長子, pp.18–19); branch under 元貴 (Bill 2026-10-21 adoption rule)."
+    },
+    "g20_qingying__ref": {
+      "id": "g20_qingying__ref",
+      "refOf": "g20_qingying",
+      "role": "bloodline",
+      "childrenIds": [],
+      "visibleNote": "過房爲存",
+      "notes": "Reference copy of g20_qingying under birth father 惟朝 (original slot, before 清鑑); main node under 爲存 (Bill 2026-10-21 adoption rule)."
+    },
+    "g20_weizong_s2__ref": {
+      "id": "g20_weizong_s2__ref",
+      "refOf": "g20_weizong_s2",
+      "role": "bloodline",
+      "childrenIds": [],
+      "visibleNote": "過房陳爲?",
+      "notes": "Reference copy of g20_weizong_s2 under birth father 惟宗 (次子 slot; 惟宗's other children not in tree); main node under 陳爲? g19_bai_s1 (Bill 2026-10-21 adoption rule)."
+    },
+    "g21_pingying__ref": {
+      "id": "g21_pingying__ref",
+      "refOf": "g21_pingying",
+      "role": "bloodline",
+      "childrenIds": [],
+      "visibleNote": "過房爲讀",
+      "notes": "Reference copy of g21_pingying under birth mother 陳勤 (& 招婿 黃春添), original 次子 slot (p.114 長子平松, 次子平英); wife shown, branch under 爲讀 (Bill 2026-10-21 adoption rule)."
+    },
+    "g20_zhaonan": {
+      "id": "g20_zhaonan",
+      "name": "陳昭男",
+      "englishName": "",
+      "gender": "male",
+      "role": "bloodline",
+      "birthDate": "",
+      "deathDate": null,
+      "photoUrl": null,
+      "spouseId": null,
+      "childrenIds": [],
+      "visibleNote": "旺之子過房",
+      "notes": "Born 四子 of 旺 (p.169 chart 旺 ─ 錫、賢、長祿、昭男; p.178 「四子　陳昭男　爲十九世陳爲給養子」; p.180 same); listed 長子 of 爲給 (p.119 「長子昭男　次子明鑑…」, p.121 chart). Spelling 昭男 per pp.119, 169, 178, 180; p.174 prints 昭南. Address conflict: p.180 屛東縣大樹鄉大津 vs pp.117–118 (爲給) 高樹鄉大津. No birth date, wife or children given. Added 2026-10-21 per Bill: main node first under 爲給 (visibleNote 旺之四子過房); reference copy g20_zhaonan__ref (過房爲給) under 旺 after 長祿."
+    },
+    "g20_zhaonan__ref": {
+      "id": "g20_zhaonan__ref",
+      "refOf": "g20_zhaonan",
+      "role": "bloodline",
+      "childrenIds": [],
+      "visibleNote": "過房爲給",
+      "notes": "Reference copy of g20_zhaonan under birth father 旺 (四子, after 長祿, before daughters; p.178); main node under 爲給 (Bill 2026-10-21 adoption rule).",
+      "motherId": "g19_wang_w"
     }
   }
 };

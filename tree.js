@@ -159,7 +159,7 @@
         var g = ageGroup(ageOf(x));
         if (g) (byDepth[d] = byDepth[d] || []).push(BUCKET_ORDER.indexOf(g));
       });
-      (p.childrenIds || []).forEach(function (c) { walk(c, d + 1); });
+      (p.childrenIds || []).forEach(function (c) { walk(c, d + 1 + skipOf(people[c])); });
     })(QINGSHUI_ID, qsDepth);
     AGED_DEPTHS.forEach(function (d) {
       var a = (byDepth[d] || []).filter(function (i) { return i >= 0; }).sort(function (x, y) { return x - y; });
@@ -218,7 +218,7 @@
       avatar.appendChild(dashedRing());
     }
 
-    // Exactly 3 lines: name, English name (optional), birthday. No death date.
+    // Lines: name, English name (optional), birthday, optional visibleNote. No death date.
     var birth = formatDate(person.birthDate);
     var label = el("div", { className: "person-label" }, [
       // surnameOnly: husband known by surname only → "湯（名未詳）" (same pattern as 窓擔（抱）)
@@ -227,6 +227,8 @@
         ? bracketText(el("p", { className: "person-english" }), person.englishName)
         : null,
       birth ? el("p", { className: "person-dates", text: birth }) : null,
+      // visibleNote: rare, Bill-approved on-tree note (e.g. 爲舜's 尙白之子過房); same muted style as the birthday line.
+      person.visibleNote ? bracketText(el("p", { className: "person-dates person-note" }), person.visibleNote) : null,
     ]);
 
     return el(
@@ -234,11 +236,44 @@
       {
         className: personClass(person),
         "data-id": person.id,
-        "aria-label": displayName(person) + (birth ? ", born " + birth : ""),
+        "data-ref-of": person.refOf || null,
+        "aria-label": displayName(person) + (birth ? ", born " + birth : "") + (person.visibleNote ? ", " + person.visibleNote : ""),
       },
       [avatar, label]
     );
   }
+
+  // Adoption rule (Bill 2026-10-21): a node with refOf is a reference copy shown under the birth father.
+  // Resolve it in place: inherit the main node's display fields, keep its own id/visibleNote/notes/motherId,
+  // never any children. The main node's wife/wives are added as virtual spouse cards with their own ids
+  // (copyId + "__sp" + n, refOf = the real wife), childless, so no id is duplicated and motherId grouping
+  // on the adoptive side is untouched.
+  var INHERIT = ["name", "englishName", "gender", "birthDate", "photoUrl", "surnameOnly", "avatarAge"];
+  function resolveRefs(people) {
+    Object.keys(people).forEach(function (id) {
+      var copy = people[id], main = copy && copy.refOf && people[copy.refOf];
+      if (!main) return;
+      INHERIT.forEach(function (k) { if (main[k] !== undefined) copy[k] = main[k]; });
+      copy.role = main.role || "bloodline";
+      copy.childrenIds = [];
+      var wifeIds = [main.spouseId].concat(main.otherSpouseIds || []).filter(function (w) { return w && people[w]; });
+      var virt = wifeIds.map(function (w, n) {
+        var vid = id + "__sp" + (n + 1), src = people[w], v = {};
+        Object.keys(src).forEach(function (k) { v[k] = src[k]; });
+        v.id = vid; v.refOf = w; v.spouseId = id; v.childrenIds = []; v.otherSpouseIds = undefined;
+        people[vid] = v;
+        return vid;
+      });
+      copy.spouseId = virt[0] || null;
+      copy.otherSpouseIds = virt.length > 1 ? virt.slice(1) : undefined;
+    });
+  }
+
+  // skipRows (generic): a child that sits N generations further down than parent+1 (e.g. a 廿一世 heir
+  // carrying a 十八世 line). Rendered at its TRUE depth (rail, avatars, data-depth); its child-slot gets a
+  // top padding so its card lands in the right generation row, and the parent's drop line simply runs
+  // down through the skipped rows (the vertical segment goes from the rail to the child's avatar top).
+  function skipOf(person) { var n = person && +person.skipRows; return n > 0 ? Math.floor(n) : 0; }
 
   function coupleOrder(person, spouse) {
     if (!spouse) return [person];
@@ -307,6 +342,11 @@
     var spouse = person.spouseId ? people[person.spouseId] : null;
     var wives = [spouse].concat((person.otherSpouseIds || []).map(function (id) { return people[id]; })).filter(Boolean);
     var multi = wives.length > 1;
+    // Multi-spouse works for either sex: a bloodline male with several wives (children keyed by motherId)
+    // or a bloodline female with several husbands (children keyed by fatherId, tag 夫一/夫二).
+    var femAnchor = person.gender === "female";
+    var pkey = function (c) { return femAnchor ? c.fatherId : c.motherId; };
+    var stag = femAnchor ? "夫" : "妻";
     var pair = multi ? [person].concat(wives) : coupleOrder(person, spouse);
     var couple = el("div", {
       className: "couple" + (spouse ? "" : " couple-single"),
@@ -321,7 +361,7 @@
         card.classList.add("multi-spouse", "spouse-n" + (wi + 1));
         if (wi > 0) card.classList.add("is-extra-spouse");
         var lab = card.querySelector(".person-label");
-        lab.insertBefore(el("p", { className: "spouse-tag", text: "妻" + "一二三四"[wi] }), lab.firstChild);
+        lab.insertBefore(el("p", { className: "spouse-tag", text: stag + "一二三四"[wi] }), lab.firstChild);
       }
       couple.appendChild(card);
     });
@@ -331,7 +371,7 @@
 
     var children = getChildren(person, spouse, people);
     if (multi) { // group children by mother, in wife order; unknown mother last
-      var order = function (c) { var k = wives.map(function (w) { return w.id; }).indexOf(c.motherId); return k < 0 ? 99 : k; };
+      var order = function (c) { var k = wives.map(function (w) { return w.id; }).indexOf(pkey(c)); return k < 0 ? 99 : k; };
       children = children.map(function (c, i) { return [order(c), i, c]; }).sort(function (a, b) { return a[0] - b[0] || a[1] - b[1]; }).map(function (x) { return x[2]; });
     }
     if (!children.length) return branch;
@@ -364,13 +404,15 @@
 
     var prevM = null;
     children.forEach(function (child) {
-      var slot = el("div", { className: "child-slot" }, [renderBranch(child, people, depth + 1)]);
+      var skip = skipOf(child);
+      var slot = el("div", { className: "child-slot" + (skip ? " skip-rows" : "") }, [renderBranch(child, people, depth + 1 + skip)]);
+      if (skip) slot.setAttribute("data-skip", skip);
       if (multi) {
-        var m = people[child.motherId], wi = m ? wives.indexOf(m) : -1;
+        var m = people[pkey(child)], wi = m ? wives.indexOf(m) : -1;
         slot.classList.add("mother-n" + (wi + 1));
         slot.setAttribute("data-mother", Math.max(wi, 0)); // unknown mother → first wife's group
-        if (prevM !== null && child.motherId !== prevM) slot.classList.add("mgroup-start");
-        prevM = child.motherId;
+        if (prevM !== null && pkey(child) !== prevM) slot.classList.add("mgroup-start");
+        prevM = pkey(child);
       }
       childrenInner.appendChild(slot);
     });
@@ -391,11 +433,11 @@
         toggleRow.appendChild(t2);
         wifeToggles.push(t2);
       });
-      var wifeKids = wives.map(function (w, k) { return children.filter(function (c) { var m = people[c.motherId], wi = m ? wives.indexOf(m) : -1; return Math.max(wi, 0) === k; }).length; });
+      var wifeKids = wives.map(function (w, k) { return children.filter(function (c) { var m = people[pkey(c)], wi = m ? wives.indexOf(m) : -1; return Math.max(wi, 0) === k; }).length; });
       branch.setAttribute("data-empty-wives", wifeKids.map(function (n, k) { return n ? "" : k; }).filter(function (x) { return x !== ""; }).join(","));
       wifeToggles.forEach(function (tg, k) {
         if (!wifeKids[k]) tg.classList.add("wife-empty"); // childless wife: no drop line, no toggle
-        var nm = label + "・妻" + "一二三四"[k] + wives[k].name;
+        var nm = label + "・" + stag + "一二三四"[k] + wives[k].name;
         tg.setAttribute("data-name", nm);
         tg.setAttribute("aria-label", (expanded ? "收合" : "展開") + nm + "的子孫");
         tg.setAttribute("title", (expanded ? "收合" : "展開") + nm + "的子孫");
@@ -429,7 +471,7 @@
     });
   }
 
-  function setExpanded(toggle, subtree, branch, expanded) {
+  function setExpanded(toggle, subtree, branch, expanded, deferLayout) {
     var wifeToggle = toggle.hasAttribute("data-mgroup");
     var name = toggle.getAttribute("data-name") || "";
     toggle.setAttribute("aria-expanded", expanded ? "true" : "false");
@@ -447,6 +489,7 @@
     }
     subtree.classList.toggle("is-collapsed", !expanded);
     branch.classList.toggle("is-collapsed", !expanded);
+    if (deferLayout) return;
     balance();
     if (window.__fitWidth) window.__fitWidth();
     animateLines();
@@ -492,8 +535,12 @@
     document.querySelectorAll(".branch-toggle").forEach(function (btn) {
       var subtree = document.getElementById(btn.getAttribute("aria-controls"));
       var branch = btn.closest(".branch");
-      setExpanded(btn, subtree, branch, expanded);
+      setExpanded(btn, subtree, branch, expanded, true);
     });
+    // one layout pass for the whole tree (was one full balance() per toggle)
+    balance();
+    if (window.__fitWidth) window.__fitWidth();
+    animateLines();
   }
 
   /* ---------- Connector lines ---------- */
@@ -724,7 +771,7 @@
   function equalizeSiblingCouples() {
     document.querySelectorAll(".children-inner").forEach(function (row) {
       var cs = [];
-      row.querySelectorAll(":scope > .child-slot > .branch > .couple").forEach(function (c) {
+      row.querySelectorAll(":scope > .child-slot:not(.skip-rows) > .branch > .couple").forEach(function (c) {
         c.style.minHeight = ""; cs.push(c);
       });
       var h = 0;
@@ -733,8 +780,43 @@
     });
   }
 
+  // Vertical placement of skipRows slots: line the card up with its true generation row. Prefer the
+  // same-generation cards in the open sibling subtrees, then that generation's row elsewhere in the
+  // tree; if none is visible, use the parent's own row pitch (parent couple top -> children row top) x skip.
+  function alignSkipRows() {
+    var slots = document.querySelectorAll(".child-slot.skip-rows");
+    slots.forEach(function (s) { s.style.paddingTop = ""; });
+    slots.forEach(function (slot) {
+      var row = slot.parentElement, card = slot.querySelector(".person[data-depth]");
+      if (!row || !card) return;
+      var rr = row.getBoundingClientRect(), k = rr.width / (row.offsetWidth || 1) || 1;
+      var d = card.getAttribute("data-depth"), best = Infinity;
+      row.querySelectorAll(":scope > .child-slot:not(.skip-rows):not(.mg-hidden)").forEach(function (sib) {
+        sib.querySelectorAll('.person[data-depth="' + d + '"]').forEach(function (pc) {
+          var cl = pc.closest(".subtree.is-collapsed");
+          if (cl && sib.contains(cl)) return;
+          best = Math.min(best, pc.getBoundingClientRect().top);
+        });
+      });
+      if (!isFinite(best)) { // no open sibling subtree reaches that generation: use the row anywhere else in the tree
+        document.querySelectorAll('.person[data-depth="' + d + '"]').forEach(function (pc) {
+          if (pc.closest(".subtree.is-collapsed") || pc.closest(".child-slot.skip-rows")) return;
+          best = Math.min(best, pc.getBoundingClientRect().top);
+        });
+      }
+      var pad;
+      if (isFinite(best)) pad = (best - rr.top) / k;
+      else {
+        var pb = row.closest(".branch"), pc2 = pb && directChild(pb, ".couple");
+        pad = pc2 ? (rr.top - pc2.getBoundingClientRect().top) / k * +slot.getAttribute("data-skip") : 0;
+      }
+      slot.style.paddingTop = Math.max(0, pad) + "px";
+    });
+  }
+
   function balance() {
     equalizeSiblingCouples();
+    alignSkipRows();
     var branches = Array.prototype.slice.call(document.querySelectorAll(".branch")).reverse();
     branches.forEach(function (br) {
       var couple = directChild(br, ".couple");
@@ -751,9 +833,10 @@
       }
       row.style.marginLeft = "0px";
       packLeaves(row);
-      var rw = row.scrollWidth;
+      var rw = rowExtent(row);
       // centre of the first/last child anchors, so the rail is centred under the parent
       var slots = row.querySelectorAll(":scope > .child-slot:not(.mg-hidden)");
+      if (!slots.length) { br.style.width = cw + "px"; return; } // every wife group hidden: nothing to centre
       var f = anchorAvatar(slots[0].firstChild), l = anchorAvatar(slots[slots.length - 1].firstChild);
       var rr = row.getBoundingClientRect(), k = rr.width / (row.offsetWidth || 1);
       var fx = (f.getBoundingClientRect().left + f.getBoundingClientRect().width / 2 - rr.left) / k;
@@ -773,10 +856,9 @@
           G[g].last = s;
         });
         var GAP = 14, cg = parseFloat(getComputedStyle(row).columnGap) || 0, t = 0, E = [];
+        var emptyW = (br.getAttribute("data-empty-wives") || "").split(",").filter(Boolean).map(Number);
         // Per-generation contours of each group, so a wide subtree only has to clear cards on its own rows.
-        var cc = couple.querySelectorAll(":scope > .person");
-        var c0 = cc[0].getBoundingClientRect(), c1 = cc[1].getBoundingClientRect();
-        var tightGap = Math.max(4, Math.min(cg, (c1.left - c0.right) / ck - 4)); // child row may be as tight as the wives' row
+        var groupGap = cg * 1.25; // children's row: mother groups sit a little further apart than siblings
         var baseDepth = null;
         G.forEach(function (q) {
           q.cont = {};
@@ -790,29 +872,64 @@
                 if (baseDepth === null || dp < baseDepth) baseDepth = dp;
                 if (!q.cont[dp]) q.cont[dp] = [L, R]; else { q.cont[dp][0] = Math.min(q.cont[dp][0], L); q.cont[dp][1] = Math.max(q.cont[dp][1], R); }
               });
+              if (cur.classList.contains("skip-rows")) { // the long drop line occupies the skipped rows
+                var sa = anchorAvatar(cur.firstChild).getBoundingClientRect(), sd = +cur.querySelector(".person[data-depth]").getAttribute("data-depth");
+                for (var sk = sd - +cur.getAttribute("data-skip"); sk < sd; sk++) {
+                  var sL = (sa.left - rr.left) / k, sR = (sa.right - rr.left) / k;
+                  if (!q.cont[sk]) q.cont[sk] = [sL, sR]; else { q.cont[sk][0] = Math.min(q.cont[sk][0], sL); q.cont[sk][1] = Math.max(q.cont[sk][1], sR); }
+                }
+              }
             }
             if (cur === q.last) break;
             cur = cur.nextElementSibling;
           }
         });
-        var prevCont = {}, prevE = 0, prevMax = -Infinity;
+        // Each wife's children must read as hers: her rail never touches another wife's rail, and her
+        // children's row (cards incl. their spouses) ends left of the next wife's drop. When a group
+        // can't fit between its neighbours, the groups before it slide left together.
+        var placed = []; // indices of groups already positioned
+        var prevState = function () {
+          var pc = {}, pm = -Infinity;
+          placed.forEach(function (j) {
+            pm = Math.max(pm, t + d[j], Math.max.apply(null, G[j].xs) + E[j]);
+            Object.keys(G[j].cont).forEach(function (dp) {
+              var L = G[j].cont[dp][0] + E[j], R = G[j].cont[dp][1] + E[j];
+              if (!pc[dp]) pc[dp] = [L, R]; else { pc[dp][0] = Math.min(pc[dp][0], L); pc[dp][1] = Math.max(pc[dp][1], R); }
+            });
+          });
+          return { cont: pc, max: pm };
+        };
+        var lowerBound = function (g, mn) {
+          var ps = prevState(), lo = ps.max + GAP - mn; // rail spans stay apart
+          Object.keys(G[g].cont).forEach(function (dp) {
+            if (!ps.cont[dp]) return;
+            var gp = +dp === baseDepth ? groupGap : cg;
+            lo = Math.max(lo, ps.cont[dp][1] + gp - G[g].cont[dp][0]);
+          });
+          return lo;
+        };
+        var prevE = 0;
         for (var g = 0; g < NG; g++) {
           var xs = G[g].xs, D = t + d[g];
           if (!xs.length) { E.push(prevE); continue; }
           var mn = Math.min.apply(null, xs), mx = Math.max.apply(null, xs);
-          var lo = prevMax + GAP - mn; // rail spans stay apart
-          Object.keys(G[g].cont).forEach(function (dp) {
-            if (!prevCont[dp]) return;
-            var gp = +dp === baseDepth ? tightGap : cg;
-            lo = Math.max(lo, prevCont[dp][1] + gp - G[g].cont[dp][0]);
-          });
+          var ub = Infinity; // next wife who has children: this group's row must end before her drop
+          for (var h = g + 1; h < NG; h++) {
+            if (emptyW.indexOf(h) >= 0) continue;
+            var rb = G[g].cont[baseDepth] ? G[g].cont[baseDepth][1] : mx;
+            ub = t + d[h] - GAP - rb;
+            break;
+          }
+          var lo = lowerBound(g, mn);
+          if (lo > ub && placed.length) { // make room: slide every earlier group left
+            var sh = lo - ub;
+            placed.forEach(function (j) { E[j] -= sh; });
+            lo = lowerBound(g, mn);
+          }
           var e = xs.length === 1 ? D - xs[0] : D - (mn + mx) / 2;
+          if (e > ub) e = ub;
           if (e < lo) e = lo; // can't sit straight under its drop: fall back to a short jog
-          E.push(e); prevE = e; prevMax = Math.max(D, mx + e);
-          Object.keys(G[g].cont).forEach(function (dp) {
-            var L = G[g].cont[dp][0] + e, R = G[g].cont[dp][1] + e;
-            if (!prevCont[dp]) prevCont[dp] = [L, R]; else { prevCont[dp][0] = Math.min(prevCont[dp][0], L); prevCont[dp][1] = Math.max(prevCont[dp][1], R); }
-          });
+          E.push(e); prevE = e; placed.push(g);
         }
         // normalise so nothing starts left of the row
         var minL = Infinity;
@@ -825,7 +942,7 @@
           var add = E[g3] - acc; acc = E[g3];
           if (Math.abs(add) > 0.01) G[g3].start.style.marginLeft = (parseFloat(getComputedStyle(G[g3].start).marginLeft) || 0) + add + "px";
         }
-        rw = row.scrollWidth;
+        rw = rowExtent(row);
         rc = t; ac = 0;
         if (rc < 0) { ac = -rc; rc = 0; }
       }
@@ -837,6 +954,17 @@
     });
   }
 
+  // Row width incl. slots that reach past the last one (contour packing lets a later, shallower
+  // sibling sit left of an earlier sibling's widest row).
+  function rowExtent(row) {
+    if (!row.__contour) return row.scrollWidth; // rows without contour packing: as before
+    var w = row.scrollWidth, rr = row.getBoundingClientRect(), k = rr.width / (row.offsetWidth || 1) || 1, m = 0;
+    row.querySelectorAll(":scope > .child-slot:not(.mg-hidden)").forEach(function (s) {
+      m = Math.max(m, (s.getBoundingClientRect().right - rr.left) / k);
+    });
+    return m > w + 1 ? Math.ceil(m) : w; // sub-pixel differences: keep scrollWidth (default view unchanged)
+  }
+
   // A childless sibling only occupies its own card row, so it doesn't need
   // to clear the previous sibling's whole (possibly very wide) subtree; it
   // only has to clear that sibling's cards. Pull such leaves left to sit a
@@ -846,10 +974,18 @@
     var slots = row.querySelectorAll(":scope > .child-slot");
     slots.forEach(function (s) { s.style.marginLeft = ""; });
     var gap = parseFloat(getComputedStyle(row).columnGap) || 0;
+    // Two or more open sibling subtrees in this row (e.g. after expand-all): pack by per-generation
+    // contours instead of bounding boxes. Rows with at most one open subtree (the default view along
+    // the direct line) keep the original leaf packing below, unchanged.
+    var open = 0;
+    row.__contour = false;
+    slots.forEach(function (s) { if (isOpenSlot(s)) open++; });
+    if (open >= 2) { row.__contour = true; packContours(row, slots, gap); centerLeaves(row, slots, gap); return; }
     var rr = row.getBoundingClientRect(), k = rr.width / (row.offsetWidth || 1);
     for (var i = 1; i < slots.length; i++) {
       var br = slots[i].firstChild;
       if (br.classList.contains("has-children")) continue;
+      if (slots[i].classList.contains("skip-rows")) continue; // its drop line crosses the rows above its card
       if (slots[i].classList.contains("mgroup-start")) continue; // keep the gap between mother groups
       var prev = directChild(slots[i - 1].firstChild, ".couple");
       var want = (prev.getBoundingClientRect().right - rr.left) / k + gap;
@@ -859,6 +995,130 @@
       // Accumulate: this slot may already carry the previous leaf's give-back.
       slots[i].style.marginLeft = (parseFloat(slots[i].style.marginLeft) || 0) - shift + "px";
       if (slots[i + 1]) slots[i + 1].style.marginLeft = shift + "px";
+    }
+    centerLeaves(row, slots, gap);
+  }
+
+  function isOpenSlot(s) {
+    var br = s.firstChild;
+    return !s.classList.contains("mg-hidden") && br.classList.contains("has-children") && !br.classList.contains("is-collapsed");
+  }
+
+  // Per-generation extents [L, R] (row coords) of everything a slot draws: every visible card
+  // (spouses included), each open branch's drop x one generation down (its rail starts there), and
+  // the drop line of a skipRows child through the rows it skips.
+  function slotContour(slot, rr, k) {
+    var cont = {};
+    function put(d, L, R) {
+      if (!cont[d]) cont[d] = [L, R];
+      else { if (L < cont[d][0]) cont[d][0] = L; if (R > cont[d][1]) cont[d][1] = R; }
+    }
+    function hidden(node) {
+      var c = node.closest(".subtree.is-collapsed");
+      if (c && slot.contains(c)) return true;
+      var m = node.closest(".child-slot.mg-hidden");
+      return !!(m && slot.contains(m));
+    }
+    slot.querySelectorAll(".person[data-depth]").forEach(function (pc) {
+      if (hidden(pc)) return;
+      var r = pc.getBoundingClientRect();
+      put(+pc.getAttribute("data-depth"), (r.left - rr.left) / k, (r.right - rr.left) / k);
+    });
+    [slot.firstChild].concat(Array.prototype.slice.call(slot.querySelectorAll(".branch"))).forEach(function (b) {
+      if (!b.classList.contains("has-children") || b.classList.contains("is-collapsed") || hidden(b)) return;
+      var a = b.querySelector(":scope > .couple > .is-anchor");
+      if (!a) return;
+      var d = +a.getAttribute("data-depth") + 1;
+      [dropClientX(b)].concat(wifeDropXs(b)).forEach(function (x) { var X = (x - rr.left) / k; put(d, X, X); });
+    });
+    slot.querySelectorAll(".child-slot.skip-rows").forEach(function (cs) { add(cs); });
+    if (slot.classList.contains("skip-rows")) add(slot);
+    function add(cs) {
+      if (hidden(cs)) return;
+      var card = cs.querySelector(".person[data-depth]"), av = anchorAvatar(cs.firstChild);
+      if (!card || !av) return;
+      var r = av.getBoundingClientRect(), sd = +card.getAttribute("data-depth");
+      for (var dd = sd - +cs.getAttribute("data-skip"); dd < sd; dd++) put(dd, (r.left - rr.left) / k, (r.right - rr.left) / k);
+    }
+    return cont;
+  }
+
+  // Tidy (contour) packing: siblings left to right, each as far left as its own contour allows
+  // against the union of the siblings before it, generation by generation, with the fixed
+  // --sibling-gap between cards on every row. A wide subtree therefore only pushes its neighbours
+  // apart on the rows where it is actually wide. A mother-group start keeps its extra margin and
+  // clears everything before it (the multi-wife pass in balance() places the groups).
+  function packContours(row, slots, gap) {
+    var rr = row.getBoundingClientRect(), k = rr.width / (row.offsetWidth || 1) || 1;
+    var info = [];
+    Array.prototype.forEach.call(slots, function (s) {
+      if (s.classList.contains("mg-hidden")) { info.push(null); return; }
+      var r = s.getBoundingClientRect();
+      info.push({ s: s, nat: (r.left - rr.left) / k, cont: slotContour(s, rr, k), ml: parseFloat(getComputedStyle(s).marginLeft) || 0 });
+    });
+    var acc = {}, accMax = -Infinity, pos = [], minL = Infinity, first = true;
+    info.forEach(function (q, i) {
+      if (!q) { pos.push(null); return; }
+      var off = 0; // placement offset relative to the natural position
+      if (first) off = 0;
+      else if (q.s.classList.contains("mgroup-start")) {
+        var lo = Infinity; Object.keys(q.cont).forEach(function (d) { lo = Math.min(lo, q.cont[d][0]); });
+        off = accMax + gap + q.ml - lo;
+      } else {
+        off = -Infinity;
+        Object.keys(q.cont).forEach(function (d) { if (acc[d]) off = Math.max(off, acc[d][1] + gap - q.cont[d][0]); });
+        if (!isFinite(off)) off = accMax + gap - Math.min.apply(null, Object.keys(q.cont).map(function (d) { return q.cont[d][0]; }));
+      }
+      first = false;
+      pos.push(off);
+      Object.keys(q.cont).forEach(function (d) {
+        var L = q.cont[d][0] + off, R = q.cont[d][1] + off;
+        if (!acc[d]) acc[d] = [L, R]; else { acc[d][0] = Math.min(acc[d][0], L); acc[d][1] = Math.max(acc[d][1], R); }
+        accMax = Math.max(accMax, R); minL = Math.min(minL, L);
+      });
+    });
+    var shift = isFinite(minL) && minL < 0 ? -minL : 0; // nothing may start left of the row
+    var prevDelta = 0;
+    info.forEach(function (q, i) {
+      if (!q) return;
+      var delta = pos[i] + shift; // this slot's total displacement; flex carries the previous one along
+      var add = delta - prevDelta; prevDelta = delta;
+      if (Math.abs(add) > 0.01) q.s.style.marginLeft = q.ml + add + "px";
+    });
+  }
+
+  // A run of childless siblings between two siblings whose couples are further apart than the
+  // fixed gaps need (a neighbouring subtree is wider than its couple): spread the run evenly so
+  // every visible gap between couples in that stretch is equal. The next sibling keeps its place;
+  // with no slack (equal gap <= --sibling-gap) nothing moves. Mother-group boundaries are left alone.
+  function isFreeLeaf(s) {
+    return !s.firstChild.classList.contains("has-children") && !s.classList.contains("skip-rows") &&
+      !s.classList.contains("mgroup-start") && !s.classList.contains("mg-hidden");
+  }
+  function centerLeaves(row, slots, gap) {
+    var rr = row.getBoundingClientRect(), k = rr.width / (row.offsetWidth || 1);
+    var X = function (el, side) { return (el.getBoundingClientRect()[side] - rr.left) / k; };
+    var cpl = function (s) { return directChild(s.firstChild, ".couple"); };
+    var i = 1;
+    while (i < slots.length) {
+      if (!isFreeLeaf(slots[i]) || slots[i - 1].classList.contains("mg-hidden")) { i++; continue; }
+      var j = i; while (j < slots.length && isFreeLeaf(slots[j])) j++;
+      var run = Array.prototype.slice.call(slots, i, j), N = slots[j], P = slots[i - 1];
+      i = j + 1;
+      if (!N || N.classList.contains("mgroup-start") || N.classList.contains("mg-hidden")) continue;
+      var PR = X(cpl(P), "right");
+      var NL = X(cpl(N), "left"), W = 0;
+      run.forEach(function (s) { W += X(cpl(s), "right") - X(cpl(s), "left"); });
+      var g = (NL - PR - W) / (run.length + 1);
+      if (!(g > gap + 0.5)) continue;
+      var x = PR + g;
+      run.forEach(function (s) {
+        var d = x - X(cpl(s), "left");
+        s.style.marginLeft = (parseFloat(s.style.marginLeft) || 0) + d + "px";
+        x += X(cpl(s), "right") - X(cpl(s), "left") + g;
+      });
+      var dn = NL - X(cpl(N), "left"); // restore the next sibling's position
+      N.style.marginLeft = (parseFloat(N.style.marginLeft) || 0) + dn + "px";
     }
   }
 
@@ -939,6 +1199,7 @@
     }
 
     ROOT_GEN = +data.rootGeneration || 14;
+    resolveRefs(data.people);
     computeLineBuckets(data.people, data.rootId);
     computeFocus(data.people, data.rootId, data.focusId);
     tree.appendChild(renderBranch(data.people[data.rootId], data.people, ROOT_GEN));
