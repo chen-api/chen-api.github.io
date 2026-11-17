@@ -1,145 +1,126 @@
-/* Document section rail: slim right-edge ticks with proximity labels.
-   Complements the existing left / mobile menus; does not replace them. */
+/* Section rail, modelled on the x.ai article navigator.
+   Native scrollbar is hidden; wheel / keyboard / touch scrolling still work.
+   The bar is a column of length-proportional segments with small gaps.
+   It is visible only while scrolling, or while the pointer is over it. */
+html{scrollbar-width:none}
+html::-webkit-scrollbar{width:0;height:0;display:none}
+
 .doc-rail{
-  position:fixed;right:0;z-index:40;
-  top:calc(var(--stick, 68px) + 3vh);
-  height:calc(100vh - var(--stick, 68px) - 6vh);
-  width:220px;
+  position:fixed;right:0;top:50%;z-index:40;
+  width:280px;height:72vh;
+  transform:translateY(-50%);
   pointer-events:none;
   font-family:"Noto Serif TC","BookSupp",serif;
   color:var(--ink,#1f1a17);
   -webkit-font-smoothing:antialiased;
 }
 .doc-rail .dr-veil{
-  position:absolute;inset:0;
-  pointer-events:none;
-  background:linear-gradient(to right,transparent 0%,var(--base,#e2dcd5) 58%);
+  position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(to right,transparent 0%,var(--base,#e2dcd5) 70%);
   opacity:0;
   transition:opacity 220ms cubic-bezier(0.16,1,0.3,1);
-  -webkit-mask-image:linear-gradient(to bottom,transparent 0%,#000 12%,#000 88%,transparent 100%);
-  mask-image:linear-gradient(to bottom,transparent 0%,#000 12%,#000 88%,transparent 100%);
+  -webkit-mask-image:linear-gradient(to bottom,transparent 0%,#000 15%,#000 85%,transparent 100%);
+  mask-image:linear-gradient(to bottom,transparent 0%,#000 15%,#000 85%,transparent 100%);
 }
-.doc-rail.is-hot .dr-veil{opacity:.55}
-@media (max-width:900px){
-  .doc-rail .dr-veil, .doc-rail.is-hot .dr-veil{opacity:0}
+.doc-rail.is-hot .dr-veil{opacity:.92}
+
+.doc-rail .dr-zone{
+  position:absolute;inset-block:0;right:0;
+  width:32px;
+  pointer-events:auto;
+}
+.doc-rail.is-on .dr-zone,
+.doc-rail.is-hot .dr-zone{width:140px}
+
+.doc-rail .dr-labels{
+  position:absolute;inset:0;
+  pointer-events:none;
+  padding:0 27px 0 16px;
+}
+.doc-rail .dr-lbl{
+  position:absolute;right:27px;left:16px;
+  max-width:calc(100% - 43px);
+  margin:0;padding:2px 7px;border:0;
+  background:color-mix(in srgb, var(--base,#e2dcd5) 90%, transparent);
+  appearance:none;-webkit-appearance:none;
+  transform:translate(4px,-50%);
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+  text-align:right;
+  font:400 13px/1.3 "Noto Serif TC","BookSupp",serif;
+  letter-spacing:.04em;
+  color:#8a7d70;
+  opacity:0;
+  pointer-events:none;
+  cursor:default;
+  border-radius:2px;
+  transition:opacity 180ms cubic-bezier(0.16,1,0.3,1),transform 200ms cubic-bezier(0.16,1,0.3,1),color 200ms;
+}
+.doc-rail .dr-lbl.is-read{color:var(--brick,#8f4a42)}
+.doc-rail .dr-lbl.is-near{color:var(--brick,#8f4a42)}
+.doc-rail .dr-lbl:focus{outline:none}
+.doc-rail .dr-lbl:focus-visible{color:var(--brick,#8f4a42)}
+html[data-lang=en] .doc-rail .dr-lbl{
+  font-family:Georgia,"Noto Serif TC",serif;
+  font-size:13px;
+  letter-spacing:0;
 }
 
 .doc-rail .dr-hit{
-  position:absolute;top:0;bottom:0;right:0;
-  width:44px;
+  position:absolute;inset-block:0;right:0;
+  width:24px;
   pointer-events:auto;
   touch-action:none;
   cursor:default;
 }
-
-.doc-rail .dr-line{
-  position:absolute;top:0;bottom:0;right:11px;
+.doc-rail .dr-bar{
+  position:absolute;inset-block:0;right:0;
   width:2px;
-  background:#8f4a4226;
-  border-radius:99px;
-  pointer-events:none;
-  transition:width 280ms cubic-bezier(0.16,1,0.3,1),background-color 280ms;
-}
-.doc-rail.is-hot .dr-line, .doc-rail.is-drag .dr-line{
-  width:3px;right:10.5px;background:#8f4a423d;
-}
-.doc-rail .dr-progress{
-  position:absolute;top:0;left:0;width:100%;
-  background:var(--brick,#8f4a42);
-  border-radius:99px;
-  height:0;
-  opacity:.85;
-  pointer-events:none;
-}
-
-.doc-rail .dr-tick{
-  position:absolute;right:0;
-  width:44px;height:18px;
-  padding:0;border:0;background:none;
-  transform:translateY(-50%);
-  pointer-events:auto;
-  cursor:pointer;
-  appearance:none;
-  -webkit-appearance:none;
-  touch-action:none;
-}
-.doc-rail .dr-mark{
-  position:absolute;right:8px;top:50%;
-  width:8px;height:2px;
-  margin-top:-1px;
-  border-radius:99px;
-  background:#8f4a4273;
-  pointer-events:none;
-  transition:width 200ms cubic-bezier(0.16,1,0.3,1),height 200ms,background-color 200ms,margin-top 200ms,right 200ms;
-}
-.doc-rail .dr-tick.is-current .dr-mark,
-.doc-rail .dr-tick[aria-current="true"] .dr-mark{
-  width:14px;height:3px;margin-top:-1.5px;right:6px;
-  background:var(--brick,#8f4a42);
-}
-.doc-rail .dr-tick:focus{outline:none}
-.doc-rail .dr-tick:focus-visible .dr-mark{
-  width:14px;height:3px;margin-top:-1.5px;right:6px;
-  background:var(--brick,#8f4a42);
-  box-shadow:0 0 0 3px #8f4a4233;
-}
-
-.doc-rail .dr-lbl{
-  position:absolute;right:26px;top:50%;
-  transform:translate(6px,-50%);
-  max-width:168px;
-  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
-  text-align:right;
-  font:400 13px/1.25 "Noto Serif TC","BookSupp",serif;
-  letter-spacing:.06em;
-  color:var(--ink,#1f1a17);
   opacity:0;
   pointer-events:none;
-  padding:2px 7px 3px;
-  border-radius:2px;
-  background:color-mix(in srgb, var(--base,#e2dcd5) 88%, transparent);
-  box-shadow:0 0 0 4px color-mix(in srgb, var(--base,#e2dcd5) 70%, transparent);
-  transition:opacity 180ms cubic-bezier(0.16,1,0.3,1),transform 220ms cubic-bezier(0.16,1,0.3,1),color 180ms;
+  transition:width 350ms cubic-bezier(0.16,1,0.3,1),opacity 500ms cubic-bezier(0.16,1,0.3,1);
 }
-.doc-rail .dr-tick.is-current .dr-lbl{color:var(--brick,#8f4a42)}
-html[data-lang=en] .doc-rail .dr-lbl{
-  font-family:Georgia,"Noto Serif TC",serif;
-  font-size:12px;
-  letter-spacing:0;
+.doc-rail.is-on .dr-bar,
+.doc-rail.is-hot .dr-bar{
+  opacity:1;
+  transition:width 350ms cubic-bezier(0.16,1,0.3,1),opacity 200ms cubic-bezier(0.16,1,0.3,1);
+}
+.doc-rail.is-hot .dr-bar{width:3px}
+
+.doc-rail .dr-seg,
+.doc-rail .dr-fill{
+  position:absolute;left:0;right:0;
+  border-radius:999px;
+  pointer-events:none;
+}
+.doc-rail .dr-seg{
+  background:rgba(143,74,66,.28);
+  transition:background-color 300ms;
+}
+.doc-rail.is-hot .dr-seg{background:rgba(143,74,66,.42)}
+.doc-rail .dr-fill{
+  background:var(--brick,#8f4a42);
+  opacity:0;
+  transition:opacity 200ms ease-out;
 }
 
-@media (hover:hover) and (pointer:fine){
-  .doc-rail .dr-tick:hover .dr-mark{background:var(--brick,#8f4a42)}
-}
-
-/* Desktop: keep a little room so ticks don't sit on the sheets */
-@media (min-width:901px){
-  .main{padding-right:52px}
-}
-/* Mobile: slimmer rail, a bit of edge padding; labels only while dragging/touching */
 @media (max-width:900px){
   .doc-rail{
-    top:calc(var(--stick, 110px) + 8px);
-    height:calc(100vh - var(--stick, 110px) - 16px);
-    width:min(200px, 70vw);
+    width:min(220px,70vw);
+    height:calc(100vh - var(--stick,110px) - 20px);
+    top:calc(var(--stick,110px) + (100vh - var(--stick,110px)) / 2);
   }
-  .doc-rail .dr-hit{width:28px}
-  .doc-rail .dr-tick{width:28px}
-  .doc-rail .dr-line{right:8px}
-  .doc-rail.is-hot .dr-line, .doc-rail.is-drag .dr-line{right:7.5px}
-  .doc-rail .dr-mark{right:5px;width:7px}
-  .doc-rail .dr-tick.is-current .dr-mark{right:3px;width:12px}
-  .doc-rail .dr-lbl{
-    right:20px;max-width:calc(70vw - 36px);
-    background:var(--base,#e2dcd5);
-    box-shadow:0 0 0 5px var(--base,#e2dcd5);
-  }
-  .main{padding-right:22px}
+  .doc-rail .dr-zone,
+  .doc-rail.is-on .dr-zone,
+  .doc-rail.is-hot .dr-zone{width:28px}
+  .doc-rail .dr-hit{width:22px}
+  .doc-rail .dr-lbl{left:8px;right:22px;max-width:calc(100% - 30px)}
+  .doc-rail .dr-labels{padding:0 22px 0 8px}
 }
 
 @media (prefers-reduced-motion:reduce){
   .doc-rail .dr-veil,
-  .doc-rail .dr-line,
-  .doc-rail .dr-mark,
+  .doc-rail .dr-bar,
+  .doc-rail .dr-seg,
+  .doc-rail .dr-fill,
   .doc-rail .dr-lbl{transition:none}
 }
