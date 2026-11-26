@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="styles.css?v=94" />
     <link rel="stylesheet" href="site-switch.css?v=v6ms1" />
     <link rel="stylesheet" href="mobile-header.css?v=v6ms1" />
+    <link rel="stylesheet" href="tree-tools.css?v=tt5" />
   <script data-goatcounter="https://chen.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </head>
   <body>
@@ -28,6 +29,10 @@
         <li><span class="legend-dot female" aria-hidden="true"></span>女</li>
         <li><span class="legend-dot spouse" aria-hidden="true"></span>配偶</li>
       </ul>
+      <div class="tree-search" id="tree-search" role="search">
+        <input id="tree-search-input" type="search" placeholder="搜尋姓名…" aria-label="搜尋家譜人物" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="search" role="combobox" aria-expanded="false" aria-controls="tree-search-list" aria-autocomplete="list" />
+        <ul class="ts-list" id="tree-search-list" role="listbox" aria-label="搜尋結果" hidden></ul>
+      </div>
       <div class="toolbar">
         <button type="button" id="btn-expand-all" aria-label="全部展開" title="全部展開"><span class="lbl-long">全部展開</span><span class="lbl-short" aria-hidden="true">展開</span></button>
         <button type="button" id="btn-collapse-all" aria-label="全部收合" title="全部收合"><span class="lbl-long">全部收合</span><span class="lbl-short" aria-hidden="true">收合</span></button>
@@ -35,7 +40,8 @@
         <button type="button" id="btn-zoom-reset" aria-label="重設縮放" title="重設縮放">100%</button>
         <button type="button" id="btn-zoom-in" aria-label="放大" title="放大">+</button>
       </div>
-      <nav class="site-switch" aria-label="網站切換"><a href="#" aria-current="page" title="世系圖" aria-label="世系圖"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="4.5" r="2"/><circle cx="5.5" cy="13" r="2"/><circle cx="18.5" cy="13" r="2"/><circle cx="12" cy="20" r="2"/><path d="M12 6.5v4M12 10.5H5.5V11M12 10.5h6.5V11M12 10.5V18"/></svg></a><a href="archive/" title="族譜文獻" aria-label="族譜文獻"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6.5C10 5 7 4.5 3.5 5v13c3.5-.5 6.5 0 8.5 1.5 2-1.5 5-2 8.5-1.5V5c-3.5-.5-6.5 0-8.5 1.5z"/><path d="M12 6.5v13"/></svg></a></nav>
+      <button type="button" class="search-toggle" id="search-toggle" aria-label="搜尋" aria-expanded="false" aria-controls="tree-search" title="搜尋"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6"/><path d="M15 15l5.5 5.5"/></svg></button>
+      <nav class="site-switch" aria-label="網站切換"><a href="#" aria-current="page" title="世系圖" aria-label="世系圖"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 8.2v3.2M5.5 11.4h13M5.5 11.4v3.2M12 11.4v3.2M18.5 11.4v3.2"/><rect x="9.5" y="3.2" width="5" height="5" rx="0.5" fill="currentColor" stroke="none"/><rect x="3" y="14.6" width="5" height="5" rx="0.5" fill="currentColor" stroke="none"/><rect x="9.5" y="14.6" width="5" height="5" rx="0.5" fill="currentColor" stroke="none"/><rect x="16" y="14.6" width="5" height="5" rx="0.5" fill="currentColor" stroke="none"/></svg></a><a href="archive/" title="族譜文獻" aria-label="族譜文獻"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6.5C10 5 7 4.5 3.5 5v13c3.5-.5 6.5 0 8.5 1.5 2-1.5 5-2 8.5-1.5V5c-3.5-.5-6.5 0-8.5 1.5z"/><path d="M12 6.5v13"/></svg></a></nav>
       </div>
     </header>
 
@@ -46,7 +52,8 @@
     </main>
 
     <script src="family-data.js?v=128"></script>
-    <script src="tree.js?v=4z"></script>
+    <script src="tree.js?v=tt1"></script>
+    <script src="tree-tools.js?v=tt5"></script>
     <script src="site-switch.js?v=ss1"></script>
   </body>
 </html>

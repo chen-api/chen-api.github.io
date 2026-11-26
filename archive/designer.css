@@ -118,7 +118,7 @@ html[data-lang=en] .site-header .langtg .lt-knob{transform:translateX(28px)!impo
 .dsec p.pgline{margin:0 0 6px;text-indent:0!important}
 .dsec .alias{display:block;height:0;scroll-margin-top:var(--stick,72px)}
 .dsec .grid{margin:12px 0 28px}
-.dsec .g3{grid-template-columns:repeat(3,1fr)}
+.dsec .g3{display:flex;flex-wrap:wrap;justify-content:center;--cols:3;--gg:var(--g)}.dsec .g3>figure{box-sizing:border-box;flex:0 0 calc((100% - (var(--cols) - 1)*var(--gg))/var(--cols));width:calc((100% - (var(--cols) - 1)*var(--gg))/var(--cols))}
 .dsec .ph.po{aspect-ratio:3/4}
 .dsec .ph.po img{object-position:50% 20%}
 .dsec .scanw{max-width:560px}
@@ -138,6 +138,32 @@ html[data-lang=en] .dsec{font-family:Georgia,"Noto Serif TC","BookSupp",serif;le
 html[data-lang=en] .dsec h2,html[data-lang=en] .dsec h3{letter-spacing:.02em}
 html[data-lang=en] .dsec.dsx>p,html[data-lang=en] .dsec .prose p{text-indent:0;text-align:left}
 html[data-lang=en] .dsec figcaption,html[data-lang=en] .dsec .gcap{letter-spacing:0;font-family:Georgia,"Noto Serif TC","BookSupp",serif}
-@media(max-width:820px){.dsec h3{font-size:18px}.dsec .g3{grid-template-columns:1fr 1fr;gap:16px 10px}.dsec .bchart{width:calc(var(--vw) * .6px);max-width:none}.dsec .bcw{justify-content:flex-start;direction:rtl}.dsec .bcw>svg{direction:ltr}.dsec table{font-size:12.5px}}
+@media(max-width:820px){.dsec h3{font-size:18px}.dsec .g3{--cols:2;--gg:10px;gap:16px 10px}.dsec .bchart{width:calc(var(--vw) * .6px);max-width:none}.dsec .bcw{justify-content:flex-start;direction:rtl}.dsec .bcw>svg{direction:ltr}.dsec table{font-size:12.5px}}
 .dsec .pga{display:block;height:0;scroll-margin-top:calc(var(--hh,60px) + 16px)}
 html[data-lang=en] .dsec .draftnote{display:block;margin:18px auto 0;max-width:560px;padding:10px 14px;border:1px dashed #8f4a42;color:#8f4a42;font:italic 15px/1.6 Georgia,"Noto Serif TC",serif;text-align:center}html[data-lang=zh] .dsec .draftnote{display:none}
+
+/* v6bk2: center leftover g3 photos as a group; click-to-zoom lightbox */
+/* v6bk3: translucent blurred lightbox backdrop */
+.dsec figure,.dsec .bcw,.dsec .tbw{cursor:zoom-in}
+.zview{position:fixed;inset:0;z-index:400;display:flex;background:rgba(22,19,15,.5);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.zview[hidden]{display:none!important}
+.zview-x{position:fixed;top:12px;right:12px;z-index:401;width:44px;height:44px;border:0;border-radius:22px;background:#f3ece2;color:#2b231d;font:700 28px/44px "Noto Serif TC",Georgia,serif;cursor:pointer;padding:0}
+.zview-x:focus{outline:none}.zview-x:focus-visible{outline:2px solid #e8d9b8;outline-offset:2px}
+.zview-stage{flex:1;overflow:hidden;touch-action:none;cursor:grab;overscroll-behavior:none}
+.zview-stage.is-drag{cursor:grabbing}
+.zview-world{transform-origin:0 0;will-change:transform;width:max-content}
+.zview-world img{display:block;max-width:none;height:auto;user-select:none;-webkit-user-drag:none}
+/* v6bk4: book photos stored sideways are shown upright (class set in designer.js) */
+.dsec .ph.rot-90,.dsec .ph.rot-270{position:relative;container-type:size}
+.dsec .ph.rot-90 img,.dsec .ph.rot-270 img{
+  position:absolute;left:50%;top:50%;
+  width:100cqh;height:100cqw;max-width:none;max-height:none;
+  object-fit:cover;object-position:center;
+}
+.dsec .ph.rot-90 img{transform:translate(-50%,-50%) rotate(90deg)}
+.dsec .ph.rot-270 img{transform:translate(-50%,-50%) rotate(270deg)}
+.zview-world .z-rot{position:relative}
+.zview-world .z-rot img{position:absolute;max-width:none;height:auto;transform-origin:50% 50%}
+
+.zview-world .bcw,.zview-world .tbw{overflow:visible;margin:0;background:#fbf6ea;padding:16px}.zview-world table{border-collapse:collapse;font:18px/1.5 "Noto Serif TC","BookSupp",serif;background:#fbf6ea}.zview-world th,.zview-world td{border:1px solid #8a7a6a66;padding:5px 7px;text-align:center}.zview-world th{background:#e2d6c2}
+.zview-world .bchart{display:block;max-width:none;flex:none}

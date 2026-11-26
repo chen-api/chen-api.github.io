@@ -12,7 +12,8 @@
   var FOCUS_EXPAND_GEN = 21; // 清水 (第20世) open one level: his children show, theirs stay collapsed
   var FOCUS_PATH = {}, FOCUS_SUB = {};
   // "depth" below is the actual 世 number: root = data.rootGeneration (8), 公孔月 = 14.
-  var scale = 1;
+  var DEFAULT_SCALE = 0.9; // opening zoom (Bill 2026-11-26): 90%, not auto-fit
+  var scale = DEFAULT_SCALE;
   var uid = 0;
 
   function $(id) {
@@ -1175,6 +1176,7 @@
     tree.style.transform = "scale(" + scale + ")";
     $("btn-zoom-reset").textContent = Math.round(scale * 100) + "%";
     animateLines();
+    document.dispatchEvent(new Event("tree:layout")); // minimap redraw (zoom and every expand/collapse end up here)
   }
 
   function syncBar() {
@@ -1204,12 +1206,7 @@
     computeFocus(data.people, data.rootId, data.focusId);
     tree.appendChild(renderBranch(data.people[data.rootId], data.people, ROOT_GEN));
     balance();
-    // Auto-fit: shrink the initial zoom so the whole tree fits the window width.
-    var avail = document.documentElement.clientWidth - 48;
-    var need = tree.firstChild.offsetWidth + (parseFloat(getComputedStyle(tree.firstChild).marginLeft) || 0);
-    if (need > avail) {
-      scale = Math.max(0.5, Math.floor((avail / need) * 100) / 100);
-    }
+    // Opening zoom is a fixed 90% (DEFAULT_SCALE); the page scrolls, so a wide tree needs no auto-fit.
     applyZoom();
     // Start centred on the focus person (陳清水), horizontally and vertically in the area below the header.
     // Re-centre while the layout settles (fonts, balancing), until the user scrolls/drags/zooms themselves.
@@ -1221,10 +1218,25 @@
       if (userMoved || !initCentering) return;
       var f = data.focusId && tree.querySelector('[data-id="' + data.focusId + '"]');
       if (!f) { scheduleRail(); return; }
-      var r = f.getBoundingClientRect();
+      // Centre the box around 陳清水 and his children (the visible people of the focus branch, down to one generation below).
+      document.body.style.minWidth = ""; document.body.style.minHeight = ""; // drop the previous pass's reserve
+      var fd = +f.getAttribute("data-depth"), L = Infinity, T = Infinity, R = -Infinity, B = -Infinity;
+      f.closest(".branch").querySelectorAll(".person[data-depth]").forEach(function (c) {
+        if (+c.getAttribute("data-depth") > fd + 1) return;
+        var q = c.getBoundingClientRect();
+        if (!q.width) return;
+        L = Math.min(L, q.left); T = Math.min(T, q.top); R = Math.max(R, q.right); B = Math.max(B, q.bottom);
+      });
+      if (!isFinite(L)) { var q0 = f.getBoundingClientRect(); L = q0.left; T = q0.top; R = q0.right; B = q0.bottom; }
       var hdr = document.querySelector(".site-header"), hh = hdr ? hdr.offsetHeight : 0;
-      var x = r.left + window.scrollX + r.width / 2 - document.documentElement.clientWidth / 2;
-      var y = r.top + window.scrollY + r.height / 2 - (hh + (window.innerHeight - hh) / 2);
+      var rl = document.querySelector(".gen-rail"), rw = rl ? rl.offsetWidth : 0;
+      var x = (L + R) / 2 + window.scrollX - (rw + (document.documentElement.clientWidth - rw) / 2);
+      var y = (T + B) / 2 + window.scrollY - (hh + (window.innerHeight - hh) / 2);
+      // The page ends right below the tree, so reserve room (as anchorView does) for the box to sit mid-screen.
+      var de = document.documentElement, bd = document.body;
+      var needW = Math.ceil(Math.max(0, x) + de.clientWidth), needH = Math.ceil(Math.max(0, y) + window.innerHeight);
+      if (needW > de.scrollWidth) bd.style.minWidth = needW + "px";
+      if (needH > de.scrollHeight) bd.style.minHeight = needH + "px";
       window.scrollTo({ left: Math.max(0, x), top: Math.max(0, y), behavior: "instant" });
       scheduleRail();
     }
@@ -1232,6 +1244,35 @@
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { requestAnimationFrame(centerFocus); });
     [300, 800, 1500].forEach(function (t) { setTimeout(centerFocus, t); });
     window.__fitWidth = applyZoom;
+    // Small API for tree-tools.js (search + minimap).
+    window.__treeApi = {
+      getScale: function () { return scale; },
+      setScale: function (s) { scale = Math.max(0.5, Math.min(1.6, s)); applyZoom(); },
+      applyZoom: applyZoom,
+      // Open every collapsed ancestor (and wife-group) above a card so it is visible. Returns true if anything changed.
+      expandTo: function (card) {
+        initCentering = false;
+        var changed = false, node = card;
+        for (;;) {
+          var slot = node.closest(".child-slot");
+          if (!slot) break;
+          var sub = slot.parentNode.closest(".subtree"), branch = sub.parentNode;
+          var k = +(slot.getAttribute("data-mother") || 0);
+          var tgs = branch.querySelectorAll(":scope > .toggle-row > .branch-toggle");
+          var tg = tgs.length > 1 ? branch.querySelector(':scope > .toggle-row > .branch-toggle[data-mgroup="' + k + '"]') : tgs[0];
+          if (tg && (sub.classList.contains("is-collapsed") || slot.classList.contains("mg-hidden"))) {
+            setExpanded(tg, sub, branch, true, true);
+            changed = true;
+          }
+          node = branch;
+        }
+        if (changed) { balance(); applyZoom(); animateLines(); }
+        return changed;
+      },
+      depthOf: function (card) { return +card.getAttribute("data-depth") || 0; },
+      genLabel: genCN,
+      headerChanged: syncBar
+    };
     if (window.ResizeObserver) new ResizeObserver(syncHeight).observe(tree);
     tree.addEventListener("transitionend", syncHeight);
     window.addEventListener("resize", scheduleLines);
